@@ -32,3 +32,10 @@ const routes = [
         component: Support
     }
 ]
+
+const router = createRouter({
+    history: createWebHistory(),
+    routes
+})
+
+export default router
