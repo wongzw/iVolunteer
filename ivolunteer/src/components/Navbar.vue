@@ -56,7 +56,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 15px;
+        padding: 10px;
         background-color: white;
         color: #020957;
     }
@@ -68,7 +68,7 @@
     /* LOGO */
     .logo {
         font-size: 32px;
-        color: #20957;
+        color: #020957;
         font-weight: bold;
         margin-left: 24px;
     }
@@ -84,6 +84,8 @@
         display: flex;
         gap: 1em;
         font-size: 18px;
+        margin-top: 5px;
+        margin-bottom: -5px;
     }
     
     .menu li:hover {
