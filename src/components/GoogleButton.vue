@@ -1,6 +1,6 @@
 <template>
     <button type="button" class="login-with-google-btn">
-        Sign in with Google
+        Continue with Google
     </button>
 </template>
 

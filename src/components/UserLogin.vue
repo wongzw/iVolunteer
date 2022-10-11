@@ -1,23 +1,23 @@
 <template>
   <img style="margin-top: 10vh" alt="Logo of IVolunteer" src="../assets/ivolunteer_logo.png" />
   <div class="box">
-    <a-form id="formLogin" class="user-layout-login" ref="formLogin" :form="form" @submit.prevent="login">
-      <h1 id="loginHeader">Welcome Back!</h1>
-      <label class="fontLogin">Email</label><br />
+    <a-form id="formLogin" class="user-layout-login" ref="formLogin" @submit.prevent="login">
+      <h1 id="loginHeader" style="font-weight: 900">Welcome Back!</h1>
       <a-form-item>
-        <a-input style="width: 60%; margin-bottom: 10px" class="input" type="email" v-model:value="email"
+        <label class="fontLogin">Email</label><br/>
+        <a-input required style="width: 60%; margin-bottom: 10px" class="input" type="email" v-model:value="email"
           placeholder="Enter your email"></a-input>
-        <label class="fontLogin">Password</label><br />
-        <a-input-password style="width: 60%; height: 35px; margin-bottom: 40px" v-model:value="password"
+        <label class="fontLogin">Password</label><br/>
+        <a-input-password required style="width: 60%; height: 35px; margin-bottom: 40px" v-model:value="password"
           placeholder="Enter your password" /><br />
         <div id="ant-button">
-          <a-button htmlType="submit" class="sign-in" size="large" type="primary" danger>Sign in</a-button>
+          <a-button htmlType="submit" class="sign-in" size="large" type="primary" danger>Get Started</a-button>
         </div>
       </a-form-item>
     </a-form>
     <GoogleButton style="width:60%" @click="googleSignIn"/>
   </div>
-  <div id = "box2" class="box"> New to iVolunteer? <a @click= "reroute" style="color: #5A4FF3">Sign up.</a></div>
+  <div id = "box2" class="box"> Already have an account? <a  style="color: #5A4FF3" @click="reroute()">Log in.</a></div>
 </template>
 
 <script>
@@ -30,6 +30,7 @@ import {
 } from "firebase/auth";
 import firebaseApp from "../firebase.js";
 import GoogleButton from "./GoogleButton.vue";
+import { reactive } from '@vue/reactivity';
 const auth = getAuth();
 auth.languageCode = "it";
 const provider = new GoogleAuthProvider();
@@ -48,7 +49,7 @@ export default {
   },
   methods: {
     reroute() {
-      this.$router.push({ path: '/volunteer-register', replace: true })
+      this.$router.push({ path: '/volunteer/register', replace: true })
     },
     login() {
       signInWithEmailAndPassword(auth, this.email, this.password)
