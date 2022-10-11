@@ -8,8 +8,9 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "ant-design-vue": "^3.2.13",
+    "ant-design-vue": "^3.2.12",
     "core-js": "^3.8.3",
+    "node-modules": "^1.0.1",
     "node-polyfill-webpack-plugin": "^2.0.1",
     "vue": "^3.2.13",
     "vue-router": "^4.1.5"
