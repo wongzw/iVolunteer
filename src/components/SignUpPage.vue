@@ -37,11 +37,7 @@ export default {
     },
     methods: {
         reroute() {
-            // we need a pop-up to ask them to select if they are an organisation or a volunteer
-            // if organisation:
-                // this.$router.push({ path: "/organsation/login", replace: true });
-            // else
-                // this.$router.push({ path: "/volunteer/login", replace: true });
+            this.$router.push({ path: "/volunteer/login", replace: true });
         },
         is_org() {
             this.$router.push({ path: "/organisation/register", replace: true });
