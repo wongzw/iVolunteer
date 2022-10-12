@@ -17,7 +17,7 @@
     </a-form>
     <GoogleButton style="width:60%" @click="googleSignIn"/>
   </div>
-  <div id = "box2" class="box"> Already have an account? <a  style="color: #5A4FF3" @click="reroute()">Log in.</a></div>
+  <div id = "box2" class="box"> New to iVolunteer? <a  style="color: #5A4FF3" @click="reroute()">Sign up.</a></div>
 </template>
 
 <script>
@@ -57,6 +57,7 @@ export default {
           // Signed in
           const user = userCredential.user;
           this.$emit(user.id);
+          this.$push
           // ...
         })
         .catch((error) => {
