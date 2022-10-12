@@ -1,41 +1,47 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Notifications from '@/views/Notifications.vue'
+import Notifications from "@/views/Notifications.vue";
+import SignUpView from "@/views/SignUpView.vue";
 import LoginView from "@/views/LoginView.vue";
 import VolunteerRegister from "@/views/VolunteerRegister.vue";
 import OrgRegister from "@/views/OrgRegister.vue";
-import Support from '@/views/Support.vue'
+import Support from "@/views/Support.vue";
 
 const routes = [
-    {
-        path: '/volunteer/login',
-        name: 'LoginView',
-        component: LoginView
-    },
-    {
-        path: '/volunteer/register',
-        name: 'VolunteerRegister',
-        component: VolunteerRegister
-    },
-    {
-        path: '/organisation/register',
-        name: 'OrgRegister',
-        component: OrgRegister
-    },
-    {
-        path: '/notifications',
-        name: 'Notifications',
-        component: Notifications
-    },
-    {
-        path: '/support',
-        name: 'Support',
-        component: Support
-    }
-]
+  {
+    path: "/sign-up-view",
+    name: "SignUpView",
+    component: SignUpView,
+  },
+  {
+    path: "/volunteer/login",
+    name: "LoginView",
+    component: LoginView,
+  },
+  {
+    path: "/volunteer/register",
+    name: "VolunteerRegister",
+    component: VolunteerRegister,
+  },
+  {
+    path: "/organisation/register",
+    name: "OrgRegister",
+    component: OrgRegister,
+  },
+  {
+    path: "/notifications",
+    name: "Notifications",
+    component: Notifications,
+  },
+  {
+    path: "/support",
+    name: "Support",
+    component: Support,
+  },
+];
 
 const router = createRouter({
-    history: createWebHistory(),
-    routes
-})
+  history: createWebHistory(),
+  routes,
+});
 
-export default router
+export default router;

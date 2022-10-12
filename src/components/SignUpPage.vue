@@ -1,25 +1,23 @@
 <template>
     <img style="margin-top: 10vh" alt="Logo of IVolunteer" src="../assets/ivolunteer_logo.png" />
     <div class="box">
-        <div class="boxed">
             <div id="welc-msg">
-                <h1 id="signUpHeader" style="font-weight: 700">Create your account to start your Volunteering Journey!</h1>
+                <h1 id="signUpHeader" style="font-weight: 500">Create your account to start your Volunteering Journey!</h1>
             </div>
 
             <div id="org-box">
-                <img src="Organisation.svg" alt=""/>
+                <img src="../assets/Organisation.svg" alt="organisation_img"/>
                 <div id="ant-button-org">
-                    <a-button type="primary" on-click="is_org()">I'm an Organisation</a-button> 
+                    <a-button type="primary" onClick=is_org()>I'm an Organisation</a-button> 
                 </div>
             </div>
 
             <div id="vol-box">
-                <img src="Volunteer.svg" alt=""/>
+                <img src="../assets/Volunteer.svg" alt="volunteer_img"/>
                 <div id="ant-button-vol">
-                    <a-button type="primary" on-click="is_volun()">I'm a Volunteer</a-button> 
+                    <a-button type="primary" onClick=is_vol()>I'm a Volunteer</a-button> 
                 </div>
             </div>
-        </div>
     </div>
 
     <div id="box2" class="box">
@@ -37,13 +35,14 @@ export default {
     },
     methods: {
         reroute() {
-            this.$router.push({ path: "/volunteer/login", replace: true });
+            this.$router.replace({ path: "/volunteer/login" });
         },
         is_org() {
             this.$router.push({ path: "/organisation/register", replace: true });
         },
-        is_volun() {
-            this.$router.push({ path: "/volunteer/register", replace: true });
+        is_vol() {
+            console.log('here');
+            this.$router.replace({ path: "/volunteer/register"});
         }
     }
 }
@@ -61,20 +60,6 @@ export default {
     padding-bottom: 30px;
     filter: drop-shadow(1px 1px 1px black);
 }
-.boxed{
-    background-color: white;
-    align-items: center;
-    filter: drop-shadow(1px 1px 1px black);
-}
-#welc-msg{
-    grid-column: 1 / 3;
-}
-#org-box{
-    grid-row: 1 / 2;
-}
-#vol-box{
-    grid-row: 2 / 3;
-}
 
 #box2 {
     margin-top: 20px;
@@ -87,16 +72,33 @@ export default {
 }
 
 #signUpHeader {
-    font-size: 40px;
+    font-size: 25px;
     color: #020957;
+}
+
+#welc-msg{
+    place-items: center stretch;
+    border-radius: 4px;
+    border-block-color: black;
+}
+
+#org-box, #vol-box {
+    background-color: white;
+    border-radius: 5px;
+    border-block-color: black;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 #ant-button-vol {
     margin-bottom: 10px;
+    color: #FF734C;
+
 }
 
-#ant-button-org {
+#ant-button-org{
     margin-bottom: 10px;
+    color: #020957;
 }
 
 </style>
