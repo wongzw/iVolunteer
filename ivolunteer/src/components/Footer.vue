@@ -86,7 +86,6 @@
 </template>
 
 <style scoped>
-
     body {
         margin: 0;
         margin-bottom: 0px;
