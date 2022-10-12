@@ -8,14 +8,14 @@
             <div id="org-box">
                 <img src="../assets/Organisation.svg" alt="organisation_img"/>
                 <div id="ant-button-org">
-                    <a-button type="primary" onClick=is_org()>I'm an Organisation</a-button> 
+                    <a-button type="primary" @click="is_org">I'm an Organisation</a-button> 
                 </div>
             </div>
 
             <div id="vol-box">
                 <img src="../assets/Volunteer.svg" alt="volunteer_img"/>
                 <div id="ant-button-vol">
-                    <a-button type="primary" onClick=is_vol()>I'm a Volunteer</a-button> 
+                    <a-button type="primary" @click="is_vol">I'm a Volunteer</a-button> 
                 </div>
             </div>
     </div>
