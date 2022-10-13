@@ -30,7 +30,6 @@ import {
 } from "firebase/auth";
 import firebaseApp from "../firebase.js";
 import GoogleButton from "./GoogleButton.vue";
-import { reactive } from '@vue/reactivity';
 const auth = getAuth();
 auth.languageCode = "it";
 const provider = new GoogleAuthProvider();
@@ -56,8 +55,9 @@ export default {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          this.$emit(user.id);
-          this.$push
+          this.$store.commit('updateUser', user)
+          alert("Succesful Login, welcome!")
+          this.$router.push('/volunteer')
           // ...
         })
         .catch((error) => {
