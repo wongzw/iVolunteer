@@ -45,14 +45,13 @@ export default {
   data() {},
   methods: {
     reroute() {
-      this.$router.replace({ path: "/volunteer/login" });
+      this.$router.push({ path: "/volunteer/login" });
     },
     is_org() {
-      this.$router.push({ path: "/organisation/register", replace: true });
+      this.$router.push({ path: "/organisation/register" });
     },
     is_vol() {
-      console.log("here");
-      this.$router.replace({ path: "/volunteer/register" });
+      this.$router.push({ path: "/volunteer/register" });
     },
   },
 };
