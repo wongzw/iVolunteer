@@ -3,7 +3,6 @@
     src="../assets/ivolunteer_logo.svg"
     alt="Logo of IVolunteer"
     class="logo"
-    style="margin-top: 10vh"
   />
   <div class="box">
     <div id="welc-msg">
@@ -62,6 +61,7 @@ export default {
 <style scoped>
 .logo {
   height: 50px;
+  margin-top: 10vh;
 }
 
 #welc-msg {
@@ -74,7 +74,7 @@ export default {
 .box {
   background-color: white;
   border-radius: 2px;
-  margin-top: 2vw;
+  margin-top: 3%;
   margin-left: 25vw;
   margin-right: 25vw;
   padding-top: 30px;
@@ -122,7 +122,7 @@ export default {
   border-color: #ff734c;
   border-radius: 5px;
   width: 80%;
-  text-overflow: wrap;
+  text-align: center;
 }
 
 .ant-button .blue {
@@ -131,5 +131,6 @@ export default {
   width: 80%;
   background-color: #020957;
   border-color: #020957;
+  text-align: center;
 }
 </style>
