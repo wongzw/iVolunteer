@@ -56,11 +56,12 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const auth = (store.getters.getAuth)
+  const userType = (store.state.userType)
   if (to.meta.requiresAuth) {
     if (!auth) {
-      if (store.state.userType == "User") {
+      if (userType == "User") {
         next('volunteer/login')
-      } else if (store.state.userType == "Organisation") {
+      } else if (userType == "Organisation") {
         next('organisation/login')
       } else {
         next('/')
