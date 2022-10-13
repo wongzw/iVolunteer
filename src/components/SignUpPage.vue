@@ -122,7 +122,8 @@ export default {
   border-color: #ff734c;
   border-radius: 5px;
   width: 80%;
-  text-align: center;
+  height: auto;
+  white-space: normal;
 }
 
 .ant-button .blue {
@@ -132,5 +133,7 @@ export default {
   background-color: #020957;
   border-color: #020957;
   text-align: center;
+  height: auto;
+  white-space: normal;
 }
 </style>
