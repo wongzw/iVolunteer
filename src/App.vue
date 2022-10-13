@@ -8,7 +8,6 @@
     </main>
     <Footer />
   </div>
-  <router-view></router-view>
 </template>
 
 <script>
