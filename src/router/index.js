@@ -5,10 +5,13 @@ import LoginView from "@/views/LoginView.vue";
 import VolunteerRegister from "@/views/VolunteerRegister.vue";
 import OrgRegister from "@/views/OrgRegister.vue";
 import Support from "@/views/Support.vue";
+import NoPageFound from "@/views/NoPageFound.vue";
+import UserDashboard from "@/views/UserDashboard.vue";
+import store from "@/store";
 
 const routes = [
   {
-    path: "/sign-up-view",
+    path: "/",
     name: "SignUpView",
     component: SignUpView,
   },
@@ -37,11 +40,43 @@ const routes = [
     name: "Support",
     component: Support,
   },
+  {
+    path: "/:catchAll(.*)",
+    name: "Not Found",
+    component: NoPageFound,
+  },
+  {
+    path: "/volunteer",
+    name: "UserDashboard",
+    component: UserDashboard,
+    meta: {
+      requiresAuth: true
+    }
+  },
 ];
 
 const router = createRouter({
   history: createWebHistory(),
-  routes,
+  routes
 });
+
+router.beforeEach((to, from, next) => {
+  const auth = (store.getters.getAuth)
+  if (to.meta.requiresAuth) {
+    if (!auth) {
+      if (store.state.userType == "User") {
+        next('volunteer/login')
+      } else if (store.state.userType == "Organisation") {
+        next('organisation/login')
+      } else {
+        next('/')
+      }   
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})
 
 export default router;

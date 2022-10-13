@@ -17,7 +17,7 @@
     </a-form>
     <GoogleButton style="width:60%" @click="googleSignIn"/>
   </div>
-  <div id = "box2" class="box"> Already have an account? <a  style="color: #5A4FF3" @click="reroute()">Log in.</a></div>
+  <div id = "box2" class="box"> New to iVolunteer? <a  style="color: #5A4FF3" @click="reroute()">Sign up.</a></div>
 </template>
 
 <script>
@@ -30,7 +30,6 @@ import {
 } from "firebase/auth";
 import firebaseApp from "../firebase.js";
 import GoogleButton from "./GoogleButton.vue";
-import { reactive } from '@vue/reactivity';
 const auth = getAuth();
 auth.languageCode = "it";
 const provider = new GoogleAuthProvider();
@@ -56,7 +55,9 @@ export default {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          this.$emit(user.id);
+          this.$store.commit('updateUser', user)
+          alert("Succesful Login, welcome!")
+          this.$router.push('/volunteer')
           // ...
         })
         .catch((error) => {
