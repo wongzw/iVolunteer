@@ -1,102 +1,135 @@
 <template>
-    <img style="margin-top: 10vh" alt="Logo of IVolunteer" src="../assets/ivolunteer_logo.png" />
-    <div class="box">
-        <div class="boxed">
-            <div id="welc-msg">
-                <h1 id="signUpHeader" style="font-weight: 700">Create your account to start your Volunteering Journey!</h1>
-            </div>
-
-            <div id="org-box">
-                <img src="Organisation.svg" alt=""/>
-                <div id="ant-button-org">
-                    <a-button type="primary" on-click="is_org()">I'm an Organisation</a-button> 
-                </div>
-            </div>
-
-            <div id="vol-box">
-                <img src="Volunteer.svg" alt=""/>
-                <div id="ant-button-vol">
-                    <a-button type="primary" on-click="is_volun()">I'm a Volunteer</a-button> 
-                </div>
-            </div>
+  <img
+    src="../assets/ivolunteer_logo.png"
+    alt="Logo of IVolunteer"
+    class="logo"
+    style="margin-top: 10vh"
+  />
+  <div class="box">
+    <div id="welc-msg">
+      <h1 id="signUpHeader">
+        <strong>
+          Create your account to start your Volunteering Journey!
+        </strong>
+      </h1>
+    </div>
+    <div class="box-inline">
+      <div class="box org">
+        <img src="../assets/Organisation.svg" alt="organisation_img" />
+        <div class="ant-button">
+          <a-button type="primary" size="large" class="blue" @click="is_org"
+            >I'm an Organisation</a-button
+          >
         </div>
+      </div>
+      <div class="box vol">
+        <img src="../assets/Volunteer.svg" alt="volunteer_img" />
+        <div class="ant-button">
+          <a-button type="primary" size="large" class="orange" @click="is_vol"
+            >I'm a Volunteer</a-button
+          >
+        </div>
+      </div>
     </div>
+  </div>
 
-    <div id="box2" class="box">
-        Already have an account? <a @click="reroute" style="color: #5a4ff3">Log In.</a>
-    </div>
-
+  <div id="box2" class="box">
+    Already have an account?
+    <a @click="reroute" style="color: #5a4ff3">Log In.</a>
+  </div>
 </template>
 
 <script>
 export default {
-    name: "SignUpPage",
-    components: {
+  name: "SignUpPage",
+  components: {},
+  data() {},
+  methods: {
+    reroute() {
+      this.$router.replace({ path: "/volunteer/login" });
     },
-    data() {
+    is_org() {
+      this.$router.push({ path: "/organisation/register", replace: true });
     },
-    methods: {
-        reroute() {
-            this.$router.push({ path: "/volunteer/login", replace: true });
-        },
-        is_org() {
-            this.$router.push({ path: "/organisation/register", replace: true });
-        },
-        is_volun() {
-            this.$router.push({ path: "/volunteer/register", replace: true });
-        }
-    }
-}
+    is_vol() {
+      console.log("here");
+      this.$router.replace({ path: "/volunteer/register" });
+    },
+  },
+};
 </script>
 
 <style scoped>
+.logo {
+  height: 50px;
+}
+
+#welc-msg {
+  place-items: center stretch;
+  border-radius: 4px;
+  border-block-color: black;
+  align-items: center;
+}
+
 .box {
-    background-color: white;
-    align-items: center;
-    border-radius: 2px;
-    margin-top: 2%;
-    margin-left: 35%;
-    margin-right: 35%;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    filter: drop-shadow(1px 1px 1px black);
+  background-color: white;
+  border-radius: 2px;
+  margin-top: 2vw;
+  margin-left: 25vw;
+  margin-right: 25vw;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  filter: drop-shadow(1px 1px 1px black);
 }
-.boxed{
-    background-color: white;
-    align-items: center;
-    filter: drop-shadow(1px 1px 1px black);
+
+.box-inline {
+  display: flex;
+  justify-items: left;
 }
-#welc-msg{
-    grid-column: 1 / 3;
-}
-#org-box{
-    grid-row: 1 / 2;
-}
-#vol-box{
-    grid-row: 2 / 3;
+
+.box .org,
+.box .vol {
+  background-color: white;
+  border-radius: 2px;
+  margin-top: 2%;
+  margin-left: 5%;
+  margin-right: 5%;
+  min-width: 40%;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  filter: drop-shadow(1px 1px 1px black);
 }
 
 #box2 {
-    margin-top: 20px;
-    text-align: center;
-    padding-top: -30px;
-    height: 10px;
-    vertical-align: middle;
-    font-weight: bold;
-    line-height: 5px;
+  margin-top: 20px;
+  text-align: center;
+  padding-top: -30px;
+  height: 10px;
+  vertical-align: middle;
+  font-weight: bold;
+  line-height: 5px;
 }
 
 #signUpHeader {
-    font-size: 40px;
-    color: #020957;
+  font-size: 30px;
+  color: #020957;
+  text-overflow: wrap;
 }
 
-#ant-button-vol {
-    margin-bottom: 10px;
+.ant-button .orange {
+  margin: 20px 0px 10px 0px;
+  background-color: #ff734c;
+  border-color: #ff734c;
+  border-radius: 5px;
+  width: 80%;
+  text-overflow: wrap;
 }
 
-#ant-button-org {
-    margin-bottom: 10px;
+.ant-button .blue {
+  margin: 20px 0px 10px 0px;
+  border-radius: 5px;
+  width: 80%;
+  background-color: #020957;
+  border-color: #020957;
 }
-
 </style>
