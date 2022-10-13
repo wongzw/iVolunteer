@@ -67,7 +67,7 @@ router.beforeEach((to, from, next) => {
       next('organisation')
     }
   } else if (to.meta.requiresAuth) {
-    if (!auth) {
+    if (auth) {
       if (userType == "User") {
         next('volunteer/login')
       } else if (userType == "Organisation") {
