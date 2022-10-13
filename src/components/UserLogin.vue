@@ -56,7 +56,7 @@ export default {
           // Signed in
           const user = userCredential.user;
           this.$store.commit('updateUser', user)
-          alert("Succesful Login, welcome!")
+          alert("Successful Login, welcome!")
           this.$router.push('/volunteer')
           // ...
         })
@@ -72,7 +72,9 @@ export default {
           const credential = GoogleAuthProvider.credentialFromResult(result);
           const token = credential.accessToken;
           const user = result.user;
-          this.$emit(user.id)
+          this.$store.commit('updateUser', user)
+          alert("Successful Login, welcome!")
+          this.$router.push('/volunteer')
         })
         .catch((error) => {
           const errorCode = error.code;
