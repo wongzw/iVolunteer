@@ -1,7 +1,5 @@
 # ivolunteer
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/eb2a871b-5ff9-4300-bc00-2601e3075fc9/deploy-status)](https://app.netlify.com/sites/ivolunteer/deploys)
-
 ## Project setup
 
 ```
