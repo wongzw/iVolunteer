@@ -2,7 +2,7 @@
   <img
     style="margin-top: 10vh"
     alt="Logo of IVolunteer"
-    src="../assets/ivolunteer_logo.png"
+    src="../assets/ivolunteer_logo.svg"
   />
   <div class="box">
     <a-form
