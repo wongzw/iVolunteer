@@ -8,6 +8,7 @@
     </main>
     <Footer />
   </div>
+  <router-view></router-view>
 </template>
 
 <script>
@@ -26,11 +27,7 @@ export default {
   text-align: center;
   color: #020957;
   background-color: #fef8f3;
-}
-
-main {
-  background-color: #fef8f3;
-  min-height: 100vh;
+  min-height: 100%;
 }
 </style>
 

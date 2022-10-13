@@ -149,7 +149,7 @@ export default {
 };
 </script>
   
-  <style scoped>
+<style scoped>
 .box {
   background-color: white;
   align-items: center;
@@ -190,4 +190,5 @@ export default {
   margin-bottom: -5px;
 }
 </style>
+
   
