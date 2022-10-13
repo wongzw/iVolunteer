@@ -1,6 +1,6 @@
 <template>
   <img
-    src="../assets/ivolunteer_logo.png"
+    src="../assets/ivolunteer_logo.svg"
     alt="Logo of IVolunteer"
     class="logo"
     style="margin-top: 10vh"

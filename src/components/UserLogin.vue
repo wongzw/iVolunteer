@@ -1,23 +1,51 @@
 <template>
-  <img style="margin-top: 10vh" alt="Logo of IVolunteer" src="../assets/ivolunteer_logo.png" />
+  <img
+    style="margin-top: 10vh"
+    alt="Logo of IVolunteer"
+    src="../assets/ivolunteer_logo.svg"
+  />
   <div class="box">
-    <a-form id="formLogin" class="user-layout-login" ref="formLogin" @submit.prevent="login">
+    <a-form
+      id="formLogin"
+      class="user-layout-login"
+      ref="formLogin"
+      @submit.prevent="login"
+    >
       <h1 id="loginHeader" style="font-weight: 900">Welcome Back!</h1>
       <a-form-item>
-        <label class="fontLogin">Email</label><br/>
-        <a-input required style="width: 60%; margin-bottom: 10px" class="input" type="email" v-model:value="email"
-          placeholder="Enter your email"></a-input>
-        <label class="fontLogin">Password</label><br/>
-        <a-input-password required style="width: 60%; height: 35px; margin-bottom: 40px" v-model:value="password"
-          placeholder="Enter your password" /><br />
+        <label class="fontLogin">Email</label><br />
+        <a-input
+          required
+          style="width: 60%; margin-bottom: 10px"
+          class="input"
+          type="email"
+          v-model:value="email"
+          placeholder="Enter your email"
+        ></a-input>
+        <label class="fontLogin">Password</label><br />
+        <a-input-password
+          required
+          style="width: 60%; height: 35px; margin-bottom: 40px"
+          v-model:value="password"
+          placeholder="Enter your password"
+        /><br />
         <div id="ant-button">
-          <a-button htmlType="submit" class="sign-in" size="large" type="primary" danger>Get Started</a-button>
+          <a-button
+            htmlType="submit"
+            class="sign-in"
+            size="large"
+            type="primary"
+            danger
+            >Get Started</a-button
+          >
         </div>
       </a-form-item>
     </a-form>
-    <GoogleButton style="width:60%" @click="googleSignIn"/>
+    <GoogleButton style="width: 60%" @click="googleSignIn" />
   </div>
-  <div id = "box2" class="box"> New to iVolunteer? <a  style="color: #5A4FF3" @click="reroute()">Sign up.</a></div>
+  <div id="box2" class="box">
+    New to iVolunteer? <a style="color: #5a4ff3" @click="reroute()">Sign up.</a>
+  </div>
 </template>
 
 <script>
@@ -38,7 +66,7 @@ provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
 export default {
   name: "UserLogin",
   components: {
-    GoogleButton
+    GoogleButton,
   },
   data() {
     return {
@@ -48,16 +76,16 @@ export default {
   },
   methods: {
     reroute() {
-      this.$router.push({ path: '/volunteer/register', replace: true })
+      this.$router.push({ path: "/volunteer/register", replace: true });
     },
     login() {
       signInWithEmailAndPassword(auth, this.email, this.password)
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          this.$store.commit('updateUser', user)
-          alert("Succesful Login, welcome!")
-          this.$router.push('/volunteer')
+          this.$store.commit("updateUser", user);
+          alert("Succesful Login, welcome!");
+          this.$router.push("/volunteer");
           // ...
         })
         .catch((error) => {
@@ -72,7 +100,7 @@ export default {
           const credential = GoogleAuthProvider.credentialFromResult(result);
           const token = credential.accessToken;
           const user = result.user;
-          this.$emit(user.id)
+          this.$emit(user.id);
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -86,7 +114,6 @@ export default {
 </script>
 
 <style scoped>
-
 .box {
   background-color: white;
   align-items: center;
@@ -106,7 +133,7 @@ export default {
   height: 10px;
   vertical-align: middle;
   font-weight: bold;
-  line-height: 5px
+  line-height: 5px;
 }
 
 .fontLogin {
@@ -131,5 +158,4 @@ export default {
   width: 60%;
   margin-bottom: -5px;
 }
-
 </style>>
