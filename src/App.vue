@@ -1,13 +1,5 @@
 <template>
-  <div>
-    <header class="app-header">
-      <Navbar/>
-    </header>
-    <main>
-      <router-view></router-view>
-    </main>
-    <Footer/>
-  </div>
+  <router-view></router-view>
 </template>
 
 <script>
@@ -27,12 +19,9 @@ export default {
     text-align: center;
     color: #020957;
     background-color: #FEF8F3;
+    min-height: 100%;
   }
-
-  body {
-    background-color: #FEF8F3;
-    min-height: 100vh;
-  }
+  
 </style>
 
 
