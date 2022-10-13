@@ -13,9 +13,6 @@ const routes = [
     path: "/volunteer/login",
     name: "LoginView",
     component: LoginView,
-    meta: {
-      redirect: true
-    }
   },
   {
     path: "/volunteer/register",
@@ -59,18 +56,11 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const auth = (store.getters.getAuth)
-  const userType = (store.state.userType)
-  if (to.meta.redirect && auth) {
-    if (userType == "User") {
-      next('volunteer')
-    } else {
-      next('organisation')
-    }
-  } else if (to.meta.requiresAuth) {
+  if (to.meta.requiresAuth) {
     if (!auth) {
-      if (userType == "User") {
+      if (store.state.userType == "User") {
         next('volunteer/login')
-      } else if (userType == "Organisation") {
+      } else if (store.state.userType == "Organisation") {
         next('organisation/login')
       } else {
         next('/')
