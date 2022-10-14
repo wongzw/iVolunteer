@@ -1,20 +1,8 @@
-<script>
-import SidebarLink from './SidebarLink'
-import { collapsed, toggleSidebar, sidebarWidth } from './state'
-
-export default {
-  props: {},
-  components: { SidebarLink },
-  setup() {
-    return { collapsed, toggleSidebar, sidebarWidth }
-  }
-}
-</script>
-
 <template>
-  <div class="sidebar" :style="{ width: sidebarWidth }">
+  <!-- <div class="sidebar" :style="{ width: sidebarWidth }"> -->
+  <div class="sidebar">
     <h1>
-      <span v-if="collapsed">
+      <span v-if="SidebarStatus">
         <div>V</div>
         <div>S</div>
       </span>
@@ -30,12 +18,34 @@ export default {
     <span
       class="collapse-icon"
       :class="{ 'rotate-180': collapsed }"
-      @click="toggleSidebar"
+      @click="toggleSidebar(SidebarStatus)"
     >
       <i class="fas fa-angle-double-left" />
     </span>
   </div>
 </template>
+
+<script>
+import SidebarLink from "./TheSidebarLink";
+// import { collapsed, toggleSidebar, sidebarWidth } from "./state";
+
+export default {
+  props: {},
+  components: { SidebarLink },
+  created() {
+    const SidebarStatus = this.$store.getters.getSidebarStatus;
+  },
+
+  methods: {
+    toggleSidebar(SidebarStatus) {
+      this.$store.commit("sidebar", !SidebarStatus);
+    },
+  },
+  // setup() {
+  //   return { collapsed, toggleSidebar, sidebarWidth };
+  // },
+};
+</script>
 
 <style>
 :root {

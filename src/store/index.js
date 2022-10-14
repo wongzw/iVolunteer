@@ -8,6 +8,7 @@ export default createStore({
     id: "",
     email: "",
     auth: false,
+    sidebar: false,
   },
   plugins: [
     createPersistedState({
@@ -45,6 +46,10 @@ export default createStore({
 
     getEmail: function (state) {
       return state.email;
+    },
+
+    getSidebarStatus: function (state) {
+      return state.sidebar;
     },
   },
 });
