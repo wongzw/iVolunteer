@@ -8,7 +8,11 @@ export default createStore({
     id: "",
     email: "",
     auth: false,
+<<<<<<< HEAD
     details: ""
+=======
+    sidebar: false,
+>>>>>>> af93a55 (Update Sidebar to vuex)
   },
   plugins: [
     createPersistedState({
@@ -56,6 +60,10 @@ export default createStore({
 
     getEmail: function (state) {
       return state.email;
+    },
+
+    getSidebarStatus: function (state) {
+      return state.sidebar;
     },
   },
 });
