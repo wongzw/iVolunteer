@@ -8,7 +8,7 @@ export default createStore({
     id: "",
     email: "",
     auth: false,
-    sidebar: false,
+    sidebarCollapsed: false,
   },
   plugins: [
     createPersistedState({
@@ -49,7 +49,7 @@ export default createStore({
     },
 
     getSidebarStatus: function (state) {
-      return state.sidebar;
+      return state.sidebarCollapsed;
     },
   },
 });

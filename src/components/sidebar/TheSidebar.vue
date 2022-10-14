@@ -30,7 +30,6 @@ import SidebarLink from "./TheSidebarLink";
 // import { collapsed, toggleSidebar, sidebarWidth } from "./state";
 
 export default {
-  props: {},
   components: { SidebarLink },
   created() {
     const SidebarStatus = this.$store.getters.getSidebarStatus;
