@@ -63,7 +63,10 @@ li {
   padding: 10px;
   background-color: white;
   color: #020957;
-}
+  position: fixed;
+  top: 0;
+  width: 100%;
+} 
 
 .nav-links a {
   color: #020957;
