@@ -1,4 +1,5 @@
 <template>
+  <div id="topPadding"></div>
   <nav class="navbar">
     <!-- LOGO -->
     <a class="logo" href="/">
@@ -38,6 +39,11 @@
 
 
 <style>
+
+#topPadding {
+  height:72px;
+}
+
 * {
   margin: 0;
   padding: 0;
