@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import SignUpView from "@/views/SignUpView.vue";
 import TheNotifications from "@/views/TheNotifications.vue";
 import LoginView from "@/views/LoginView.vue";
-import VolunteerRegister from "@/views/VolunteerRegister.vue";
+import UserRegister from "@/views/UserRegister.vue";
 import OrgRegister from "@/views/OrgRegister.vue";
 import TheSupport from "@/views/TheSupport.vue";
 import NoPageFound from "@/views/NoPageFound.vue";
@@ -19,11 +19,14 @@ const routes = [
     path: "/volunteer/login",
     name: "LoginView",
     component: LoginView,
+    meta : {
+      redirect: true
+    }
   },
   {
     path: "/volunteer/register",
-    name: "VolunteerRegister",
-    component: VolunteerRegister,
+    name: "UserRegister",
+    component: UserRegister,
   },
   {
     path: "/organisation/register",
@@ -61,8 +64,11 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const auth = store.getters.getAuth;
-  const userType = store.state.userType;
+  const auth = (store.getters.getAuth)
+  const userType = (store.state.userType)
+  if (auth & to.meta.redirect) {
+    next('volunteer')
+  }
   if (to.meta.requiresAuth) {
     if (!auth) {
       if (userType == "User") {

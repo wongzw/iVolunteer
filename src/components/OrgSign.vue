@@ -1,62 +1,28 @@
 <template>
-  <img
-    style="margin-top: 10vh"
-    alt="Logo of IVolunteer"
-    src="../assets/ivolunteer_logo.svg"
-  />
-  <div class="box">
-    <a-form
-      id="formLogin"
-      class="user-layout-login"
-      ref="formLogin"
-      @submit.prevent="register"
-    >
-      <a-form-item>
-        <h1 id="loginHeader" style="font-weight: 900">Sign Up</h1>
-        <label class="fontLogin">Organisation Name</label><br />
-        <a-input
-          class="input"
-          required
-          style="width: 60%; margin-bottom: 10px"
-          v-model:value="orgName"
-          placeholder="Enter your Organisation Name"
-        ></a-input>
-        <label class="fontLogin">Email</label><br />
-        <a-input
-          class="input"
-          required
-          style="width: 60%; margin-bottom: 10px"
-          type="email"
-          v-model:value="email"
-          placeholder="Enter your email"
-        ></a-input>
-        <label class="fontLogin">Password</label><br />
-        <a-input-password
-          required
-          class="input"
-          style="width: 60%; height: 35px; margin-bottom: 40px"
-          v-model:value="password"
-          minlength="8"
-          placeholder="Enter your password"
-        /><br />
-        <div id="ant-button">
-          <a-button
-            htmlType="submit"
-            class="register"
-            size="large"
-            type="primary"
-            danger
-            >Get Started</a-button
-          >
-        </div>
-      </a-form-item>
+<img style="margin-top: 2vh" alt="Logo of IVolunteer" src="../assets/ivolunteer_logo.png" />
+<div class="box">
+    <a-form id="formLogin" class="user-layout-login" ref="formLogin" @submit.prevent="register">
+        <a-form-item>
+            <h1 id="loginHeader" style="font-weight: 900">Sign Up</h1>
+            <label class="fontLogin">Organisation Name</label><br />
+            <a-input class="input" required style="width: 60%; margin-bottom: 10px" v-model:value="orgName"
+                placeholder="Enter your Organisation Name"></a-input>
+            <label class="fontLogin">Email</label><br />
+            <a-input class="input" required style="width: 60%; margin-bottom: 10px" type="email"
+                v-model:value="email" placeholder="Enter your email"></a-input>
+            <label class="fontLogin">Password</label><br />
+            <a-input-password required class="input" style="width: 60%; height: 35px; margin-bottom: 40px"
+                v-model:value="password" minlength="8" placeholder="Enter your password" /><br />
+            <div id="ant-button">
+                <a-button htmlType="submit" class="register" size="large" type="primary" danger>Get Started</a-button>
+            </div>
+        </a-form-item>
     </a-form>
     <GoogleButton style="width: 60%" @click="googleSignIn" />
-  </div>
-  <div id="box2" class="box">
-    Already have an account?
-    <a @click="reroute" style="color: #5a4ff3">Login.</a>
-  </div>
+</div>
+<div id="box2" class="box">
+    Already have an account? <a @click="reroute" style="color: #5a4ff3">Login.</a>
+</div>
 </template>
   
 <script>

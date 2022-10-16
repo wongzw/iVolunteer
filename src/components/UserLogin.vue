@@ -1,51 +1,47 @@
 <template>
-  <img
-    style="margin-top: 10vh"
-    alt="Logo of IVolunteer"
-    src="../assets/ivolunteer_logo.svg"
-  />
-  <div class="box">
-    <a-form
-      id="formLogin"
-      class="user-layout-login"
-      ref="formLogin"
-      @submit.prevent="login"
-    >
-      <h1 id="loginHeader" style="font-weight: 900">Welcome Back!</h1>
-      <a-form-item>
-        <label class="fontLogin">Email</label><br />
-        <a-input
-          required
-          style="width: 60%; margin-bottom: 10px"
-          class="input"
-          type="email"
-          v-model:value="email"
-          placeholder="Enter your email"
-        ></a-input>
-        <label class="fontLogin">Password</label><br />
-        <a-input-password
-          required
-          style="width: 60%; height: 35px; margin-bottom: 40px"
-          v-model:value="password"
-          placeholder="Enter your password"
-        /><br />
-        <div id="ant-button">
-          <a-button
-            htmlType="submit"
-            class="sign-in"
-            size="large"
-            type="primary"
-            danger
-            >Get Started</a-button
-          >
-        </div>
-      </a-form-item>
-    </a-form>
-    <GoogleButton style="width: 60%" @click="googleSignIn" />
-  </div>
-  <div id="box2" class="box">
-    New to iVolunteer? <a style="color: #5a4ff3" @click="reroute()">Sign up.</a>
-  </div>
+<img style="margin-top: 2vh" alt="Logo of IVolunteer" src="../assets/ivolunteer_logo.png" />
+<div class="box">
+  <a-form
+    id="formLogin"
+    class="user-layout-login"
+    ref="formLogin"
+    @submit.prevent="login"
+  >
+    <h1 id="loginHeader" style="font-weight: 900">Welcome Back!</h1>
+    <a-form-item>
+      <label class="fontLogin">Email</label><br />
+      <a-input
+        required
+        style="width: 60%; margin-bottom: 10px"
+        class="input"
+        type="email"
+        v-model:value="email"
+        placeholder="Enter your email"
+      ></a-input>
+      <label class="fontLogin">Password</label><br />
+      <a-input-password
+        required
+        style="width: 60%; height: 35px; margin-bottom: 40px"
+        v-model:value="password"
+        placeholder="Enter your password"
+      /><br />
+      <div id="ant-button">
+        <a-button
+          htmlType="submit"
+          class="sign-in"
+          size="large"
+          type="primary"
+          danger
+          >Get Started</a-button
+        >
+      </div>
+    </a-form-item>
+  </a-form>
+  <GoogleButton style="width: 60%" @click="googleSignIn" />
+</div>
+<div id="box2" class="box">
+  New to iVolunteer? <a style="color: #5a4ff3" @click="reroute()">Sign up.</a>
+</div>
 </template>
 
 <script>
