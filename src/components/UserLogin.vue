@@ -89,7 +89,7 @@ export default {
   },
   methods: {
     reroute() {
-      this.$router.push({ path: "/volunteer/register", replace: true });
+      this.$router.push({ path: "/", replace: true });
     },
     checkLogin() {
       if (!this.userType) {

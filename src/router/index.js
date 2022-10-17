@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import SignUpView from "@/views/SignUpView.vue";
+import LandingView from "@/views/LandingView.vue";
 import TheNotifications from "@/views/TheNotifications.vue";
 import LoginView from "@/views/LoginView.vue";
 import VolunteerRegister from "@/views/VolunteerRegister.vue";
@@ -11,13 +11,18 @@ import store from "@/store";
 
 const routes = [
   {
+    path: '/',
+    name: "LandingView",
+    component: LandingView,
+  },
+  {
     path: "/login",
     name: "LoginView",
     component: LoginView,
     meta : {
       redirect: true
     }
-  },
+  }, 
   {
     path: "/volunteer/register",
     name: "VolunteerRegister",
@@ -63,9 +68,11 @@ router.beforeEach((to, from, next) => {
   const userType = (store.state.userType)
   if (auth & to.meta.redirect) {
     if (userType == 'Volunteer') {
-      next('volunteer')
+      next()
+      //next('volunteer')
     } else {
-      next('organisation')
+      next()
+      //next('organisation')
     }
   }
   else if (to.meta.requiresAuth) {

@@ -21,14 +21,6 @@
           v-model:value="orgName"
           placeholder="Enter your Organisation Name"
         ></a-input>
-        <label class="fontLogin">Organisation Type</label><br />
-        <a-select
-          v-model:value="orgType"
-          mode="tags"
-          style="width: 60%; height: 35px; margin-bottom: 10px"
-          :token-separators="[',']"
-          placeholder="Press tab to enter additional type"
-        ></a-select>
         <label class="fontLogin">Email</label><br />
         <a-input
           class="input"
@@ -92,12 +84,11 @@ export default {
       email: "",
       password: "",
       orgName: "",
-      orgType: [],
     };
   },
   methods: {
     reroute() {
-      this.$router.push({ path: "/organsation/login", replace: true });
+      this.$router.push({ path: "/login", replace: true });
     },
     finalise(user) {
       this.createDb(user.uid);
@@ -108,7 +99,7 @@ export default {
     async createDb(oid) {
       await setDoc(doc(db, "organisation", oid), {
         orgName: this.orgName,
-        orgType: this.orgType,
+        orgType: [],
         events: [],
         badges: [],
       });

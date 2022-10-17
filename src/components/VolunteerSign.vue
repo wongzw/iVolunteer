@@ -60,7 +60,7 @@ export default {
   },
   methods: {
     reroute() {
-      this.$router.push({ path: '/volunteer/login', replace: true })
+      this.$router.push({ path: '/login', replace: true })
     },
     async createDb(oid) {
       await setDoc(doc(db, "users", oid), {
