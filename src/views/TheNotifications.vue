@@ -1,13 +1,16 @@
 <template>
-    <div>
-        <h1> Bye </h1>
-    </div>
+    <TheNotifications/>
     
 </template>
 
-<style scoped>
-    div {
-        margin-top: 20vh;
-        margin-bottom: 16vh;
+<script>
+    import TheNotifications from "../components/TheNotifications.vue";
+
+    export default {
+        name: "NotificationsView",
+        components: { TheNotifications }
     }
+</script>
+
+<style scoped>
 </style>
