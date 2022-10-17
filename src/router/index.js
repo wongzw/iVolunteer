@@ -63,7 +63,6 @@ router.beforeEach((to, from, next) => {
   const userType = (store.state.userType)
   if (auth & to.meta.redirect) {
     if (userType == 'Volunteer') {
-      next()
       next('volunteer')
     } else {
       next('organisation')
