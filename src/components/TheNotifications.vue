@@ -1,3 +1,3 @@
 <template>
-        <h1>This is not working</h1>
+    <h1>This is the Notifications Page</h1>
 </template>
