@@ -2,7 +2,7 @@
   <img
     style="margin-top: 2vh"
     alt="Logo of IVolunteer"
-    src="../assets/ivolunteer_logo.png"
+    src="../assets/ivolunteer_logo.svg"
   />
   <div class="box">
     <a-form
@@ -78,7 +78,7 @@ const provider = new GoogleAuthProvider();
 export default {
   name: "UserLogin",
   components: {
-    GoogleButton,,
+    GoogleButton,
   },
   data() {
     return {

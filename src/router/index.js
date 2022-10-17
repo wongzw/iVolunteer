@@ -64,7 +64,7 @@ router.beforeEach((to, from, next) => {
   if (auth & to.meta.redirect) {
     if (userType == 'Volunteer') {
       next()
-      //next('volunteer')
+      next('volunteer')
     } else {
       next('organisation')
     }

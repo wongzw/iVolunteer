@@ -1,5 +1,5 @@
 <template>
-  <img style="margin-top: 2vh" alt="Logo of IVolunteer" src="../assets/ivolunteer_logo.png" />
+  <img style="margin-top: 2vh" alt="Logo of IVolunteer" src="../assets/ivolunteer_logo.svg" />
   <div class="box">
     <a-form id="formSignUp" class="user-layout-signup" ref="formSignup" @submit.prevent="signUp">
       <h1 id="signUpHeader" style="font-weight: 900">Sign Up</h1>
