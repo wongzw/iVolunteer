@@ -1,23 +1,61 @@
 <template>
-  <img style="margin-top: 2vh" alt="Logo of IVolunteer" src="../assets/ivolunteer_logo.png" />
+  <img
+    style="margin-top: 2vh"
+    alt="Logo of IVolunteer"
+    src="../assets/ivolunteer_logo.png"
+  />
   <div class="box">
-    <a-form id="formLogin" class="user-layout-login" ref="formLogin" @submit.prevent="login">
+    <a-form
+      id="formLogin"
+      class="user-layout-login"
+      ref="formLogin"
+      @submit.prevent="checkLogin"
+    >
       <h1 id="loginHeader" style="font-weight: 900">Welcome Back!</h1>
       <a-form-item>
-        <label class="fontLogin">Email</label><br/>
-        <a-input required style="width: 60%; margin-bottom: 10px" class="input" type="email" v-model:value="email"
-          placeholder="Enter your email"></a-input>
-        <label class="fontLogin">Password</label><br/>
-        <a-input-password required style="width: 60%; height: 35px; margin-bottom: 40px" v-model:value="password"
-          placeholder="Enter your password" /><br />
+        <label class="fontLogin">Email</label><br />
+        <a-input
+          required
+          style="width: 60%; margin-bottom: 10px"
+          class="input"
+          type="email"
+          v-model:value="email"
+          placeholder="Enter your email"
+        ></a-input>
+        <label class="fontLogin">Password</label><br />
+        <a-input-password
+          required
+          style="width: 60%; height: 35px; margin-bottom: 10px"
+          v-model:value="password"
+          placeholder="Enter your password"
+        /><br />
+        <label class="fontLogin">Login Type</label><br />
+        <a-select
+        required="true"
+          v-model:value="userType"
+          style="width: 60%; margin-bottom: 35px"
+        >
+          <a-select-option disabled value="">-Select-</a-select-option>
+          <a-select-option value="organisation">Organisation</a-select-option>
+          <a-select-option value="volunteer">Volunteer</a-select-option>
+        </a-select>
         <div id="ant-button">
-          <a-button htmlType="submit" class="sign-in" size="large" type="primary" danger>Get Started</a-button>
+          <a-button
+            htmlType="submit"
+            class="sign-in"
+            size="large"
+            type="primary"
+            danger
+            >Get Started</a-button
+          >
         </div>
       </a-form-item>
     </a-form>
-    <GoogleButton style="width:60%" @click="googleSignIn"/>
+    <GoogleButton style="width: 60%" @click="googleSignIn" />
   </div>
-  <div id = "box2" class="box"> New to iVolunteer? <a  style="color: #5A4FF3" @click="reroute()">Sign up.</a></div>
+  <div id="box2" class="box">
+    New to iVolunteer? <a style="color: #5a4ff3" @click="reroute()">Sign up.</a>
+  </div>
 </template>
 
 <script>
@@ -28,36 +66,53 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
+import { db } from "../firebase.js";
+import { doc, setDoc } from "firebase/firestore";
 import firebaseApp from "../firebase.js";
 import GoogleButton from "./GoogleButton.vue";
+import { ref } from "vue";
 const auth = getAuth();
-auth.languageCode = "it";
+auth.languageCode = "en";
 const provider = new GoogleAuthProvider();
-provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
 
 export default {
   name: "UserLogin",
   components: {
-    GoogleButton
+    GoogleButton,
   },
   data() {
     return {
       email: "",
       password: "",
+      userType: "",
     };
   },
   methods: {
     reroute() {
-      this.$router.push({ path: '/volunteer/register', replace: true })
+      this.$router.push({ path: "/volunteer/register", replace: true });
+    },
+    checkLogin() {
+      if (!this.userType) {
+        alert("Please select user type!")
+      } else {
+        login();
+      }
+    },
+    finalise(user) {
+      if (this.userType == "organisation") {
+        db.collection('users')
+      } else {
+        this.$store.commit("updateVolunteer", user)
+      }
     },
     login() {
       signInWithEmailAndPassword(auth, this.email, this.password)
         .then((userCredential) => {
-          // Signed in
+          // Change this to check which user has login
           const user = userCredential.user;
-          this.$store.commit('updateUser', user)
-          alert("Successful Login, welcome!")
-          this.$router.push('/volunteer')
+          this.finalise(user)
+          alert("Successful Login, welcome!");
+          location.reload();
           // ...
         })
         .catch((error) => {
@@ -72,9 +127,9 @@ export default {
           const credential = GoogleAuthProvider.credentialFromResult(result);
           const token = credential.accessToken;
           const user = result.user;
-          this.$store.commit('updateUser', user)
-          alert("Successful Login, welcome!")
-          this.$router.push('/volunteer')
+          //this.$store.commit("updateVolunteer", user);
+          alert("Successful Login, welcome!");
+          location.reload();
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -88,7 +143,6 @@ export default {
 </script>
 
 <style scoped>
-
 .box {
   background-color: white;
   align-items: center;
@@ -108,7 +162,7 @@ export default {
   height: 10px;
   vertical-align: middle;
   font-weight: bold;
-  line-height: 5px
+  line-height: 5px;
 }
 
 .fontLogin {
@@ -133,5 +187,4 @@ export default {
   width: 60%;
   margin-bottom: -5px;
 }
-
 </style>>
