@@ -78,7 +78,7 @@ const provider = new GoogleAuthProvider();
 export default {
   name: "UserLogin",
   components: {
-    GoogleButton,
+    GoogleButton,,
   },
   data() {
     return {

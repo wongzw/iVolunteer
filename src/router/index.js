@@ -1,9 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Notifications from "@/views/Notifications.vue";
+import SignUpView from "@/views/SignUpView.vue";
+import TheNotifications from "@/views/TheNotifications.vue";
 import LoginView from "@/views/LoginView.vue";
 import VolunteerRegister from "@/views/VolunteerRegister.vue";
 import OrgRegister from "@/views/OrgRegister.vue";
-import Support from "@/views/Support.vue";
+import TheSupport from "@/views/TheSupport.vue";
 import NoPageFound from "@/views/NoPageFound.vue";
 import UserDashboard from "@/views/UserDashboard.vue";
 import store from "@/store";
@@ -29,13 +30,13 @@ const routes = [
   },
   {
     path: "/notifications",
-    name: "Notifications",
-    component: Notifications,
+    name: "TheNotifications",
+    component: TheNotifications,
   },
   {
     path: "/support",
-    name: "Support",
-    component: Support,
+    name: "TheSupport",
+    component: TheSupport,
   },
   {
     path: "/:catchAll(.*)",
@@ -47,14 +48,14 @@ const routes = [
     name: "UserDashboard",
     component: UserDashboard,
     meta: {
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
 ];
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
 });
 
 router.beforeEach((to, from, next) => {
@@ -72,11 +73,11 @@ router.beforeEach((to, from, next) => {
     if (!auth) {
       next('/login')
     } else {
-      next()
+      next();
     }
   } else {
-    next()
+    next();
   }
-})
+});
 
 export default router;
