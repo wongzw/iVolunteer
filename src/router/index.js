@@ -7,6 +7,7 @@ import OrgRegister from "@/views/OrgRegister.vue";
 import TheSupport from "@/views/TheSupport.vue";
 import NoPageFound from "@/views/NoPageFound.vue";
 import UserDashboard from "@/views/UserDashboard.vue";
+import EventCreation from "@/views/EventCreationView.vue";
 import store from "@/store";
 
 const routes = [
@@ -52,6 +53,11 @@ const routes = [
     meta: {
       requiresAuth: true,
     },
+  },
+  {
+    path: "/event/creation",
+    name: "EventCreationView",
+    component: EventCreation,
   },
 ];
 

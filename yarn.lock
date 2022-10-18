@@ -8043,6 +8043,11 @@
   dependencies:
     "is-plain-object" "3.0.1"
 
+"vue-upload-component@^3.1.2":
+  "integrity" "sha512-z7/98xhNbLecTf09ZyJp0QKH6RMoVH3ojBrWYonPPHQ6qodQf0qVV81+vnB94cFVWpR/mb+F+dMN2p04K14ouw=="
+  "resolved" "https://registry.npmjs.org/vue-upload-component/-/vue-upload-component-3.1.2.tgz"
+  "version" "3.1.2"
+
 "vue@*", "vue@^2 || ^3.2.13", "vue@^3.0.0", "vue@^3.0.2", "vue@^3.2.0", "vue@^3.2.13", "vue@^3.2.35", "vue@>=3.0.3", "vue@>=3.2.0", "vue@3.2.40":
   "integrity" "sha512-1mGHulzUbl2Nk3pfvI5aXYYyJUs1nm4kyvuz38u4xlQkLUn1i2R7nDbI4TufECmY8v1qNBHYy62bCaM+3cHP2A=="
   "resolved" "https://registry.npmmirror.com/vue/-/vue-3.2.40.tgz"
