@@ -81,7 +81,7 @@ export default {
     return {
       email: "",
       password: "",
-      passwordConfirmation: ""
+      passwordConfirmation: "",
     };
   },
   methods: {
@@ -95,12 +95,14 @@ export default {
       this.$router.push("/organisation/onboard");
     },
     async createDb(oid) {
-      await setDoc(doc(db, "organisation", oid), {
+      const val = {
         orgName: "",
         orgType: [],
         events: [],
         badges: [],
-      });
+      }
+      this.$store.state.details = val;
+      await setDoc(doc(db, "organisation", oid), val);
     },
     register() {
       if (this.password == "") {

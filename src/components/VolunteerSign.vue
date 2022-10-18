@@ -55,10 +55,11 @@ export default {
       this.$router.push({ path: '/login', replace: true })
     },
     async createDb(oid) {
-      await setDoc(doc(db, "users", oid), {
-        fullName: "",
-        interests: "",
-        skills: "",
+      const val = {
+        firstName: "",
+        lastName: "",
+        interests: [],
+        skills: [],
         hoursVolunteered: 0,
         userLevel: 0,
         noShowNum: 0,
@@ -67,7 +68,9 @@ export default {
         userAttendedEvents: [],
         userBadges: {},
         userRewards: {}
-      });
+      }
+      this.$store.state.details = val;
+      await setDoc(doc(db, "users", oid), val);
     },
     finalise(user) {
       this.createDb(user.uid);
