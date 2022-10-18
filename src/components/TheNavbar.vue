@@ -1,4 +1,5 @@
 <template>
+  <div id="topPadding"></div>
   <nav class="navbar">
     <!-- LOGO -->
     <a class="logo" href="/">
@@ -38,6 +39,11 @@
 
 
 <style>
+
+#topPadding {
+  height:72px;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -63,7 +69,11 @@ li {
   padding: 10px;
   background-color: white;
   color: #020957;
-}
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+} 
 
 .nav-links a {
   color: #020957;

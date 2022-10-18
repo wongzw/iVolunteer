@@ -1,10 +1,16 @@
 <template>
-    <h1> Hi </h1>
+    <TheSupport/>
+    
 </template>
 
-<style scoped>
-    h1 {
-        margin-top: 20vh;
-        margin-bottom: 16vh;
+<script>
+    import TheSupport from "../components/TheSupport.vue";
+
+    export default {
+        name: "SupportView",
+        components: { TheSupport }
     }
+</script>
+
+<style scoped>
 </style>

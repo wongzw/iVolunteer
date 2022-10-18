@@ -62,6 +62,7 @@ export default {
         skills: [],
         hoursVolunteered: 0,
         userLevel: 0,
+        userExp: 0,
         noShowNum: 0,
         userAppliedEvents: [],
         userAcceptedEvents: [],
@@ -89,7 +90,7 @@ export default {
         createUserWithEmailAndPassword(auth, this.email, this.password)
           .then((userCredential) => {
             const user = userCredential.user
-            this.finalise(user);
+            this.finalise(user)
           }).catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
