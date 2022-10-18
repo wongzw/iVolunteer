@@ -6,7 +6,7 @@ import VolunteerRegister from "@/views/VolunteerRegister.vue";
 import OrgRegister from "@/views/OrgRegister.vue";
 import TheSupport from "@/views/TheSupport.vue";
 import NoPageFound from "@/views/NoPageFound.vue";
-import UserDashboard from "@/views/UserDashboard.vue";
+import UserDashboardView from "@/views/UserDashboardView.vue";
 import VolunteerBoard from "@/views/VolunteerBoard.vue";
 import OrgBoard from "@/views/OrgBoard.vue";
 import store from "@/store";
@@ -52,8 +52,8 @@ const routes = [
   },
   {
     path: "/volunteer",
-    name: "UserDashboard",
-    component: UserDashboard,
+    name: "UserDashboardView",
+    component: UserDashboardView,
     meta: {
       requiresAuth: true,
     },
@@ -80,9 +80,11 @@ router.beforeEach((to, from, next) => {
   const userType = (store.state.userType)
   if (auth & to.meta.redirect) {
     if (userType == 'Volunteer') {
-      next('/volunteer')
+      next()
+      // next('/volunteer')
     } else {
-      next('/volunteer')
+      next()
+      // next('/volunteer')
     }
   }
   else if (to.meta.requiresAuth) {
