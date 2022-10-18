@@ -1,12 +1,12 @@
 <template>
-  <UserLogin/>
+  <UserLogin />
 </template>
 
 <script>
-  import UserLogin from "../components/UserLogin.vue";
+import UserLogin from "../components/UserLogin.vue";
 
-  export default {
-    name: "LoginView",
-    components: { UserLogin }
-}
+export default {
+  name: "LoginView",
+  components: { UserLogin },
+};
 </script>
