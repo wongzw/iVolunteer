@@ -1,9 +1,8 @@
 <template>
-  <img style="margin-top: 2vh" alt="Logo of IVolunteer" src="../assets/ivolunteer_logo.png" />
+  <img style="margin-top: 2vh" alt="Logo of IVolunteer" src="../assets/ivolunteer_logo.svg" />
   <div class="box">
-    <a-form id="formSignUp" class="user-layout-signup" ref="formSignup" :form="form" @submit.prevent="signUp">
+    <a-form id="formSignUp" class="user-layout-signup" ref="formSignup" @submit.prevent="signUp">
       <h1 id="signUpHeader" style="font-weight: 900">Sign Up</h1>
-
       <a-form-item class="form">
         <label class="formSignUp">Full Name</label><br />
         <a-input style="width: 60%; margin-bottom: 10px" class="input" type="text" v-model:value="fullName"
@@ -32,22 +31,20 @@
   
 <script>
 /* eslint-disable */
-import { Alert } from "ant-design-vue";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
-import firebaseApp from "../firebase.js";
-import { db } from "../firebase.js"
+import { doc, setDoc } from "firebase/firestore";
 import GoogleButton from "./GoogleButton.vue";
 const auth = getAuth();
-auth.languageCode = "it";
+auth.languageCode = "en";
 const provider = new GoogleAuthProvider();
-provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
+
 export default {
-  name: "UserSignUp",
+  name: "VolunteerSign",
   components: {
     GoogleButton
   },
@@ -57,12 +54,34 @@ export default {
       email: "",
       password: "",
       passwordConfirmation: "",
-      interests: []
+      interests: [],
+      skills: []
     };
   },
   methods: {
     reroute() {
-      this.$router.push({ path: '/volunteer/login', replace: true })
+      this.$router.push({ path: '/login', replace: true })
+    },
+    async createDb(oid) {
+      await setDoc(doc(db, "users", oid), {
+        fullName: this.fullName,
+        interests: this.interests,
+        skills: this.skills,
+        hoursVolunteered: 0,
+        userLevel: 0,
+        noShowNum: 0,
+        userAppliedEvents: [],
+        userAcceptedEvents: [],
+        userAttendedEvents: [],
+        userBadges: {},
+        userRewards: {}
+      });
+    },
+    finalise(user) {
+      this.createDb(user.uid);
+      this.$store.commit('updateVolunteer', user);
+      alert("Registration Success!")
+      this.$router.push('/volunteer');
     },
     signUp() {
       if (this.password == "") {
@@ -83,12 +102,8 @@ export default {
             } else {
               alert("Unable to create account, please try again!")
             }
-
           })
       }
-
-
-
     },
     googleSignIn() {
       signInWithPopup(auth, provider)
@@ -96,7 +111,6 @@ export default {
           const credential = GoogleAuthProvider.credentialFromResult(result);
           const token = credential.accessToken;
           const user = result.user;
-          this.$emit(user.id)
         })
         .catch((error) => {
           const errorCode = error.code;

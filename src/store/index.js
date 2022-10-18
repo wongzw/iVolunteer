@@ -20,15 +20,18 @@ export default createStore({
     }),
   ],
   mutations: {
-    updateUser(state, payload) {
-      state.userType = "User";
+    updateVolunteer(state, payload) {
+      state.userType = "Volunteer";
       state.id = payload.id;
       state.email = payload.email;
       state.auth = true;
     },
 
     updateOrganisation(state, payload) {
+      state.userType = "Organisation";
       state.id = payload;
+      state.email = payload.email;
+      state.auth = true;
     },
   },
   getters: {
