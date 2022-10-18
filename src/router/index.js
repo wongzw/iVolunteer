@@ -7,6 +7,8 @@ import OrgRegister from "@/views/OrgRegister.vue";
 import TheSupport from "@/views/TheSupport.vue";
 import NoPageFound from "@/views/NoPageFound.vue";
 import UserDashboard from "@/views/UserDashboard.vue";
+import VolunteerBoard from "@/views/VolunteerBoard.vue";
+import OrgBoard from "@/views/OrgBoard.vue";
 import store from "@/store";
 
 const routes = [
@@ -56,6 +58,16 @@ const routes = [
       requiresAuth: true,
     },
   },
+  {
+    path: "/volunteer/onboard",
+    name: "VolunteerBoard",
+    component: VolunteerBoard
+  },
+  {
+    path: "/organisation/onboard",
+    name: "OrgBoard",
+    component: OrgBoard
+  }
 ];
 
 const router = createRouter({
@@ -68,9 +80,9 @@ router.beforeEach((to, from, next) => {
   const userType = (store.state.userType)
   if (auth & to.meta.redirect) {
     if (userType == 'Volunteer') {
-      next('volunteer')
+      next('/volunteer')
     } else {
-      next('organisation')
+      next('/volunteer')
     }
   }
   else if (to.meta.requiresAuth) {

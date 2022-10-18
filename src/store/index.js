@@ -8,6 +8,7 @@ export default createStore({
     id: "",
     email: "",
     auth: false,
+    details: ""
   },
   plugins: [
     createPersistedState({
@@ -29,7 +30,7 @@ export default createStore({
 
     updateOrganisation(state, payload) {
       state.userType = "Organisation";
-      state.id = payload;
+      state.id = payload.uid;
       state.email = payload.email;
       state.auth = true;
     },

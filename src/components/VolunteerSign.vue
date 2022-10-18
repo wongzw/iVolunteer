@@ -4,9 +4,6 @@
     <a-form id="formSignUp" class="user-layout-signup" ref="formSignup" @submit.prevent="signUp">
       <h1 id="signUpHeader" style="font-weight: 900">Sign Up</h1>
       <a-form-item class="form">
-        <label class="formSignUp">Full Name</label><br />
-        <a-input style="width: 60%; margin-bottom: 10px" class="input" type="text" v-model:value="fullName"
-          placeholder="Enter your full name"></a-input>
         <label class="formSignUp">Email</label><br />
         <a-input style="width: 60%; margin-bottom: 10px" class="input" type="email" v-model:value="email"
           placeholder="Enter your email"></a-input>
@@ -14,17 +11,14 @@
         <a-input-password style="width: 60%; height: 35px; margin-bottom: 10px" v-model:value="password"
           placeholder="Enter your password" />
         <label class="formSignUp">Confirm Password</label><br />
-        <a-input-password style="width: 60%; height: 35px; margin-bottom: 10px" v-model:value="passwordConfirmation"
+        <a-input-password style="width: 60%; height: 35px; margin-bottom: 40px" v-model:value="passwordConfirmation"
           placeholder="Re-enter your password" />
-        <label class="formSignUp">Interests</label><br />
-        <a-select v-model:value="interests" mode="tags" style="width: 60%; height: 35px; margin-bottom: 40px"
-          :token-separators="[',']" placeholder="Press tab to add another interest"></a-select>
         <div id="ant-button">
           <a-button htmlType="submit" class="signUp" size="large" type="primary" danger>Sign Up</a-button>
         </div>
       </a-form-item>
     </a-form>
-    <GoogleButton style="width:60%" @click="googleSignIn" />
+    <GoogleButton style="width:60%" @click="googleSignUp" />
   </div>
   <div id="box2" class="box"> Already have an account? <a style="color: #5A4FF3" @click="reroute()">Log in.</a></div>
 </template>
@@ -51,12 +45,9 @@ export default {
   },
   data() {
     return {
-      fullName: "",
       email: "",
       password: "",
       passwordConfirmation: "",
-      interests: [],
-      skills: []
     };
   },
   methods: {
@@ -65,9 +56,9 @@ export default {
     },
     async createDb(oid) {
       await setDoc(doc(db, "users", oid), {
-        fullName: this.fullName,
-        interests: this.interests,
-        skills: this.skills,
+        fullName: "",
+        interests: "",
+        skills: "",
         hoursVolunteered: 0,
         userLevel: 0,
         userExp: 0,
@@ -83,7 +74,7 @@ export default {
       this.createDb(user.uid);
       this.$store.commit('updateVolunteer', user);
       alert("Registration Success!")
-      this.$router.push('/volunteer');
+      this.$router.push('/volunteer/onboard');
     },
     signUp() {
       if (this.password == "") {
@@ -108,12 +99,13 @@ export default {
           })
       }
     },
-    googleSignIn() {
+    googleSignUp() {
       signInWithPopup(auth, provider)
         .then((result) => {
           const credential = GoogleAuthProvider.credentialFromResult(result);
           const token = credential.accessToken;
           const user = result.user;
+          this.finalise(user);
         })
         .catch((error) => {
           const errorCode = error.code;
