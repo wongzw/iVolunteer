@@ -145,8 +145,5 @@ export default {
   margin-bottom: -5px;
 }
 
-div.box {
-  overflow: scroll;
-}
 </style>
   
