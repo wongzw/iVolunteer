@@ -17,7 +17,7 @@ export default {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css?family=Cabin");
+@import url('https://fonts.googleapis.com/css?family=Cabin');
 @import url("https://fonts.googleapis.com/css?family=Poppins");
 @import url("https://fonts.googleapis.com/css?family=Mulish");
 
@@ -27,8 +27,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #020957;
-  background-color: #fef8f3;
-  min-height: 100%;
+  background-color: #FEF8F3;
+  min-height: 100vh;
+  overflow: auto;
 }
 </style>
 
