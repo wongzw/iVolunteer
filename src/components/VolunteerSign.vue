@@ -69,6 +69,7 @@ export default {
         skills: this.skills,
         hoursVolunteered: 0,
         userLevel: 0,
+        userExp: 0,
         noShowNum: 0,
         userAppliedEvents: [],
         userAcceptedEvents: [],
