@@ -15,7 +15,6 @@ export default {
     }
   },
   async mounted() {
-    alert(this.$store.state.auth)
     var docRef = doc(db, "users", this.$store.state.id);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {

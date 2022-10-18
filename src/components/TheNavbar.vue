@@ -26,7 +26,7 @@
           <!-- DROPDOWN MENU -->
           <ul class="dropdown">
             <li><router-link to="/">Profile </router-link></li>
-            <li><router-link to="/">Sign out</router-link></li>
+            <li><router-link to="/"><button id="signOutButton" @click="signOut">Sign out</button></router-link></li>
           </ul>
         </li>
       </div>
@@ -35,6 +35,14 @@
 </template>
 
 <script>
+  export default {
+    name: "TheNavBar",
+    methods: {
+      signOut() {
+        this.$store.commit('resetState')
+      }
+    }
+  }
 </script>
 
 
@@ -145,4 +153,13 @@ li {
 .services:hover .dropdown {
   display: block;
 }
+
+#signOutButton {
+  border:none;
+  cursor: pointer;
+  background: none;
+  color: inherit;
+  font: inherit;
+}
+
 </style>
