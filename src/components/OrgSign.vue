@@ -1,6 +1,6 @@
 <template>
   <img
-    style="margin-top: 10vh"
+    style="margin-top: 2vh"
     alt="Logo of IVolunteer"
     src="../assets/ivolunteer_logo.svg"
   />
@@ -46,8 +46,8 @@
             size="large"
             type="primary"
             danger
-            >Get Started</a-button
-          >
+            >Get Started
+          </a-button>
         </div>
       </a-form-item>
     </a-form>
@@ -58,7 +58,7 @@
     <a @click="reroute" style="color: #5a4ff3">Login.</a>
   </div>
 </template>
-  
+
 <script>
 /* eslint-disable */
 import {
@@ -67,12 +67,12 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
-import firebaseApp from "../firebase.js";
+import { db } from "../firebase.js";
+import { doc, setDoc } from "firebase/firestore";
 import GoogleButton from "./GoogleButton.vue";
 const auth = getAuth();
-auth.languageCode = "it";
+auth.languageCode = "en";
 const provider = new GoogleAuthProvider();
-provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
 
 export default {
   name: "OrgSign",
@@ -88,16 +88,32 @@ export default {
   },
   methods: {
     reroute() {
-      this.$router.push({ path: "/organsation/login", replace: true });
+      this.$router.push({ path: "/login", replace: true });
+    },
+    finalise(user) {
+      this.createDb(user.uid);
+      this.$store.commit('updateOrganisation', user);
+      alert("Registration Success!")
+      this.$router.push('/organisation');
+    },
+    async createDb(oid) {
+      await setDoc(doc(db, "organisation", oid), {
+        orgName: this.orgName,
+        orgType: [],
+        events: [],
+        badges: [],
+      });
     },
     register() {
       createUserWithEmailAndPassword(auth, this.email, this.password)
         .then((userCredential) => {
           const user = userCredential.user;
+          this.finalise(user);
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
+          alert(errorMessage);
           if (errorMessage == "Firebase: Error (auth/email-already-in-use).") {
             alert("Account Exist, please login instead!");
           } else {
@@ -106,24 +122,29 @@ export default {
         });
     },
     googleSignIn() {
-      signInWithPopup(auth, provider)
-        .then((result) => {
-          const credential = GoogleAuthProvider.credentialFromResult(result);
-          const token = credential.accessToken;
-          const user = result.user;
-          this.$emit(user.id);
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          const email = error.customData.email;
-          const credential = GoogleAuthProvider.credentialFromError(error);
-        });
+      if (this.orgName == "") {
+        alert("Please fill in Organisation Name");
+      } else {
+        signInWithPopup(auth, provider)
+          .then((result) => {
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const token = credential.accessToken;
+            const user = result.user;
+            this.finalise(user);
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            const email = error.customData.email;
+            const credential = GoogleAuthProvider.credentialFromError(error);
+            alert("Unable to create account, please try again!");
+          });
+      }
     },
   },
 };
 </script>
-  
+
 <style scoped>
 .box {
   background-color: white;
@@ -142,6 +163,7 @@ export default {
   text-align: center;
   padding-top: -30px;
   height: 10px;
+  margin-bottom: 10%;
   vertical-align: middle;
   font-weight: bold;
   line-height: 5px;
@@ -174,4 +196,5 @@ input:required:focus {
   border: 1px solid red;
   outline: none;
 }
-</style>>
+</style>
+>

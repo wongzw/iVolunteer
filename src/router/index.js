@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import SignUpView from "@/views/SignUpView.vue";
+import LandingView from "@/views/LandingView.vue";
 import TheNotifications from "@/views/TheNotifications.vue";
 import LoginView from "@/views/LoginView.vue";
 import VolunteerRegister from "@/views/VolunteerRegister.vue";
@@ -12,15 +12,18 @@ import store from "@/store";
 
 const routes = [
   {
-    path: "/",
-    name: "SignUpView",
-    component: SignUpView,
+    path: '/',
+    name: "LandingView",
+    component: LandingView,
   },
   {
-    path: "/volunteer/login",
+    path: "/login",
     name: "LoginView",
     component: LoginView,
-  },
+    meta : {
+      redirect: true
+    }
+  }, 
   {
     path: "/volunteer/register",
     name: "VolunteerRegister",
@@ -67,17 +70,20 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const auth = store.getters.getAuth;
-  const userType = store.state.userType;
-  if (to.meta.requiresAuth) {
+  const auth = (store.getters.getAuth)
+  const userType = (store.state.userType)
+  if (auth & to.meta.redirect) {
+    if (userType == 'Volunteer') {
+      next()
+      //next('volunteer')
+    } else {
+      next()
+      //next('organisation')
+    }
+  }
+  else if (to.meta.requiresAuth) {
     if (!auth) {
-      if (userType == "User") {
-        next("volunteer/login");
-      } else if (userType == "Organisation") {
-        next("organisation/login");
-      } else {
-        next("/");
-      }
+      next('/login')
     } else {
       next();
     }
