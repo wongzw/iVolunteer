@@ -95,7 +95,7 @@ export default {
       if (!this.userType) {
         alert("Please select user type!")
       } else {
-        login();
+        this.login();
       }
     },
     finalise(user) {
