@@ -21,6 +21,13 @@ export default createStore({
     }),
   ],
   mutations: {
+    resetState (state) {
+      state.userType = "",
+      state.id = "",
+      state.email = "",
+      state.auth = false,
+      state.details = ""
+    },
     updateVolunteer(state, payload) {
       state.userType = "Volunteer";
       state.id = payload.uid;
