@@ -22,7 +22,7 @@ export default createStore({
   mutations: {
     updateVolunteer(state, payload) {
       state.userType = "Volunteer";
-      state.id = payload.id;
+      state.id = payload.uid;
       state.email = payload.email;
       state.auth = true;
     },

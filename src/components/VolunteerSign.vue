@@ -37,6 +37,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
+import { db } from "../firebase.js";
 import { doc, setDoc } from "firebase/firestore";
 import GoogleButton from "./GoogleButton.vue";
 const auth = getAuth();
@@ -95,6 +96,7 @@ export default {
         createUserWithEmailAndPassword(auth, this.email, this.password)
           .then((userCredential) => {
             const user = userCredential.user
+            this.finalise(user)
           }).catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
@@ -170,10 +172,6 @@ export default {
 .signUp {
   width: 60%;
   margin-bottom: -5px;
-}
-
-div.box {
-  overflow: scroll;
 }
 </style>
 
