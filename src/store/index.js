@@ -8,6 +8,7 @@ export default createStore({
     id: "",
     email: "",
     auth: false,
+    details: ""
   },
   plugins: [
     createPersistedState({
@@ -22,14 +23,14 @@ export default createStore({
   mutations: {
     updateVolunteer(state, payload) {
       state.userType = "Volunteer";
-      state.id = payload.id;
+      state.id = payload.uid;
       state.email = payload.email;
       state.auth = true;
     },
 
     updateOrganisation(state, payload) {
       state.userType = "Organisation";
-      state.id = payload;
+      state.id = payload.uid;
       state.email = payload.email;
       state.auth = true;
     },
