@@ -31,7 +31,7 @@
         /><br />
         <label class="fontLogin">Login Type</label><br />
         <a-select
-        required="true"
+          required="true"
           v-model:value="userType"
           style="width: 60%; margin-bottom: 35px"
         >
@@ -67,7 +67,7 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import { db } from "../firebase.js";
-import { doc, setDoc } from "firebase/firestore";
+import { getDoc, doc } from "firebase/firestore";
 import firebaseApp from "../firebase.js";
 import GoogleButton from "./GoogleButton.vue";
 import { ref } from "vue";
@@ -93,32 +93,35 @@ export default {
     },
     checkLogin() {
       if (!this.userType) {
-        alert("Please select user type!")
+        alert("Please select user type!");
       } else {
         this.login();
       }
     },
-    finalise(user) {
-      if (this.userType == "organisation") {
-        db.collection('users')
+    async finalise(user) {
+      var docRef = doc(db, "organisation", user.uid);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        alert("Successful Organisation Login, welcome!");
+        this.$store.commit("updateOrganisation", user);
       } else {
-        this.$store.commit("updateVolunteer", user)
+        alert("Succesful Volunteer Login, welcome!");
+        this.$store.commit("updateVolunteer", user);
       }
+      location.reload();
     },
     login() {
       signInWithEmailAndPassword(auth, this.email, this.password)
         .then((userCredential) => {
           // Change this to check which user has login
           const user = userCredential.user;
-          this.finalise(user)
-          alert("Successful Login, welcome!");
-          location.reload();
+          this.finalise(user);
           // ...
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          alert("Account Not Found, Please sign up!");
+          alert(errorMessage);
         });
     },
     googleSignIn() {
@@ -127,15 +130,14 @@ export default {
           const credential = GoogleAuthProvider.credentialFromResult(result);
           const token = credential.accessToken;
           const user = result.user;
-          //this.$store.commit("updateVolunteer", user);
-          alert("Successful Login, welcome!");
-          location.reload();
+          this.finalise(user);
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           const email = error.customData.email;
           const credential = GoogleAuthProvider.credentialFromError(error);
+          alert("Error " + errorMessage);
         });
     },
   },

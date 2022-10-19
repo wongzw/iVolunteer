@@ -19,9 +19,11 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Cabin');
+@import url("https://fonts.googleapis.com/css?family=Poppins");
+@import url("https://fonts.googleapis.com/css?family=Mulish");
 
 #app {
-  font-family: Cabin;
+  font-family: 'Cabin', 'Mulish', 'Poppins';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

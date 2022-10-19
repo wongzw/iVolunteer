@@ -132,6 +132,14 @@
         margin-bottom: 28px;
     }
 
+    .nav__item {
+        margin-right: 16px;
+    }
+
+    .nav__item:last-child {
+        margin-right: 0px;
+    }
+
     .footer ul {
         list-style: none;
         padding-left: 0;

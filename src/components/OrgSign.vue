@@ -13,14 +13,6 @@
     >
       <a-form-item>
         <h1 id="loginHeader" style="font-weight: 900">Sign Up</h1>
-        <label class="fontLogin">Organisation Name</label><br />
-        <a-input
-          class="input"
-          required
-          style="width: 60%; margin-bottom: 10px"
-          v-model:value="orgName"
-          placeholder="Enter your Organisation Name"
-        ></a-input>
         <label class="fontLogin">Email</label><br />
         <a-input
           class="input"
@@ -34,11 +26,17 @@
         <a-input-password
           required
           class="input"
-          style="width: 60%; height: 35px; margin-bottom: 40px"
+          style="width: 60%; height: 35px; margin-bottom: 10px"
           v-model:value="password"
           minlength="8"
           placeholder="Enter your password"
         /><br />
+        <label class="fontLogin">Confirm Password</label><br />
+        <a-input-password
+          style="width: 60%; height: 35px; margin-bottom: 40px"
+          v-model:value="passwordConfirmation"
+          placeholder="Re-enter your password"
+        />
         <div id="ant-button">
           <a-button
             htmlType="submit"
@@ -51,7 +49,7 @@
         </div>
       </a-form-item>
     </a-form>
-    <GoogleButton style="width: 60%" @click="googleSignIn" />
+    <GoogleButton style="width: 60%" @click="googleSignUp" />
   </div>
   <div id="box2" class="box">
     Already have an account?
@@ -83,63 +81,70 @@ export default {
     return {
       email: "",
       password: "",
-      orgName: "",
+      passwordConfirmation: "",
     };
   },
   methods: {
     reroute() {
-      this.$router.push({ path: "/login", replace: true });
+      this.$router.push("/login");
     },
     finalise(user) {
       this.createDb(user.uid);
-      this.$store.commit('updateOrganisation', user);
-      alert("Registration Success!")
-      this.$router.push('/organisation');
+      this.$store.commit("updateOrganisation", user);
+      alert("Registration Success!");
+      this.$router.push("/organisation/onboard");
     },
     async createDb(oid) {
-      await setDoc(doc(db, "organisation", oid), {
-        orgName: this.orgName,
+      const val = {
+        orgName: "",
         orgType: [],
         events: [],
         badges: [],
-      });
+      }
+      this.$store.state.details = val;
+      await setDoc(doc(db, "organisation", oid), val);
     },
     register() {
-      createUserWithEmailAndPassword(auth, this.email, this.password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          this.finalise(user);
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          alert(errorMessage);
-          if (errorMessage == "Firebase: Error (auth/email-already-in-use).") {
-            alert("Account Exist, please login instead!");
-          } else {
-            alert("Unable to create account, please try again!");
-          }
-        });
-    },
-    googleSignIn() {
-      if (this.orgName == "") {
-        alert("Please fill in Organisation Name");
+      if (this.password == "") {
+        alert("Password not filled in");
+      } else if (this.passwordConfirmation == "") {
+        alert("Confirm Password not filled in");
+      } else if (this.password != this.passwordConfirmation) {
+        alert("Passwords do not match");
       } else {
-        signInWithPopup(auth, provider)
-          .then((result) => {
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
-            const user = result.user;
+        createUserWithEmailAndPassword(auth, this.email, this.password)
+          .then((userCredential) => {
+            const user = userCredential.user;
             this.finalise(user);
           })
           .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            const email = error.customData.email;
-            const credential = GoogleAuthProvider.credentialFromError(error);
-            alert("Unable to create account, please try again!");
+            if (
+              errorMessage == "Firebase: Error (auth/email-already-in-use)."
+            ) {
+              alert("Account Exist, please login instead!");
+            } else {
+              alert("Unable to create account, please try again!");
+            }
           });
       }
+    },
+    googleSignUp() {
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          const credential = GoogleAuthProvider.credentialFromResult(result);
+          const token = credential.accessToken;
+          const user = result.user;
+          this.finalise(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          const email = error.customData.email;
+          const credential = GoogleAuthProvider.credentialFromError(error);
+          alert("Unable to create account, please try again!");
+        });
     },
   },
 };
