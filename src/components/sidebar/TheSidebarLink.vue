@@ -22,8 +22,13 @@ export default {
   created(props) {
     const route = useRoute();
     const isActive = computed(() => route.path === props.to);
-    const SidebarStatus = this.$store.getters.getSidebarStatus;
-    return { isActive, SidebarStatus };
+    return isActive;
+  },
+
+  data() {
+    return {
+      SidebarStatus: this.$store.getters.getSidebarStatus,
+    };
   },
 };
 </script>

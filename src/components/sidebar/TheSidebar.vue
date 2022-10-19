@@ -31,8 +31,10 @@ import SidebarLink from "./TheSidebarLink";
 
 export default {
   components: { SidebarLink },
-  created() {
-    const SidebarStatus = this.$store.getters.getSidebarStatus;
+  data() {
+    return {
+      SidebarStatus: this.$store.getters.getSidebarStatus,
+    };
   },
 
   methods: {
