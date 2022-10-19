@@ -31,15 +31,15 @@
           </a-button>
         </a-upload>
         <label class="eventCreation">Event Description</label><br />
-        <a-textarea style="width: 60%; margin-bottom: 10px" v-model:value="value" placeholder="Enter the description of your event" :rows="6" />
+        <a-textarea style="width: 60%; margin-bottom: 10px" v-model:value="eventDescription" placeholder="Enter the description of your event" :rows="6" />
         <label class="eventCreation">Event Details</label><br />
         <label class="eventCreation">Date</label><br />
         <a-space style="width: 60%; margin-bottom: 10px" direction="vertical" :size="12">
-          <a-range-picker v-model:value="dateRange" />
+          <a-range-picker v-model:value="eventDate" />
         </a-space>
         <label class="eventCreation">Time</label><br />
         <a-space style="width: 60%; margin-bottom: 10px" direction="vertical">
-          <a-time-range-picker :v-model:value="timeRange" style="width: 100%; margin-bottom: 10px" />
+          <a-time-range-picker :v-model:value="eventTime" style="width: 100%; margin-bottom: 10px" />
         </a-space><br />
         <label class="eventCreationLeft">Location</label>
         <label class="eventCreationRight">Number of openings</label><br />
@@ -91,7 +91,7 @@
 </template>
 
 <script>
-import { addDoc, doc, setDoc } from "firebase/firestore";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { db } from "../firebase.js";
 
 export default {
@@ -101,47 +101,47 @@ export default {
       eventName: "",
       //eventPhoto:
       eventDescription: "",
-      eventDate: [],
-      eventTime: [],
+      eventStartDate: new Date(),
+      eventEndDate: new Date(),
+      eventTime: 0,
       eventLocation: "",
       noOfOpenings: 0,
       eventCauses: [],
-      eventBadges: []
+      preferredBadges: [],
     }
   },
   methods: {
-    async createDb(oid) {
-        await setDoc(doc(db, "events", oid), {
+    async createDb() {
+        console.log(this.eventDate[0])
+        console.log(this.eventDate[1])
+        console.log(this.eventTime[0])
+        console.log(this.eventTime[1])
+        const colRef = collection(db, 'events')
+        const docRef = await addDoc(colRef, {
         eventName: this.eventName,
-        //eventPhoto: ,
+        // eventPhoto: ,
         eventDescription: this.eventDescription,
-        eventDate: this.eventDate,
-        eventTime: this.eventTime,
-        eventLocation: this.eventLocation,
-        interests: this.interests,
-        noOfOpenings: this.noOfOpenings,
+        // eventDate: this.eventDate,
+        // eventEndDate: this.eventDate
+        // eventTime: this.eventTime,
+        // eventLocation: this.eventLocation,
+        noOfOpenings: Number(this.noOfOpenings),
         eventCauses: this.eventCauses,
-        eventBadges: this.eventBadges,
-        usersApplied: [],
-        usersConfirmed: [],
-        usersAttended: []
-      });
-    },
-    finalise(event) {
-      this.createDb(event.uid);
-      this.$store.commit('updateEvent', event);
-      alert("Event created!");
-      //this.$router.push('/');
+        preferredBadges: this.preferredBadges,
+        participants: {}
+      }).then(() => {
+            alert("Event successfully created!")
+            console.log("Document successfully written!");
+          }).catch((error) => {
+            console.error("Error writing document: ", error);
+          });
     },
     createEvent() {
-      const docRef = addDoc(collection(db, "events"), {
-        eventName: "Placeholder"
-      }).then((docRef) => {
-        this.finalise(docRef)
-      })
+      this.createDb();
     }
   }
-};
+}
+
 </script>
 
 <style scoped>
