@@ -35,7 +35,7 @@
         <label class="eventCreation">Event Details</label><br />
         <label class="eventCreation">Date</label><br />
         <a-space style="width: 60%; margin-bottom: 10px" direction="vertical" :size="12">
-          <a-range-picker v-model:value="eventDate" />
+          <a-range-picker v-model:value="eventDate" style="width: 100%; margin-bottom: 10px" />
         </a-space>
         <label class="eventCreation">Time</label><br />
         <a-space style="width: 60%; margin-bottom: 10px" direction="vertical">
@@ -103,7 +103,6 @@ export default {
       eventDescription: "",
       eventStartDate: new Date(),
       eventEndDate: new Date(),
-      eventTime: 0,
       eventLocation: "",
       noOfOpenings: 0,
       eventCauses: [],
@@ -112,18 +111,18 @@ export default {
   },
   methods: {
     async createDb() {
-        console.log(this.eventDate[0])
-        console.log(this.eventDate[1])
-        console.log(this.eventTime[0])
-        console.log(this.eventTime[1])
+        // console.log(this.eventDate[0])
+        // console.log(this.eventDate[1])
+        // console.log(this.eventTime[0])
+        // console.log(this.eventTime[1])
         const colRef = collection(db, 'events')
         const docRef = await addDoc(colRef, {
         eventName: this.eventName,
         // eventPhoto: ,
         eventDescription: this.eventDescription,
-        // eventDate: this.eventDate,
-        // eventEndDate: this.eventDate
-        // eventTime: this.eventTime,
+        eventStartDate: Timestamp.now(),
+        eventEndDate: Timestamp.now(),
+        eventDurationInMins: 100,
         // eventLocation: this.eventLocation,
         noOfOpenings: Number(this.noOfOpenings),
         eventCauses: this.eventCauses,

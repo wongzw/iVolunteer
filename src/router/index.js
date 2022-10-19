@@ -6,7 +6,7 @@ import VolunteerRegister from "@/views/VolunteerRegister.vue";
 import OrgRegister from "@/views/OrgRegister.vue";
 import TheSupport from "@/views/TheSupport.vue";
 import NoPageFound from "@/views/NoPageFound.vue";
-import UserDashboard from "@/views/UserDashboard.vue";
+import UserDashboard from "@/views/UserDashboardView.vue";
 import EventCreation from "@/views/EventCreationView.vue";
 import UserDashboardView from "@/views/UserDashboardView.vue";
 import VolunteerBoard from "@/views/VolunteerBoard.vue";
@@ -65,9 +65,10 @@ const routes = [
     name: "EventCreationView",
     component: EventCreation,
   },
+  {
     path: "/volunteer/onboard",
     name: "VolunteerBoard",
-    component: VolunteerBoard
+    component: VolunteerBoard,
   },
   {
     path: "/organisation/onboard",
