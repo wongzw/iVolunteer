@@ -111,10 +111,8 @@ export default {
   },
   methods: {
     async createDb() {
-        // console.log(this.eventDate[0])
-        // console.log(this.eventDate[1])
-        // console.log(this.eventTime[0])
-        // console.log(this.eventTime[1])
+        // console.log(this.eventDate)
+        // console.log(this.eventDate)
         const colRef = collection(db, 'events')
         const docRef = await addDoc(colRef, {
         eventName: this.eventName,
@@ -122,7 +120,7 @@ export default {
         eventDescription: this.eventDescription,
         eventStartDate: Timestamp.now(),
         eventEndDate: Timestamp.now(),
-        eventDurationInMins: 100,
+        eventDurationInMins: 10,
         // eventLocation: this.eventLocation,
         noOfOpenings: Number(this.noOfOpenings),
         eventCauses: this.eventCauses,
