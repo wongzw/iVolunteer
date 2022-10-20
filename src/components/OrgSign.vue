@@ -66,7 +66,7 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import { db } from "../firebase.js";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import GoogleButton from "./GoogleButton.vue";
 const auth = getAuth();
 auth.languageCode = "en";
@@ -93,6 +93,15 @@ export default {
       this.$store.commit("updateOrganisation", user);
       alert("Registration Success!");
       this.$router.push("/organisation/onboard");
+    },
+    async finaliseGoogle(user) {
+      var docRef = doc(db, "organisation", user.uid);
+      const docSnap = await getDoc(docRef);
+      if (!docSnap.exists()) {
+        this.finalise(user)
+      } else {
+        alert("Account Exist, please login instead!")
+      }
     },
     async createDb(oid) {
       const val = {
@@ -136,7 +145,7 @@ export default {
           const credential = GoogleAuthProvider.credentialFromResult(result);
           const token = credential.accessToken;
           const user = result.user;
-          this.finalise(user);
+          this.finaliseGoogle(user);
         })
         .catch((error) => {
           const errorCode = error.code;
