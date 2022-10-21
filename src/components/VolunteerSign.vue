@@ -32,7 +32,7 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import { db } from "../firebase.js";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import GoogleButton from "./GoogleButton.vue";
 const auth = getAuth();
 auth.languageCode = "en";
@@ -79,6 +79,15 @@ export default {
       alert("Registration Success!")
       this.$router.push('/volunteer/onboard');
     },
+    async finaliseGoogle(user) {
+      var docRef = doc(db, "users", user.uid);
+      const docSnap = await getDoc(docRef);
+      if (!docSnap.exists()) {
+        this.finalise(user)
+      } else {
+        alert("Account Exist, please login instead!")
+      }
+    },
     signUp() {
       if (this.password == "") {
         alert("Password not filled in")
@@ -108,7 +117,7 @@ export default {
           const credential = GoogleAuthProvider.credentialFromResult(result);
           const token = credential.accessToken;
           const user = result.user;
-          this.finalise(user);
+          this.finaliseGoogle(user);
         })
         .catch((error) => {
           const errorCode = error.code;

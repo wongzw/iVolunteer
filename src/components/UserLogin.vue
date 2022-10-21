@@ -99,14 +99,24 @@ export default {
       }
     },
     async finalise(user) {
-      var docRef = doc(db, "organisation", user.uid);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        alert("Successful Organisation Login, welcome!");
-        this.$store.commit("updateOrganisation", user);
+      if (this.userType == "organisation") {
+        var docRef = doc(db, "organisation", user.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          alert("Successful Organisation Login, welcome!");
+          this.$store.commit("updateOrganisation", user);
+        } else {
+          alert("Error, please try again!");
+        }
       } else {
-        alert("Succesful Volunteer Login, welcome!");
-        this.$store.commit("updateVolunteer", user);
+        var docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          alert("Succesful Volunteer Login, welcome!");
+          this.$store.commit("updateVolunteer", user);
+        } else {
+          alert("Error, please try again!");
+        }
       }
       location.reload();
     },
@@ -125,20 +135,24 @@ export default {
         });
     },
     googleSignIn() {
-      signInWithPopup(auth, provider)
-        .then((result) => {
-          const credential = GoogleAuthProvider.credentialFromResult(result);
-          const token = credential.accessToken;
-          const user = result.user;
-          this.finalise(user);
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          const email = error.customData.email;
-          const credential = GoogleAuthProvider.credentialFromError(error);
-          alert("Error " + errorMessage);
-        });
+      if (!this.userType) {
+        alert("Please fill in user type!");
+      } else {
+        signInWithPopup(auth, provider)
+          .then((result) => {
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const token = credential.accessToken;
+            const user = result.user;
+            this.finalise(user);
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            const email = error.customData.email;
+            const credential = GoogleAuthProvider.credentialFromError(error);
+            alert("Error " + errorMessage);
+          });
+      }
     },
   },
 };
