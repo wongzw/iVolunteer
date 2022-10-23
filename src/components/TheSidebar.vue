@@ -9,45 +9,6 @@
             <h1 id="sidebarName">{{ name }}</h1>           
         </div>
         
-        <expBar :name="name" :userExp="userExp" :userLevel="userLevel"/>
-        
-
-        <div id="sidebarMenu">
-            <div class="sidebarContainer">
-                <div class = "linkContainer">
-                    <a class="sidebarLink" @click="reroute_profile">
-                        <img style="margin-right: 6px" src="@/assets/faceIcon.svg" alt="faceIcon">
-                        My Progress
-                    </a>
-                </div>
-                <div class = "linkContainer">
-                    <a class="sidebarLink" @click="reroute_announcements">
-                        <img style="margin-right: 8px" src="@/assets/announcementsIcon.svg" alt="announcementsIcon">
-                        Announcements
-                    </a>
-                </div> 
-                <div class = "linkContainer">
-                    <a class="sidebarLink" @click="reroute_bookmarks">
-                        <img style="margin-right: 8px" src="@/assets/bookmarkIcon.svg" alt="bookmarkIcon">
-                        My Bookmarks
-                    </a>
-                </div> 
-                <div class = "linkContainer">
-                    <a class="sidebarLink" @click="reroute_leaderboard">
-                        <img style="margin-right: 8px" src="@/assets/leaderboardIcon.svg" alt="leaderboardIcon">
-                        Leaderboard
-                    </a>
-                </div> 
-            </div>
-        </div>
-        <div class="box button">
-                    <div class="ant-button">
-                    <a-button type="primary" size="large" class="orange" @click="updatePhoto">
-                        Update Photo </a-button>
-                    </div>
-        </div>
-    </div>
-
     <expBar :userExp="computeExp" />
 
     <div id="sidebarMenu">
@@ -107,12 +68,6 @@
         methods: {
             reroute_profile() {
                 this.$router.push({ path: "/volunteer/dashboard" });
-            },
-            reroute_announcements() {
-                this.$router.push({ path: "/volunteer" });
-            },
-            reroute_bookmarks() {
-                this.$router.push({ path: "/volunteer" });
             },
             reroute_leaderboard() {
                 this.$router.push({ path: "/volunteer/dashboard" });
