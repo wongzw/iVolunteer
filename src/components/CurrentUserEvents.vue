@@ -28,7 +28,7 @@
         margin-left: 40px;
         margin-right: 36px;
         background-color: #FFEFE2;
-        width: 400px;
+        width: 876px;
         height: 217px;
         border-radius: 5px;
         padding: 24px;
