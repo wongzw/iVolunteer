@@ -40,12 +40,13 @@
 </template>
 
 <script>
-import { UserOutlined } from "@ant-design/icons-vue";
-import { defineComponent } from "vue";
-import expBar from "@/components/expBar.vue";
-import { collection, query, where, getDocs } from "firebase/firestore";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "../firebase.js";
+    import { UserOutlined } from '@ant-design/icons-vue';
+    import { defineComponent } from 'vue';
+    import expBar from '@/components/expBar.vue'
+    import { collection, query, where, getDocs } from "firebase/firestore";
+    import { doc, getDoc } from "firebase/firestore";
+    import { db } from "../firebase.js";
+    import { getAuth, updateProfile } from 'firebase/auth';
 
     export default ({
         name: 'TheSidebar',
