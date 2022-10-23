@@ -1,9 +1,7 @@
 <template>
     <div id="userEvents">
         <div class="box">
-            <div id="box title">
-                <h3> <strong> Current Events </strong></h3>
-            </div>
+            <div id="box-title"> Current Events </div>
     
             <div id="box details">
                 <h4> Some Content </h4>
@@ -27,16 +25,23 @@
         margin-top: 36px;
         margin-left: 40px;
         margin-right: 36px;
+        margin-bottom: 62px;
         background-color: #FFEFE2;
         width: 876px;
         height: 217px;
         border-radius: 5px;
         padding: 24px;
     }
-    
-    .box title{
+    .box {
         text-align: left;
-        color: #ff734c;
-    
+        margin-left: 15px;
+    }
+
+    #box-title{
+        margin-top:4px;
+        margin-bottom:15px;
+        font-size: x-large;
+        font-weight: bold;
+        color: #ff734c; 
     }
 </style>

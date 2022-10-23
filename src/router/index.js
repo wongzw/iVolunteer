@@ -31,6 +31,11 @@ const routes = [
       redirect: true,
     },
   },
+  {
+    path: "/volunteer/register",
+    name: "VolunteerRegister",
+    component: VolunteerRegister,
+  },
   // Register Views
   {
     path: "/register",
@@ -107,6 +112,16 @@ const routes = [
     name: "EventCreationView",
     component: EventCreation,
   },
+  {
+    path: "/volunteer/onboard",
+    name: "VolunteerBoard",
+    component: VolunteerBoard,
+  },
+  {
+    path: "/organisation/onboard",
+    name: "OrgBoard",
+    component: OrgBoard,
+  },
 ];
 
 const router = createRouter({
@@ -119,7 +134,7 @@ router.beforeEach((to, from, next) => {
   const userType = store.state.userType;
   if (auth & to.meta.redirect) {
     if (userType == "Volunteer") {
-      next("/volunteer/dashboard");
+      next("/volunteer");
     } else {
       next("/organisation");
     }
