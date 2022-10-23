@@ -66,10 +66,10 @@ import { db } from "../firebase.js";
         },
         methods: {
             reroute_profile() {
-                this.$router.push({ path: "/volunteer/profile" });
+                this.$router.push({ path: "/volunteer/dashboard" });
             },
             reroute_leaderboard() {
-                this.$router.push({ path: "/volunteer" });
+                this.$router.push({ path: "/volunteer/dashboard" });
             },
         }
     });   
@@ -83,7 +83,7 @@ import { db } from "../firebase.js";
 }
 
 #sidebarMenu {
-  height: 20vh;
+  height: 30vh;
   margin-top: 16px;
   background-color: #ffefe2;
   border-radius: 5px;
