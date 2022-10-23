@@ -69,6 +69,12 @@
             reroute_profile() {
                 this.$router.push({ path: "/volunteer/dashboard" });
             },
+            reroute_announcements() {
+                this.$router.push({ path: "/volunteer" });
+            },
+            reroute_bookmarks() {
+                this.$router.push({ path: "/volunteer" });
+            },
             reroute_leaderboard() {
                 this.$router.push({ path: "/volunteer/dashboard" });
             },
