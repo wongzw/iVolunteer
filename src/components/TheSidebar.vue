@@ -9,7 +9,7 @@
             <h1 id="sidebarName">{{ name }}</h1>           
         </div>
         
-        <expBar :name="name" :userExp="userExp" :userLevel="userLevel"/>
+        <expBar :name="name" :userExp="computeExp" :userLevel="userLevel"/>
         
 
         <div id="sidebarMenu">
@@ -45,8 +45,13 @@
         data() {
             return {
                 name: this.$store.state.details['fullName'],
-                userExp: this.$store.state.details['userExp'],
                 userLevel: this.$store.state.details['userLevel'],
+            }
+        },
+        computed: {
+            computeExp() {
+                let exp = this.$store.state.details['userExp'] % 1000;
+                return exp;
             }
         },
         components: {
