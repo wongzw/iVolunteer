@@ -24,12 +24,12 @@ export default {
     },
     computed: {
         totalPercent() {
-            let percent = (this.userExp) / 2000;
+            let percent = (this.userExp) / 1000;
             let percentRounded = Math.round(percent*100);
             return percentRounded;
         },
         expRemaining() {
-            return 2000 - this.userExp;
+            return 1000 - this.userExp;
         }
     },
 }
