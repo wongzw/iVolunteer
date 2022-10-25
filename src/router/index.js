@@ -15,7 +15,7 @@ import store from "@/store";
 
 const routes = [
   {
-    path: '/',
+    path: "/",
     name: "LandingView",
     component: LandingView,
   },
@@ -23,10 +23,10 @@ const routes = [
     path: "/login",
     name: "LoginView",
     component: LoginView,
-    meta : {
-      redirect: true
-    }
-  }, 
+    meta: {
+      redirect: true,
+    },
+  },
   {
     path: "/volunteer/register",
     name: "VolunteerRegister",
@@ -79,7 +79,7 @@ const routes = [
     path: "/event/:catchAll(.*)",
     name: "indvolEventView",
     component: indvolEventView
-  }
+  },
 ];
 
 const router = createRouter({
@@ -88,18 +88,17 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const auth = (store.getters.getAuth)
-  const userType = (store.state.userType)
+  const auth = store.getters.getAuth;
+  const userType = store.state.userType;
   if (auth & to.meta.redirect) {
-    if (userType == 'Volunteer') {
-      next('/volunteer')
+    if (userType == "Volunteer") {
+      next("/volunteer");
     } else {
-      next('/organisation')
+      next("/organisation");
     }
-  }
-  else if (to.meta.requiresAuth) {
+  } else if (to.meta.requiresAuth) {
     if (!auth) {
-      next('/login')
+      next("/login");
     } else {
       next();
     }
