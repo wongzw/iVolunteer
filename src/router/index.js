@@ -6,15 +6,15 @@ import VolunteerRegister from "@/views/register/VolunteerRegister.vue";
 import OrgRegister from "@/views/register/OrgRegister.vue";
 import TheSupport from "@/views/TheSupport.vue";
 import NoPageFound from "@/views/NoPageFound.vue";
-import UserDashboard from "@/views/UserDashboardView.vue";
+import UserDashboard from "@/views/volunteers/UserDashboardView.vue";
 import EventCreation from "@/views/EventCreationView.vue";
-import UserDashboardView from "@/views/UserDashboardView.vue";
+import UserDashboardView from "@/views/volunteers/UserDashboardView.vue";
 import VolunteerBoard from "@/views/onboarding/VolunteerBoard.vue";
 import OrgBoard from "@/views/onboarding/OrgBoard.vue";
 //Shell Views
 import RegisterShell from "@/views/register/RegisterShell.vue";
 import OnboardShell from "@/views/onboarding/OnboardShell.vue";
-import VolunteerShell from "@/views/VolunteerShell.vue";
+import VolunteerShell from "@/views/volunteers/VolunteerShell.vue";
 import store from "@/store";
 
 const routes = [
