@@ -79,7 +79,7 @@ export default {
 }
 
 #sidebarMenu {
-  height: 217px;
+  height: 20vh;
   margin-top: 16px;
   background-color: #ffefe2;
   border-radius: 5px;
@@ -91,6 +91,7 @@ export default {
   margin-right: 30px;
   color: #020957;
   width: 250px;
+  height: 80vh;
 }
 
 #sidebarName {
