@@ -13,6 +13,7 @@ import VolunteerBoard from "@/views/VolunteerBoard.vue";
 import OrgBoard from "@/views/OrgBoard.vue";
 import RewardsRedemption from "@/views/RewardsRedemption.vue";
 import RegisterShell from "@/views/RegisterShell.vue";
+import OnboardShell from "@/views/OnboardShell.vue";
 import store from "@/store";
 
 const routes = [
@@ -75,14 +76,21 @@ const routes = [
     component: EventCreation,
   },
   {
-    path: "/volunteer/onboard",
-    name: "VolunteerBoard",
-    component: VolunteerBoard,
-  },
-  {
-    path: "/organisation/onboard",
-    name: "OrgBoard",
-    component: OrgBoard,
+    path: "/onboard",
+    name: "onboardShell",
+    component: OnboardShell,
+    children: [
+      {
+        path: "volunteer",
+        name: "VolunteerBoard",
+        component: VolunteerBoard,
+      },
+      {
+        path: "organisation",
+        name: "OrgBoard",
+        component: OrgBoard,
+      },
+    ],
   },
   {
     path: "/volunteer/redemption",
