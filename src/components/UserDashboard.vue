@@ -16,7 +16,7 @@ export default {
 
 <style scoped>
 body {
-  /* min-height: 100vh; */
+  min-height: 100vh;
   background-color: #fef8f3;
 }
 
