@@ -78,6 +78,11 @@ const routes = [
         name: "UserDashboard",
         component: UserDashboard,
       },
+      {
+        path: "/event/:catchAll(.*)",
+        name: "indvolEventView",
+        component: indvolEventView,
+      },
     ],
   },
 
@@ -101,11 +106,6 @@ const routes = [
     path: "/event/creation",
     name: "EventCreationView",
     component: EventCreation,
-  },
-  {
-    path: "/event/:catchAll(.*)",
-    name: "indvolEventView",
-    component: indvolEventView,
   },
 ];
 
