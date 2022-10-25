@@ -92,15 +92,15 @@ export default {
       this.createDb(user.uid);
       this.$store.commit("updateOrganisation", user);
       alert("Registration Success!");
-      this.$router.push("/organisation/onboard");
+      this.$router.push("/onboard/organisation");
     },
     async finaliseGoogle(user) {
       var docRef = doc(db, "organisation", user.uid);
       const docSnap = await getDoc(docRef);
       if (!docSnap.exists()) {
-        this.finalise(user)
+        this.finalise(user);
       } else {
-        alert("Account Exist, please login instead!")
+        alert("Account Exist, please login instead!");
       }
     },
     async createDb(oid) {
@@ -109,7 +109,7 @@ export default {
         orgType: [],
         events: [],
         badges: [],
-      }
+      };
       this.$store.state.details = val;
       await setDoc(doc(db, "organisation", oid), val);
     },
@@ -169,7 +169,7 @@ export default {
   margin-right: 35%;
   padding-top: 30px;
   padding-bottom: 30px;
-  filter: drop-shadow(1px 1px 1px black);
+  box-shadow: 0px 4px 10px rgba(60, 78, 100, 0.1);
 }
 
 #box2 {
@@ -181,6 +181,7 @@ export default {
   vertical-align: middle;
   font-weight: bold;
   line-height: 5px;
+  box-shadow: 0px 4px 10px rgba(60, 78, 100, 0.1);
 }
 
 .fontLogin {

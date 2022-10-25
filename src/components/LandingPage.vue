@@ -47,10 +47,10 @@ export default {
       this.$router.push({ path: "/login" });
     },
     is_org() {
-      this.$router.push({ path: "/organisation/register" });
+      this.$router.push({ path: "/register/organisation" });
     },
     is_vol() {
-      this.$router.push({ path: "/volunteer/register" });
+      this.$router.push({ path: "/register/volunteer" });
     },
   },
 };
@@ -77,7 +77,7 @@ export default {
   margin-right: 25vw;
   padding-top: 30px;
   padding-bottom: 30px;
-  filter: drop-shadow(1px 1px 1px black);
+  box-shadow: 0px 4px 10px rgba(60, 78, 100, 0.1);
 }
 
 .box-inline {
@@ -95,7 +95,7 @@ export default {
   min-width: 40%;
   padding-top: 30px;
   padding-bottom: 30px;
-  filter: drop-shadow(1px 1px 1px black);
+  box-shadow: 0px 4px 10px rgba(60, 78, 100, 0.1);
 }
 
 #box2 {
