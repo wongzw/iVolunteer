@@ -46,7 +46,7 @@
             size="large"
             type="primary"
             danger
-            >Get Started</a-button
+            >Login</a-button
           >
         </div>
       </a-form-item>
