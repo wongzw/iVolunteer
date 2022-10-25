@@ -6,21 +6,16 @@ import VolunteerRegister from "@/views/VolunteerRegister.vue";
 import OrgRegister from "@/views/OrgRegister.vue";
 import TheSupport from "@/views/TheSupport.vue";
 import NoPageFound from "@/views/NoPageFound.vue";
-<<<<<<< HEAD
 import UserDashboard from "@/views/UserDashboardView.vue";
 import EventCreation from "@/views/EventCreationView.vue";
 import UserDashboardView from "@/views/UserDashboardView.vue";
 import VolunteerBoard from "@/views/VolunteerBoard.vue";
 import OrgBoard from "@/views/OrgBoard.vue";
-=======
-import UserDashboard from "@/views/UserDashboard.vue";
-import RewardsRedemption from "@/views/RewardsRedemption.vue";
->>>>>>> af93a55 (Update Sidebar to vuex)
 import store from "@/store";
 
 const routes = [
   {
-    path: '/',
+    path: "/",
     name: "LandingView",
     component: LandingView,
   },
@@ -28,10 +23,10 @@ const routes = [
     path: "/login",
     name: "LoginView",
     component: LoginView,
-    meta : {
-      redirect: true
-    }
-  }, 
+    meta: {
+      redirect: true,
+    },
+  },
   {
     path: "/volunteer/register",
     name: "VolunteerRegister",
@@ -66,7 +61,6 @@ const routes = [
     },
   },
   {
-<<<<<<< HEAD
     path: "/event/creation",
     name: "EventCreationView",
     component: EventCreation,
@@ -79,14 +73,8 @@ const routes = [
   {
     path: "/organisation/onboard",
     name: "OrgBoard",
-    component: OrgBoard
-  }
-=======
-    path: "/volunteer/rewards",
-    name: "RewardsRedemption",
-    component: RewardsRedemption,
+    component: OrgBoard,
   },
->>>>>>> af93a55 (Update Sidebar to vuex)
 ];
 
 const router = createRouter({
@@ -95,18 +83,17 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const auth = (store.getters.getAuth)
-  const userType = (store.state.userType)
+  const auth = store.getters.getAuth;
+  const userType = store.state.userType;
   if (auth & to.meta.redirect) {
-    if (userType == 'Volunteer') {
-      next('/volunteer')
+    if (userType == "Volunteer") {
+      next("/volunteer");
     } else {
-      next('/organisation')
+      next("/organisation");
     }
-  }
-  else if (to.meta.requiresAuth) {
+  } else if (to.meta.requiresAuth) {
     if (!auth) {
-      next('/login')
+      next("/login");
     } else {
       next();
     }
