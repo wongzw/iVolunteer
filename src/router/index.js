@@ -74,7 +74,7 @@ const routes = [
     component: VolunteerShell,
     children: [
       {
-        path: "profile",
+        path: "dashboard",
         name: "UserDashboard",
         component: UserDashboard,
         meta: {
