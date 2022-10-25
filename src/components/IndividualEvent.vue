@@ -70,7 +70,6 @@
                     <p style="color: orange">Terms & Conditions</p>
                   </span>
 
-<<<<<<< HEAD
                   <a-button
                     id="confirmButton"
                     htmlType="submit"
@@ -78,9 +77,6 @@
                     type="primary"
                     danger
                     @click="confirmVolunteer"
-=======
-                  <a-button id="confirmButton" htmlType="submit" size="large" type="primary" danger @click="confirmVolunteer"
->>>>>>> 619acf8219a7750d55d69ea39be80f7bc3ec841c
                     >Confirm
                   </a-button>
                 </div>
@@ -266,17 +262,11 @@ export default {
         this.updateEvent();
         this.visible = false;
         this.hasRegistered = true;
-<<<<<<< HEAD
         alert(
           "Succesfully applied for event! Organisation will get back soon!"
         );
       } catch {
         alert("Error registering, please try again!");
-=======
-        alert("Succesfully applied for event! Organisation will get back soon!")
-      } catch {
-        alert("Error registering, please try again!")
->>>>>>> 619acf8219a7750d55d69ea39be80f7bc3ec841c
       }
     },
     clickVolunteer() {
@@ -363,11 +353,7 @@ h1 {
 .submitButton {
   width: 50%;
   margin-top: 10%;
-<<<<<<< HEAD
   background-color: #ff5b2e;
-=======
-  background-color: #FF5B2E;
->>>>>>> 619acf8219a7750d55d69ea39be80f7bc3ec841c
 }
 #causeContainer {
   width: 100%;
@@ -414,10 +400,6 @@ h1 {
 #confirmButton {
   width: 50%;
   margin-top: 10%;
-<<<<<<< HEAD
   background-color: #ff5b2e;
-=======
-  background-color: #FF5B2E;
->>>>>>> 619acf8219a7750d55d69ea39be80f7bc3ec841c
 }
 </style>
