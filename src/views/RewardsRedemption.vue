@@ -1,8 +1,8 @@
 <template>
   <a-row type="flex">
-    <a-col flex="100px">
-      <TheSidebar />
-      <TheSidebarLink />
+    <a-col flex="300px">
+      <!-- <TheSidebar />
+      <TheSidebarLink /> -->
     </a-col>
     <a-col flex="auto">
       <RedemptionModule />
@@ -14,15 +14,15 @@
 
 <script>
 import RedemptionModule from "../components/RedemptionModule.vue";
-import TheSidebar from "../components/sidebar/TheSidebar.vue";
-import TheSidebarLink from "../components/sidebar/TheSidebarLink.vue";
+// import TheSidebar from "../components/sidebar/TheSidebar.vue";
+// import TheSidebarLink from "../components/sidebar/TheSidebarLink.vue";
 
 export default {
   name: "RewardsRedemption",
   components: {
     RedemptionModule,
-    TheSidebar,
-    TheSidebarLink,
+    // TheSidebar,
+    // TheSidebarLink,
   },
 };
 </script>
