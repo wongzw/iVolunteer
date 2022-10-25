@@ -92,15 +92,15 @@ export default {
       this.createDb(user.uid);
       this.$store.commit("updateOrganisation", user);
       alert("Registration Success!");
-      this.$router.push("/organisation/onboard");
+      this.$router.push("/onboard/organisation");
     },
     async finaliseGoogle(user) {
       var docRef = doc(db, "organisation", user.uid);
       const docSnap = await getDoc(docRef);
       if (!docSnap.exists()) {
-        this.finalise(user)
+        this.finalise(user);
       } else {
-        alert("Account Exist, please login instead!")
+        alert("Account Exist, please login instead!");
       }
     },
     async createDb(oid) {
@@ -109,7 +109,7 @@ export default {
         orgType: [],
         events: [],
         badges: [],
-      }
+      };
       this.$store.state.details = val;
       await setDoc(doc(db, "organisation", oid), val);
     },

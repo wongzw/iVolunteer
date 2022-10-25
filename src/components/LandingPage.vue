@@ -47,10 +47,10 @@ export default {
       this.$router.push({ path: "/login" });
     },
     is_org() {
-      this.$router.push({ path: "/organisation/register" });
+      this.$router.push({ path: "/register/organisation" });
     },
     is_vol() {
-      this.$router.push({ path: "/volunteer/register" });
+      this.$router.push({ path: "/register/volunteer" });
     },
   },
 };

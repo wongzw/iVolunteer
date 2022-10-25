@@ -1,5 +1,4 @@
 <template>
-  <div id="topPadding"></div>
   <nav class="navbar">
     <!-- LOGO -->
     <a class="logo" href="/">
@@ -26,7 +25,13 @@
           <!-- DROPDOWN MENU -->
           <ul class="dropdown">
             <li><router-link to="/">Profile </router-link></li>
-            <li><router-link to="/"><button id="signOutButton" @click="signOut">Sign out</button></router-link></li>
+            <li>
+              <router-link to="/"
+                ><button id="signOutButton" @click="signOut">
+                  Sign out
+                </button></router-link
+              >
+            </li>
           </ul>
         </li>
       </div>
@@ -35,23 +40,18 @@
 </template>
 
 <script>
-  export default {
-    name: "TheNavBar",
-    methods: {
-      signOut() {
-        this.$store.commit('resetState')
-      }
-    }
-  }
+export default {
+  name: "TheNavBar",
+  methods: {
+    signOut() {
+      this.$store.commit("resetState");
+    },
+  },
+};
 </script>
 
 
 <style>
-
-#topPadding {
-  height:72px;
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -74,14 +74,16 @@ li {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px;
+  padding: 0px;
   background-color: white;
   color: #020957;
   position: fixed;
   top: 0;
+  left: 0;
+  margin: 0px;
   width: 100%;
   z-index: 1;
-} 
+}
 
 .nav-links a {
   color: #020957;
@@ -155,11 +157,10 @@ li {
 }
 
 #signOutButton {
-  border:none;
+  border: none;
   cursor: pointer;
   background: none;
   color: inherit;
   font: inherit;
 }
-
 </style>
