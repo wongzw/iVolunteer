@@ -1,6 +1,6 @@
 <template>
   <img
-    style="margin-top: 10vh"
+    style="margin-top: 2vh"
     alt="Logo of IVolunteer"
     src="../assets/ivolunteer_logo.svg"
   />
@@ -9,7 +9,7 @@
       id="formLogin"
       class="user-layout-login"
       ref="formLogin"
-      @submit.prevent="login"
+      @submit.prevent="checkLogin"
     >
       <h1 id="loginHeader" style="font-weight: 900">Welcome Back!</h1>
       <a-form-item>
@@ -25,10 +25,20 @@
         <label class="fontLogin">Password</label><br />
         <a-input-password
           required
-          style="width: 60%; height: 35px; margin-bottom: 40px"
+          style="width: 60%; height: 35px; margin-bottom: 10px"
           v-model:value="password"
           placeholder="Enter your password"
         /><br />
+        <label class="fontLogin">Login Type</label><br />
+        <a-select
+          required="true"
+          v-model:value="userType"
+          style="width: 60%; margin-bottom: 35px"
+        >
+          <a-select-option disabled value="">-Select-</a-select-option>
+          <a-select-option value="organisation">Organisation</a-select-option>
+          <a-select-option value="volunteer">Volunteer</a-select-option>
+        </a-select>
         <div id="ant-button">
           <a-button
             htmlType="submit"
@@ -56,12 +66,14 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
+import { db } from "../firebase.js";
+import { getDoc, doc } from "firebase/firestore";
 import firebaseApp from "../firebase.js";
 import GoogleButton from "./GoogleButton.vue";
+import { ref } from "vue";
 const auth = getAuth();
-auth.languageCode = "it";
+auth.languageCode = "en";
 const provider = new GoogleAuthProvider();
-provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
 
 export default {
   name: "UserLogin",
@@ -72,44 +84,75 @@ export default {
     return {
       email: "",
       password: "",
+      userType: "",
     };
   },
   methods: {
     reroute() {
-      this.$router.push({ path: "/volunteer/register", replace: true });
+      this.$router.push({ path: "/", replace: true });
+    },
+    checkLogin() {
+      if (!this.userType) {
+        alert("Please select user type!");
+      } else {
+        this.login();
+      }
+    },
+    async finalise(user) {
+      if (this.userType == "organisation") {
+        var docRef = doc(db, "organisation", user.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          alert("Successful Organisation Login, welcome!");
+          this.$store.commit("updateOrganisation", user);
+        } else {
+          alert("Error, please try again!");
+        }
+      } else {
+        var docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          alert("Succesful Volunteer Login, welcome!");
+          this.$store.commit("updateVolunteer", user);
+        } else {
+          alert("Error, please try again!");
+        }
+      }
+      location.reload();
     },
     login() {
       signInWithEmailAndPassword(auth, this.email, this.password)
         .then((userCredential) => {
-          // Signed in
+          // Change this to check which user has login
           const user = userCredential.user;
-          this.$store.commit("updateUser", user);
-          alert("Successful Login, welcome!");
-          this.$router.push("/volunteer");
+          this.finalise(user);
           // ...
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          alert("Account Not Found, Please sign up!");
+          alert(errorMessage);
         });
     },
     googleSignIn() {
-      signInWithPopup(auth, provider)
-        .then((result) => {
-          const credential = GoogleAuthProvider.credentialFromResult(result);
-          const token = credential.accessToken;
-          const user = result.user;
-          this.$store.commit("updateUser", user);
-          alert("Successful Login, welcome!");
-          this.$router.push("/volunteer");
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          const email = error.customData.email;
-          const credential = GoogleAuthProvider.credentialFromError(error);
-        });
+      if (!this.userType) {
+        alert("Please fill in user type!");
+      } else {
+        signInWithPopup(auth, provider)
+          .then((result) => {
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const token = credential.accessToken;
+            const user = result.user;
+            this.finalise(user);
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            const email = error.customData.email;
+            const credential = GoogleAuthProvider.credentialFromError(error);
+            alert("Error " + errorMessage);
+          });
+      }
     },
   },
 };

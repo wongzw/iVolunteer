@@ -1,25 +1,31 @@
 import { createRouter, createWebHistory } from "vue-router";
-import SignUpView from "@/views/SignUpView.vue";
+import LandingView from "@/views/LandingView.vue";
 import TheNotifications from "@/views/TheNotifications.vue";
 import LoginView from "@/views/LoginView.vue";
 import VolunteerRegister from "@/views/VolunteerRegister.vue";
 import OrgRegister from "@/views/OrgRegister.vue";
 import TheSupport from "@/views/TheSupport.vue";
 import NoPageFound from "@/views/NoPageFound.vue";
-import UserDashboard from "@/views/UserDashboard.vue";
-import RewardsRedemption from "@/views/RewardsRedemption.vue";
+import UserDashboard from "@/views/UserDashboardView.vue";
+import EventCreation from "@/views/EventCreationView.vue";
+import UserDashboardView from "@/views/UserDashboardView.vue";
+import VolunteerBoard from "@/views/VolunteerBoard.vue";
+import OrgBoard from "@/views/OrgBoard.vue";
 import store from "@/store";
 
 const routes = [
   {
     path: "/",
-    name: "SignUpView",
-    component: SignUpView,
+    name: "LandingView",
+    component: LandingView,
   },
   {
-    path: "/volunteer/login",
+    path: "/login",
     name: "LoginView",
     component: LoginView,
+    meta: {
+      redirect: true,
+    },
   },
   {
     path: "/volunteer/register",
@@ -48,16 +54,26 @@ const routes = [
   },
   {
     path: "/volunteer",
-    name: "UserDashboard",
-    component: UserDashboard,
+    name: "UserDashboardView",
+    component: UserDashboardView,
     meta: {
       requiresAuth: true,
     },
   },
   {
-    path: "/volunteer/rewards",
-    name: "RewardsRedemption",
-    component: RewardsRedemption,
+    path: "/event/creation",
+    name: "EventCreationView",
+    component: EventCreation,
+  },
+  {
+    path: "/volunteer/onboard",
+    name: "VolunteerBoard",
+    component: VolunteerBoard,
+  },
+  {
+    path: "/organisation/onboard",
+    name: "OrgBoard",
+    component: OrgBoard,
   },
 ];
 
@@ -69,15 +85,15 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const auth = store.getters.getAuth;
   const userType = store.state.userType;
-  if (to.meta.requiresAuth) {
+  if (auth & to.meta.redirect) {
+    if (userType == "Volunteer") {
+      next("/volunteer");
+    } else {
+      next("/organisation");
+    }
+  } else if (to.meta.requiresAuth) {
     if (!auth) {
-      if (userType == "User") {
-        next("volunteer/login");
-      } else if (userType == "Organisation") {
-        next("organisation/login");
-      } else {
-        next("/");
-      }
+      next("/login");
     } else {
       next();
     }

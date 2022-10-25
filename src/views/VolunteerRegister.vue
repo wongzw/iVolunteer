@@ -1,10 +1,12 @@
 <template>
-    <h1>This is volunteer Register</h1>
+  <VolunteerSign/>
 </template>
   
-  <script>
-  
-    export default {
-      name: "VolunteerRegister"
-  }
-  </script>
+<script>
+import VolunteerSign from "../components/VolunteerSign.vue";
+
+export default {
+  name: "VolunteerRegister",
+  components: { VolunteerSign }
+}
+</script>

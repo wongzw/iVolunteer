@@ -8,7 +8,7 @@ export default createStore({
     id: "",
     email: "",
     auth: false,
-    sidebarCollapsed: false,
+    details: "",
   },
   plugins: [
     createPersistedState({
@@ -21,15 +21,25 @@ export default createStore({
     }),
   ],
   mutations: {
-    updateUser(state, payload) {
-      state.userType = "User";
-      state.id = payload.id;
+    resetState(state) {
+      (state.userType = ""),
+        (state.id = ""),
+        (state.email = ""),
+        (state.auth = false),
+        (state.details = "");
+    },
+    updateVolunteer(state, payload) {
+      state.userType = "Volunteer";
+      state.id = payload.uid;
       state.email = payload.email;
       state.auth = true;
     },
 
     updateOrganisation(state, payload) {
-      state.id = payload;
+      state.userType = "Organisation";
+      state.id = payload.uid;
+      state.email = payload.email;
+      state.auth = true;
     },
   },
   getters: {

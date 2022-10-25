@@ -1,6 +1,6 @@
 <template>
   <img
-    style="margin-top: 10vh"
+    style="margin-top: 2vh"
     alt="Logo of IVolunteer"
     src="../assets/ivolunteer_logo.svg"
   />
@@ -13,14 +13,6 @@
     >
       <a-form-item>
         <h1 id="loginHeader" style="font-weight: 900">Sign Up</h1>
-        <label class="fontLogin">Organisation Name</label><br />
-        <a-input
-          class="input"
-          required
-          style="width: 60%; margin-bottom: 10px"
-          v-model:value="orgName"
-          placeholder="Enter your Organisation Name"
-        ></a-input>
         <label class="fontLogin">Email</label><br />
         <a-input
           class="input"
@@ -34,11 +26,17 @@
         <a-input-password
           required
           class="input"
-          style="width: 60%; height: 35px; margin-bottom: 40px"
+          style="width: 60%; height: 35px; margin-bottom: 10px"
           v-model:value="password"
           minlength="8"
           placeholder="Enter your password"
         /><br />
+        <label class="fontLogin">Confirm Password</label><br />
+        <a-input-password
+          style="width: 60%; height: 35px; margin-bottom: 40px"
+          v-model:value="passwordConfirmation"
+          placeholder="Re-enter your password"
+        />
         <div id="ant-button">
           <a-button
             htmlType="submit"
@@ -46,19 +44,19 @@
             size="large"
             type="primary"
             danger
-            >Get Started</a-button
-          >
+            >Get Started
+          </a-button>
         </div>
       </a-form-item>
     </a-form>
-    <GoogleButton style="width: 60%" @click="googleSignIn" />
+    <GoogleButton style="width: 60%" @click="googleSignUp" />
   </div>
   <div id="box2" class="box">
     Already have an account?
     <a @click="reroute" style="color: #5a4ff3">Login.</a>
   </div>
 </template>
-  
+
 <script>
 /* eslint-disable */
 import {
@@ -67,12 +65,12 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
-import firebaseApp from "../firebase.js";
+import { db } from "../firebase.js";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import GoogleButton from "./GoogleButton.vue";
 const auth = getAuth();
-auth.languageCode = "it";
+auth.languageCode = "en";
 const provider = new GoogleAuthProvider();
-provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
 
 export default {
   name: "OrgSign",
@@ -83,47 +81,84 @@ export default {
     return {
       email: "",
       password: "",
-      orgName: "",
+      passwordConfirmation: "",
     };
   },
   methods: {
     reroute() {
-      this.$router.push({ path: "/organsation/login", replace: true });
+      this.$router.push("/login");
+    },
+    finalise(user) {
+      this.createDb(user.uid);
+      this.$store.commit("updateOrganisation", user);
+      alert("Registration Success!");
+      this.$router.push("/organisation/onboard");
+    },
+    async finaliseGoogle(user) {
+      var docRef = doc(db, "organisation", user.uid);
+      const docSnap = await getDoc(docRef);
+      if (!docSnap.exists()) {
+        this.finalise(user)
+      } else {
+        alert("Account Exist, please login instead!")
+      }
+    },
+    async createDb(oid) {
+      const val = {
+        orgName: "",
+        orgType: [],
+        events: [],
+        badges: [],
+      }
+      this.$store.state.details = val;
+      await setDoc(doc(db, "organisation", oid), val);
     },
     register() {
-      createUserWithEmailAndPassword(auth, this.email, this.password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          if (errorMessage == "Firebase: Error (auth/email-already-in-use).") {
-            alert("Account Exist, please login instead!");
-          } else {
-            alert("Unable to create account, please try again!");
-          }
-        });
+      if (this.password == "") {
+        alert("Password not filled in");
+      } else if (this.passwordConfirmation == "") {
+        alert("Confirm Password not filled in");
+      } else if (this.password != this.passwordConfirmation) {
+        alert("Passwords do not match");
+      } else {
+        createUserWithEmailAndPassword(auth, this.email, this.password)
+          .then((userCredential) => {
+            const user = userCredential.user;
+            this.finalise(user);
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            if (
+              errorMessage == "Firebase: Error (auth/email-already-in-use)."
+            ) {
+              alert("Account Exist, please login instead!");
+            } else {
+              alert("Unable to create account, please try again!");
+            }
+          });
+      }
     },
-    googleSignIn() {
+    googleSignUp() {
       signInWithPopup(auth, provider)
         .then((result) => {
           const credential = GoogleAuthProvider.credentialFromResult(result);
           const token = credential.accessToken;
           const user = result.user;
-          this.$emit(user.id);
+          this.finaliseGoogle(user);
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           const email = error.customData.email;
           const credential = GoogleAuthProvider.credentialFromError(error);
+          alert("Unable to create account, please try again!");
         });
     },
   },
 };
 </script>
-  
+
 <style scoped>
 .box {
   background-color: white;
@@ -142,6 +177,7 @@ export default {
   text-align: center;
   padding-top: -30px;
   height: 10px;
+  margin-bottom: 10%;
   vertical-align: middle;
   font-weight: bold;
   line-height: 5px;
@@ -174,4 +210,5 @@ input:required:focus {
   border: 1px solid red;
   outline: none;
 }
-</style>>
+</style>
+>

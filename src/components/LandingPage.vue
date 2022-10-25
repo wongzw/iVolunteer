@@ -42,10 +42,9 @@
 export default {
   name: "SignUpPage",
   components: {},
-  data() {},
   methods: {
     reroute() {
-      this.$router.push({ path: "/volunteer/login" });
+      this.$router.push({ path: "/login" });
     },
     is_org() {
       this.$router.push({ path: "/organisation/register" });

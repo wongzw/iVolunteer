@@ -1,3 +1,3 @@
 <template>
-    <h1>1 2 3</h1>
+    <h1>This is the Support Page</h1>
 </template>
