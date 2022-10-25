@@ -8,7 +8,7 @@ export default createStore({
     id: "",
     email: "",
     auth: false,
-    details: ""
+    details: "",
   },
   plugins: [
     createPersistedState({
@@ -21,12 +21,12 @@ export default createStore({
     }),
   ],
   mutations: {
-    resetState (state) {
-      state.userType = "",
-      state.id = "",
-      state.email = "",
-      state.auth = false,
-      state.details = ""
+    resetState(state) {
+      (state.userType = ""),
+        (state.id = ""),
+        (state.email = ""),
+        (state.auth = false),
+        (state.details = "");
     },
     updateVolunteer(state, payload) {
       state.userType = "Volunteer";
@@ -56,6 +56,10 @@ export default createStore({
 
     getEmail: function (state) {
       return state.email;
+    },
+
+    getSidebarStatus: function (state) {
+      return state.sidebarCollapsed;
     },
   },
 });
