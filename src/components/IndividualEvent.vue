@@ -70,7 +70,13 @@
                     <p style="color: orange">Terms & Conditions</p>
                   </span>
 
-                  <a-button id="confirmButton" htmlType="submit" size="large" type="primary" danger @click="confirmVolunteer"
+                  <a-button
+                    id="confirmButton"
+                    htmlType="submit"
+                    size="large"
+                    type="primary"
+                    danger
+                    @click="confirmVolunteer"
                     >Confirm
                   </a-button>
                 </div>
@@ -256,9 +262,11 @@ export default {
         this.updateEvent();
         this.visible = false;
         this.hasRegistered = true;
-        alert("Succesfully applied for event! Organisation will get back soon!")
+        alert(
+          "Succesfully applied for event! Organisation will get back soon!"
+        );
       } catch {
-        alert("Error registering, please try again!")
+        alert("Error registering, please try again!");
       }
     },
     clickVolunteer() {
@@ -345,7 +353,7 @@ h1 {
 .submitButton {
   width: 50%;
   margin-top: 10%;
-  background-color: #FF5B2E;
+  background-color: #ff5b2e;
 }
 #causeContainer {
   width: 100%;
@@ -392,6 +400,6 @@ h1 {
 #confirmButton {
   width: 50%;
   margin-top: 10%;
-  background-color: #FF5B2E;
+  background-color: #ff5b2e;
 }
 </style>
