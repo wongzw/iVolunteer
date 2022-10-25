@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import VolOnboard from "../components/onboarding/VolOnboard.vue";
+import VolOnboard from "../../components/onboarding/VolOnboard.vue";
 
 export default {
   name: "VolunteerBoard",

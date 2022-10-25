@@ -2,17 +2,19 @@ import { createRouter, createWebHistory } from "vue-router";
 import LandingView from "@/views/LandingView.vue";
 import TheNotifications from "@/views/TheNotifications.vue";
 import LoginView from "@/views/LoginView.vue";
-import VolunteerRegister from "@/views/VolunteerRegister.vue";
-import OrgRegister from "@/views/OrgRegister.vue";
+import VolunteerRegister from "@/views/register/VolunteerRegister.vue";
+import OrgRegister from "@/views/register/OrgRegister.vue";
 import TheSupport from "@/views/TheSupport.vue";
 import NoPageFound from "@/views/NoPageFound.vue";
 import UserDashboard from "@/views/UserDashboardView.vue";
 import EventCreation from "@/views/EventCreationView.vue";
 import UserDashboardView from "@/views/UserDashboardView.vue";
-import VolunteerBoard from "@/views/VolunteerBoard.vue";
-import OrgBoard from "@/views/OrgBoard.vue";
-import RegisterShell from "@/views/RegisterShell.vue";
-import OnboardShell from "@/views/OnboardShell.vue";
+import VolunteerBoard from "@/views/onboarding/VolunteerBoard.vue";
+import OrgBoard from "@/views/onboarding/OrgBoard.vue";
+//Shell Views
+import RegisterShell from "@/views/register/RegisterShell.vue";
+import OnboardShell from "@/views/onboarding/OnboardShell.vue";
+import VolunteerShell from "@/views/VolunteerShell.vue";
 import store from "@/store";
 
 const routes = [
@@ -29,6 +31,7 @@ const routes = [
       redirect: true,
     },
   },
+  // Register Views
   {
     path: "/register",
     name: "RegisterShell",
@@ -46,6 +49,41 @@ const routes = [
       },
     ],
   },
+  // Onboarding Views
+  {
+    path: "/onboard",
+    name: "OnboardShell",
+    component: OnboardShell,
+    children: [
+      {
+        path: "volunteer",
+        name: "VolunteerBoard",
+        component: VolunteerBoard,
+      },
+      {
+        path: "organisation",
+        name: "OrgBoard",
+        component: OrgBoard,
+      },
+    ],
+  },
+  // User Views
+  {
+    path: "/volunteer",
+    name: "VolunteerShell",
+    component: VolunteerShell,
+    children: [
+      {
+        path: "profile",
+        name: "UserDashboardView",
+        component: UserDashboardView,
+        meta: {
+          requiresAuth: true,
+        },
+      },
+    ],
+  },
+
   {
     path: "/notifications",
     name: "TheNotifications",
@@ -61,35 +99,11 @@ const routes = [
     name: "Not Found",
     component: NoPageFound,
   },
-  {
-    path: "/volunteer",
-    name: "UserDashboardView",
-    component: UserDashboardView,
-    meta: {
-      requiresAuth: true,
-    },
-  },
+
   {
     path: "/event/creation",
     name: "EventCreationView",
     component: EventCreation,
-  },
-  {
-    path: "/onboard",
-    name: "onboardShell",
-    component: OnboardShell,
-    children: [
-      {
-        path: "volunteer",
-        name: "VolunteerBoard",
-        component: VolunteerBoard,
-      },
-      {
-        path: "organisation",
-        name: "OrgBoard",
-        component: OrgBoard,
-      },
-    ],
   },
 ];
 
