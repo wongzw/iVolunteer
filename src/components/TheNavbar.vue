@@ -139,13 +139,14 @@ li {
 }
 
 .dropdown li + li {
-  margin-top: 10px;
+  /* margin-top: 5px; */
 }
 
 .dropdown li {
-  padding: 0.5em 1em;
+  /* padding: 0.5em 0.5em; */
   width: 8em;
   text-align: center;
+  padding: 0px 0px 0px 0px;
 }
 
 .dropdown li:hover {
