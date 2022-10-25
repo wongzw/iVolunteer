@@ -2,7 +2,7 @@
   <a-layout class="a-layout">
     <a-layout-header class="a-header"><TheNavbar /></a-layout-header>
     <a-layout class="a-content">
-      <a-layout-sider class="a-sidebar" width="250"
+      <a-layout-sider class="a-sidebar" width="300"
         ><TheSidebar
       /></a-layout-sider>
       <a-layout-content class="a-main-content"

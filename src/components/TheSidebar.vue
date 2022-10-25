@@ -83,15 +83,14 @@ export default {
   margin-top: 16px;
   background-color: #ffefe2;
   border-radius: 5px;
-  padding: 24px;
 }
 
 #sidebar {
   margin-top: 36px;
-  margin-left: 40px;
-  margin-right: 36px;
+  margin-left: 30px;
+  margin-right: 30px;
   color: #020957;
-  width: 313px;
+  width: 250px;
 }
 
 #sidebarName {
