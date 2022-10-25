@@ -83,16 +83,15 @@ export default {
   margin-top: 16px;
   background-color: #ffefe2;
   border-radius: 5px;
-  padding: 0px;
+  padding: 24px;
 }
 
 #sidebar {
-  padding-top: 36px;
-  padding-left: 20px;
-  padding-right: 20px;
-  color: #ffefe2;
-  width: 250px;
-  height: 100%;
+  margin-top: 36px;
+  margin-left: 40px;
+  margin-right: 36px;
+  color: #020957;
+  width: 313px;
 }
 
 #sidebarName {
