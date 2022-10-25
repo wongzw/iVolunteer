@@ -1,55 +1,61 @@
 <template>
-  <a-layout class="a-layout">
-    <a-layout-header class="a-header"><TheNavbar /></a-layout-header>
-    <a-layout class="a-content">
-      <a-layout-sider class="a-sidebar" width="300"
-        ><TheSidebar
-      /></a-layout-sider>
-      <a-layout-content class="a-main-content"
-        ><router-view></router-view
-      ></a-layout-content>
-    </a-layout>
-    <a-layout-footer class="a-footer"><TheFooter /></a-layout-footer>
-  </a-layout>
+  <TheNavbar/>
+  <div class="block">
+  </div>
+  <div class="flexbox">
+    <div class="side-bar">
+      <TheSidebar v-if="rendered"/>
+    </div>
+    <div class="router-view">
+      <router-view></router-view>
+    </div>
+  </div>
+  <div class="the-footer">
+      <TheFooter/>
+  </div>
+
 </template>
   
 <script>
 import TheFooter from "@/components/TheFooter.vue";
 import TheNavbar from "@/components/TheNavbar.vue";
 import TheSidebar from "@/components/TheSidebar.vue";
+import { db } from "../../firebase.js";
+import { getDoc, doc } from "firebase/firestore";
+
 export default {
   name: "OrgShell",
-  components: { TheFooter, TheNavbar, TheSidebar },
+  components: { TheFooter, TheNavbar, TheSidebar},
+  data() {
+    return {
+      rendered: false,
+    };
+  },
+  async mounted() {
+    var docRef = doc(db, "users", this.$store.state.id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      this.$store.state.details = docSnap.data();
+      console.log(docSnap.data())
+      this.rendered = true;
+    }
+  },
 };
 </script>
 
 
 <style scoped>
-.a-layout {
-  height: 100vh;
-}
+  .block {
+    height:68px;
+    width: 100%;
+  }
 
-.a-header {
-  height: 9%;
-}
+  .flexbox {
+    display: flex;
+  }
+  
+  .the-footer {
+    bottom: 0;
+  }
 
-.a-content {
-  margin-bottom: 0px;
-  min-height: 90vh;
-}
-
-.a-sidebar {
-  background-color: #ffefe2;
-}
-
-.a-main-content {
-  padding: 20px;
-  background-color: #fef8f3;
-}
-
-.a-footer {
-  padding: 0px 0px 0px 0px;
-  height: 30vh;
-  width: 100%;
-}
 </style>
