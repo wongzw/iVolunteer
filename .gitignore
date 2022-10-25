@@ -24,3 +24,4 @@ pnpm-debug.log*
 
 # Config Files
 firebaseConfig.json
+.firebase
