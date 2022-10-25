@@ -11,6 +11,7 @@ import EventCreation from "@/views/EventCreationView.vue";
 import UserDashboardView from "@/views/UserDashboardView.vue";
 import VolunteerBoard from "@/views/VolunteerBoard.vue";
 import OrgBoard from "@/views/OrgBoard.vue";
+import RewardsRedemption from "@/views/RewardsRedemption.vue";
 import store from "@/store";
 
 const routes = [
@@ -74,6 +75,11 @@ const routes = [
     path: "/organisation/onboard",
     name: "OrgBoard",
     component: OrgBoard,
+  },
+  {
+    path: "/volunteer/redemption",
+    name: "UserRedemption",
+    component: RewardsRedemption,
   },
 ];
 
