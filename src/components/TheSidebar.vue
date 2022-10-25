@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     reroute_profile() {
-      this.$router.push({ path: "/volunteer" });
+      this.$router.push({ path: "/volunteer/profile" });
     },
     reroute_leaderboard() {
       this.$router.push({ path: "/volunteer" });

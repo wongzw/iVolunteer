@@ -30,7 +30,7 @@ export default {
 }
 
 .a-header {
-  height: 8%;
+  height: 9%;
 }
 
 .a-content {
@@ -43,6 +43,8 @@ export default {
 }
 
 .a-main-content {
+  padding: 20px;
+  background-color: #fef8f3;
 }
 
 .a-footer {
