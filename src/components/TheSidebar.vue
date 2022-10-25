@@ -9,7 +9,7 @@
       <h1 id="sidebarName">{{ name }}</h1>
     </div>
 
-    <expBar :name="name" :userExp="userExp" :userLevel="userLevel" />
+    <expBar :name="name" :userExp="computeExp" :userLevel="userLevel" />
 
     <div id="sidebarMenu">
       <div class="sidebarContainer">
@@ -88,6 +88,7 @@ import { db } from "../firebase.js";
   margin-top: 16px;
   background-color: #ffefe2;
   border-radius: 5px;
+  padding: 20px
 }
 
 #sidebar {
@@ -95,7 +96,7 @@ import { db } from "../firebase.js";
   margin-left: 30px;
   margin-right: 30px;
   color: #020957;
-  width: 250px;
+  width: 300px;
 }
 
 #sidebarName {
