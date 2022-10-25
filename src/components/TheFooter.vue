@@ -83,7 +83,7 @@
 </template>
 
 <style scoped>
-body {
+/* body {
   margin: 0;
   margin-bottom: 0px;
   display: grid;
@@ -92,7 +92,7 @@ body {
   background-color: #fef8f3;
   align-items: start;
   min-height: 100vh;
-}
+} */
 
 .footer {
   display: flex;
@@ -103,6 +103,7 @@ body {
   height: 100%;
   width: 100%;
   text-align: left;
+  height: 30vh;
 }
 
 .footer > * {
