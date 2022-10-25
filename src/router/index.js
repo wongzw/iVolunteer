@@ -11,6 +11,7 @@ import EventCreation from "@/views/EventCreationView.vue";
 import UserDashboardView from "@/views/UserDashboardView.vue";
 import VolunteerBoard from "@/views/VolunteerBoard.vue";
 import OrgBoard from "@/views/OrgBoard.vue";
+import RegisterShell from "@/views/RegisterShell.vue";
 import store from "@/store";
 
 const routes = [
@@ -28,14 +29,21 @@ const routes = [
     },
   },
   {
-    path: "/volunteer/register",
-    name: "VolunteerRegister",
-    component: VolunteerRegister,
-  },
-  {
-    path: "/organisation/register",
-    name: "OrgRegister",
-    component: OrgRegister,
+    path: "/register",
+    name: "RegisterShell",
+    component: RegisterShell,
+    children: [
+      {
+        path: "volunteer",
+        name: "VolunteerRegister",
+        component: VolunteerRegister,
+      },
+      {
+        path: "organisation",
+        name: "OrgRegister",
+        component: OrgRegister,
+      },
+    ],
   },
   {
     path: "/notifications",
