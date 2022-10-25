@@ -77,9 +77,6 @@ const routes = [
         path: "dashboard",
         name: "UserDashboard",
         component: UserDashboard,
-        meta: {
-          requiresAuth: true,
-        },
       },
     ],
   },

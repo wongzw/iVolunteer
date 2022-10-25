@@ -49,7 +49,7 @@ export default {
 
 .a-footer {
   padding: 0px 0px 0px 0px;
-  height: 25%;
+  height: 30vh;
   width: 100%;
 }
 </style>
