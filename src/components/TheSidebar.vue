@@ -84,7 +84,7 @@ import { db } from "../firebase.js";
 }
 
 #sidebarMenu {
-  height: 217px;
+  height: 20vh;
   margin-top: 16px;
   background-color: #ffefe2;
   border-radius: 5px;
