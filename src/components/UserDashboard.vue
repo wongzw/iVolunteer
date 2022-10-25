@@ -1,32 +1,21 @@
 <template>
-    <div>
-        <TheNavbar/>
-        <body>
-            <TheSidebar/>
-        </body>
-        <TheFooter/>
-    </div>
+  <div>
+    <body>
+      <h1>This is the User Dashboard</h1>
+    </body>
+  </div>
 </template>
 
 <script>
-    import TheNavbar from '@/components/TheNavbar.vue'
-    import TheFooter from '@/components/TheFooter.vue'
-    import TheSidebar from '@/components/TheSidebar.vue'
-
-    export default {
-        name: "UserDashboard",
-        components: {
-            TheNavbar,
-            TheFooter,
-            TheSidebar,
-        },
-    }
+export default {
+  name: "UserDashboard",
+  components: {},
+};
 </script>
 
 <style scoped>
-    body {
-        min-height: 100vh;
-        background-color: #fef8f3;
-    }
-
+body {
+  min-height: 100vh;
+  background-color: #fef8f3;
+}
 </style>

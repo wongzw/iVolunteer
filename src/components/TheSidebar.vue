@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     reroute_profile() {
-      this.$router.push({ path: "/volunteer" });
+      this.$router.push({ path: "/volunteer/profile" });
     },
     reroute_leaderboard() {
       this.$router.push({ path: "/volunteer" });
@@ -83,16 +83,14 @@ export default {
   margin-top: 16px;
   background-color: #ffefe2;
   border-radius: 5px;
-  padding: 0px;
 }
 
 #sidebar {
-  padding-top: 36px;
-  padding-left: 20px;
-  padding-right: 20px;
-  color: #ffefe2;
+  margin-top: 36px;
+  margin-left: 30px;
+  margin-right: 30px;
+  color: #020957;
   width: 250px;
-  height: 100%;
 }
 
 #sidebarName {
