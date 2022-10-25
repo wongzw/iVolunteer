@@ -6,7 +6,7 @@ import VolunteerRegister from "@/views/register/VolunteerRegister.vue";
 import OrgRegister from "@/views/register/OrgRegister.vue";
 import TheSupport from "@/views/TheSupport.vue";
 import NoPageFound from "@/views/NoPageFound.vue";
-import UserDashboard from "@/views/UserDashboardView.vue";
+import indvolEventView from "@/views/indvolEventView.vue";
 import EventCreation from "@/views/EventCreationView.vue";
 import UserDashboardView from "@/views/UserDashboardView.vue";
 import VolunteerBoard from "@/views/onboarding/VolunteerBoard.vue";
