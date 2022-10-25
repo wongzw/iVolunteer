@@ -18,9 +18,11 @@
 <script>
 export default {
     name: 'expBar',
-    props: ['name', 'userExp', 'userLevel'],
+    props: ['userExp'],
     data() { 
-
+        return {
+            userLevel: this.$store.state.details['userLevel'],
+        }
     },
     computed: {
         totalPercent() {

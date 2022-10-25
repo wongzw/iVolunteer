@@ -9,7 +9,7 @@
       <h1 id="sidebarName">{{ name }}</h1>
     </div>
 
-    <expBar :name="name" :userExp="computeExp" :userLevel="userLevel" />
+    <expBar :userExp="computeExp" />
 
     <div id="sidebarMenu">
       <div class="sidebarContainer">
@@ -51,8 +51,7 @@ import { db } from "../firebase.js";
         name: 'TheSidebar',
         data() {
             return {
-                name: this.$store.state.details['fullName'],
-                userLevel: this.$store.state.details['userLevel'],
+              name: this.$store.state.details['fullName']
             }
         },
         computed: {
