@@ -2,7 +2,7 @@
   <a-layout class="a-layout">
     <a-layout-header class="a-header"><TheNavbar /></a-layout-header>
     <a-layout class="a-content">
-      <a-layout-sider class="a-sidebar" width="250"
+      <a-layout-sider class="a-sidebar" width="300"
         ><TheSidebar
       /></a-layout-sider>
       <a-layout-content class="a-main-content"
@@ -30,7 +30,7 @@ export default {
 }
 
 .a-header {
-  height: 8%;
+  height: 9%;
 }
 
 .a-content {
@@ -43,6 +43,8 @@ export default {
 }
 
 .a-main-content {
+  padding: 20px;
+  background-color: #fef8f3;
 }
 
 .a-footer {

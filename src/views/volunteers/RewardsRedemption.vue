@@ -13,7 +13,7 @@
 
 
 <script>
-import RedemptionModule from "../components/RedemptionModule.vue";
+import RedemptionModule from "../../components/RedemptionModule.vue";
 // import TheSidebar from "../components/sidebar/TheSidebar.vue";
 // import TheSidebarLink from "../components/sidebar/TheSidebarLink.vue";
 

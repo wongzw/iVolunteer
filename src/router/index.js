@@ -8,13 +8,13 @@ import TheSupport from "@/views/TheSupport.vue";
 import NoPageFound from "@/views/NoPageFound.vue";
 import indvolEventView from "@/views/indvolEventView.vue";
 import EventCreation from "@/views/EventCreationView.vue";
-import UserDashboardView from "@/views/UserDashboardView.vue";
+import UserDashboard from "@/views/volunteers/UserDashboardView.vue";
 import VolunteerBoard from "@/views/onboarding/VolunteerBoard.vue";
 import OrgBoard from "@/views/onboarding/OrgBoard.vue";
 //Shell Views
 import RegisterShell from "@/views/register/RegisterShell.vue";
 import OnboardShell from "@/views/onboarding/OnboardShell.vue";
-import VolunteerShell from "@/views/VolunteerShell.vue";
+import VolunteerShell from "@/views/volunteers/VolunteerShell.vue";
 import store from "@/store";
 
 const routes = [
@@ -75,8 +75,8 @@ const routes = [
     children: [
       {
         path: "profile",
-        name: "UserDashboardView",
-        component: UserDashboardView,
+        name: "UserDashboard",
+        component: UserDashboard,
         meta: {
           requiresAuth: true,
         },
@@ -113,12 +113,12 @@ const routes = [
   {
     path: "/organisation/onboard",
     name: "OrgBoard",
-    component: OrgBoard
+    component: OrgBoard,
   },
   {
     path: "/event/:catchAll(.*)",
     name: "indvolEventView",
-    component: indvolEventView
+    component: indvolEventView,
   },
 ];
 
