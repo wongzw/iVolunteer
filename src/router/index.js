@@ -106,16 +106,6 @@ const routes = [
     component: EventCreation,
   },
   {
-    path: "/volunteer/onboard",
-    name: "VolunteerBoard",
-    component: VolunteerBoard,
-  },
-  {
-    path: "/organisation/onboard",
-    name: "OrgBoard",
-    component: OrgBoard,
-  },
-  {
     path: "/event/:catchAll(.*)",
     name: "indvolEventView",
     component: indvolEventView,
