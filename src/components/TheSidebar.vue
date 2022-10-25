@@ -9,7 +9,7 @@
       <h1 id="sidebarName">{{ name }}</h1>
     </div>
 
-    <expBar :name="name" :userExp="userExp" :userLevel="userLevel" />
+    <expBar :name="name" :userExp="computeExp" :userLevel="userLevel" />
 
     <div id="sidebarMenu">
       <div class="sidebarContainer">
@@ -47,28 +47,33 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase.js";
 
-export default {
-  name: "TheSidebar",
-  data() {
-    return {
-      name: this.$store.state.details["fullName"],
-      userExp: this.$store.state.details["userExp"],
-      userLevel: this.$store.state.details["userLevel"],
-    };
-  },
-  components: {
-    UserOutlined,
-    expBar,
-  },
-  methods: {
-    reroute_profile() {
-      this.$router.push({ path: "/volunteer/profile" });
-    },
-    reroute_leaderboard() {
-      this.$router.push({ path: "/volunteer" });
-    },
-  },
-};
+    export default ({
+        name: 'TheSidebar',
+        data() {
+            return {
+                name: this.$store.state.details['fullName'],
+                userLevel: this.$store.state.details['userLevel'],
+            }
+        },
+        computed: {
+            computeExp() {
+                let exp = this.$store.state.details['userExp'] % 1000;
+                return exp;
+            }
+        },
+        components: {
+            UserOutlined,
+            expBar,
+        },
+        methods: {
+            reroute_profile() {
+                this.$router.push({ path: "/volunteer/profile" });
+            },
+            reroute_leaderboard() {
+                this.$router.push({ path: "/volunteer" });
+            },
+        }
+    });   
 </script>
 
 <style scoped>
@@ -83,6 +88,7 @@ export default {
   margin-top: 16px;
   background-color: #ffefe2;
   border-radius: 5px;
+  padding: 20px
 }
 
 #sidebar {
@@ -90,8 +96,7 @@ export default {
   margin-left: 30px;
   margin-right: 30px;
   color: #020957;
-  width: 250px;
-  height: 80vh;
+  width: 300px;
 }
 
 #sidebarName {

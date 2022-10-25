@@ -30,7 +30,7 @@ export default {
   color: #020957;
   background-color: #FEF8F3;
   min-height: 100vh;
-  overflow: auto;
+  overflow: hidden;
 }
 </style>
 

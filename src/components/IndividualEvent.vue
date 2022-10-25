@@ -1,7 +1,5 @@
 <template>
-  <TheNavbar />
   <div class="box">
-    <TheSidebar />
     <div id="content" v-if="this.eventLoaded">
       <div id="wrapper">
         <div class="box">
@@ -124,24 +122,17 @@
     </div>
     <NoPageFound v-if="eventNotExist" />
   </div>
-  <TheFooter style="margin-top: 5%" />
 </template>
 
 <script>
 import { db } from "../firebase.js";
 import NoPageFound from "@/views/NoPageFound.vue";
 import { doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
-import TheNavbar from "@/components/TheNavbar.vue";
-import TheFooter from "@/components/TheFooter.vue";
-import TheSidebar from "@/components/TheSidebar.vue";
 
 export default {
   name: "IndividualEvent",
   components: {
     NoPageFound,
-    TheNavbar,
-    TheSidebar,
-    TheFooter,
   },
   data() {
     return {

@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar">
     <!-- LOGO -->
-    <a class="logo" href="/">
+    <a class="logo" href="/Login">
       <span class="i">i</span>Volunteer
       <img class="handshake" src="@/assets/handshake.svg" />
     </a>
@@ -9,7 +9,7 @@
     <ul class="nav-links">
       <!-- NAVIGATION MENUS -->
       <div class="menu">
-        <li><router-link to="/">Home</router-link></li>
+        <li><router-link to="/Login">Home</router-link></li>
         <li><router-link to="/">Redemption</router-link></li>
         <li><router-link to="/">Support</router-link></li>
         <li><router-link to="/">Notifications</router-link></li>
@@ -74,7 +74,7 @@ li {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0px;
+  padding: 8px;
   background-color: white;
   color: #020957;
   position: fixed;
