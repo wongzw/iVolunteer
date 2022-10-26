@@ -12,10 +12,12 @@ import UserDashboard from "@/views/volunteers/UserDashboardView.vue";
 import VolunteerBoard from "@/views/onboarding/VolunteerBoard.vue";
 import OrgBoard from "@/views/onboarding/OrgBoard.vue";
 import VolunteerProfile from "@/views/volunteers/VolunteerProfileView.vue";
+import OrgProfileView from "@/views/organisations/OrgProfileView.vue";
 //Shell Views
 import RegisterShell from "@/views/register/RegisterShell.vue";
 import OnboardShell from "@/views/onboarding/OnboardShell.vue";
 import VolunteerShell from "@/views/volunteers/VolunteerShell.vue";
+import OrganisationShell from "@/views/organisations/OrganisationShell.vue";
 import store from "@/store";
 
 const routes = [
@@ -93,6 +95,19 @@ const routes = [
         path: "/event/:catchAll(.*)",
         name: "indvolEventView",
         component: indvolEventView,
+      },
+    ],
+  },
+  // Organisations
+  {
+    path: "/organisation",
+    name: "OrganisationShell",
+    component: OrganisationShell,
+    children: [
+      {
+        path: "profile",
+        name: "OrganisationProfile",
+        component: OrgProfileView,
       },
     ],
   },

@@ -13,7 +13,7 @@
         <div class="box button">
             <div class="ant-button">
             <a-button type="primary" size="large" class="orange" @click="showModal">
-                Edit Personal Details </a-button>
+                Change Password </a-button>
             <!-- <a-modal
                 v-model:visible="visible"
                 title="Event Confirmation"
@@ -63,7 +63,7 @@ import { updateEmail } from "firebase/auth";
         name: 'ContactDetails',
         data() {
             return {
-                name: this.$store.state.details['firstName'] + " " + this.$store.state.details['lastName'],
+                name: this.$store.state.details['orgName'],
                 email: this.$store.getters.getEmail,
             }
         },
