@@ -17,6 +17,7 @@
 
               <a-button
                 class="submitButton"
+                id="volunteerButton"
                 htmlType="submit"
                 size="large"
                 type="primary"
@@ -161,21 +162,7 @@ export default {
         "November",
         "December",
       ];
-      let start_day = this.eventStartDate.getDate();
-      let start_month = this.eventStartDate.getMonth();
-      let start_year = this.eventStartDate.getFullYear();
-      let eventStart = `${start_day} ${monthNames[start_month]} ${start_year}`;
-
-      let end_day = this.eventEndDate.getDate();
-      let end_month = this.eventEndDate.getMonth();
-      let end_year = this.eventEndDate.getFullYear();
-      let eventEnd = `${end_day} ${monthNames[end_month]} ${end_year}`;
-
-      if (eventStart == eventEnd) {
-        return eventStart;
-      } else {
-        return `${eventStart} to ${eventEnd}`;
-      }
+      return this.eventStartDate
     },
     displayExpGain() {
       let diff = this.eventEndDate - this.eventStartDate;
@@ -217,8 +204,8 @@ export default {
     if (docSnap.exists()) {
       this.eventLoaded = true;
       this.event = docSnap.data();
-      this.eventStartDate = this.event["timeStart"].toDate();
-      this.eventEndDate = this.event["timeEnd"].toDate();
+      this.eventStartDate = this.event["dateStart"];
+      this.eventEndDate = this.event["dateEnd"];
     } else {
       this.eventNotExist = true;
     }
@@ -272,11 +259,10 @@ h1 {
   margin-top: 50px;
 }
 #content {
-  width: 70%;
+  width: 75%;
 }
 #imgDiv {
-  display: block;
-  width: 70%;
+  width: 100%;
   margin-right: 10px;
 }
 #img {
@@ -285,7 +271,7 @@ h1 {
 }
 #bottomLeft {
   flex-direction: column;
-  align-items: center;
+  align-items: left;
   padding-top: 5%;
   justify-content: space-between;
 }
@@ -347,17 +333,17 @@ h1 {
   width: 100%;
   display: flex;
   gap: 5% 2%;
-  justify-content: center;
-  align-items: center;
+  justify-content: left;
+  align-items: left;
   flex-wrap: wrap;
 }
 
 .causeBox {
   background-color: #ffe3dc;
   color: orange;
-  width: 30%;
+  width: 32%;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 15px;
   padding-left: 20px;
   padding-right: 20px;
   margin-top: 5%;
@@ -389,5 +375,9 @@ h1 {
   width: 50%;
   margin-top: 10%;
   background-color: #FF5B2E;
+}
+
+#volunteerButton {
+  margin-left: 25%;
 }
 </style>
