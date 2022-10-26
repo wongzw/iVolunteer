@@ -1,14 +1,14 @@
 <template>
-    <div id="sidebar">
-        <div class = "container">
-            <div class="antDP">
-                <a-avatar :size="67">
-                    <template #icon><UserOutlined /></template>
-                </a-avatar>
-            </div>
-            <h1 id="sidebarName">{{ name }}</h1>           
-        </div>
-        
+  <div id="sidebar">
+    <div class="container">
+      <div class="antDP">
+        <a-avatar :size="67">
+          <template #icon><UserOutlined /></template>
+        </a-avatar>
+      </div>
+      <h1 id="sidebarName">{{ name }}</h1>
+    </div>
+
     <expBar :userExp="computeExp" />
 
     <div id="sidebarMenu">
@@ -40,14 +40,12 @@
 </template>
 
 <script>
-    import { UserOutlined } from '@ant-design/icons-vue';
-    import { defineComponent } from 'vue';
-    import expBar from '@/components/expBar.vue'
-    import { collection, query, where, getDocs } from "firebase/firestore";
-    import { doc, getDoc } from "firebase/firestore";
-    import { db } from "../firebase.js";
-    import { getAuth, updateProfile } from 'firebase/auth';
-
+import { UserOutlined } from "@ant-design/icons-vue";
+import { defineComponent } from "vue";
+import expBar from "@/components/expBar.vue";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../firebase.js";
     export default ({
         name: 'TheSidebar',
         data() {
@@ -67,20 +65,11 @@
         },
         methods: {
             reroute_profile() {
-                this.$router.push({ path: "/volunteer/dashboard" });
-            },
-            reroute_announcements() {
-                this.$router.push({ path: "/volunteer" });
-            },
-            reroute_bookmarks() {
-                this.$router.push({ path: "/volunteer" });
+                this.$router.push({ path: "/volunteer/profile" });
             },
             reroute_leaderboard() {
-                this.$router.push({ path: "/volunteer/dashboard" });
+                this.$router.push({ path: "/volunteer" });
             },
-            updatePhoto() {
-                
-            }
         }
     });   
 </script>
@@ -91,15 +80,13 @@
   font-size: 18px;
   color: #020957;
 }
-
 #sidebarMenu {
-  height: 30vh;
+  height: 20vh;
   margin-top: 16px;
   background-color: #ffefe2;
   border-radius: 5px;
   padding: 20px
 }
-
 #sidebar {
   margin-top: 36px;
   margin-left: 30px;
@@ -107,7 +94,6 @@
   color: #020957;
   width: 300px;
 }
-
 #sidebarName {
   font-family: "Mulish";
   font-weight: 700;
@@ -116,22 +102,17 @@
   padding: 14px 0;
   color: #020957;
 }
-
 .sidebarContainer {
   text-align: left;
 }
-
 .linkContainer {
   margin-bottom: 16px;
 }
-
 .container {
   display: flex;
   margin-bottom: 20px;
 }
-
 .antDP {
   margin-right: 18px;
 }
 </style>
-

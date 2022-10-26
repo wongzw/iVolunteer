@@ -4,7 +4,7 @@
             <div id="box-title"> Current Events </div>
     
             <div id="box details">
-                <!-- <VolCurrentEvents/> -->
+                Some Events
             </div>
     
         </div>
@@ -12,12 +12,9 @@
 </template>
     
 <script>
-
-// import VolCurrentEvents from '@/components/VolCurrentEvents.vue'
 export default ({
     name: 'CurrentUserEvents',
     components: {
-        // VolCurrentEvents
     }
 });
 
