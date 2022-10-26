@@ -93,7 +93,7 @@ export default {
         alert("Please fill in all fields!");
       } else {
         this.updateDb(this.$store.state.id);
-        this.$router.push({ path: "/volunteer", replace: true });
+        this.$router.push({ path: "/volunteer/profile", replace: true });
       }
     },
     async updateDb(uid) {
