@@ -19,17 +19,9 @@
           placeholder="Enter your event name"
         ></a-input>
         <label class="eventCreation">Event Photo</label><br />
-        <a-upload
-          v-model:file-list="fileList"
-          name="file"
-          action="//jsonplaceholder.typicode.com/posts/"
-          :headers="headers"
-        >
-          <a-button style="margin-bottom: 10px">
-            <upload-outlined></upload-outlined>
-            Click to Upload
-          </a-button>
-        </a-upload>
+        <div class="eventCreation">
+          <input type="file" name="file" @change="previewFile">
+        </div><br>
         <label class="eventCreationLeft">Event Type</label><br /><br />
         <a-select
           v-model:value="eventType"
@@ -104,9 +96,11 @@
 </template>
 
 <script>
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, doc, getDoc } from "firebase/firestore";
+import { getStorage, uploadBytes, ref, getDownloadURL } from 'firebase/storage'
 import { db } from "../firebase.js";
 import moment from 'moment';
+import UploadImage from 'v-upload-image';
 
 export default {
   name: "EventCreation",
@@ -127,38 +121,60 @@ export default {
       badgeAwarded: [],
       participants: {},
       orgId: "",
-      orgEmail:""
+      orgName: ""
     }
   },
   methods: {
     async createDb() {
-        const colRef = collection(db, 'events')
-        const docRef = await addDoc(colRef, {
-          eventName: this.eventName,
-          location: this.location,
-          eventUrl: "thisisafakeurl",
-          eventType: this.eventType,
-          eventDescription: this.eventDescription,
-          dateStart: this.eventDate[0].format('DD-MM-YYYY'),
-          dateEnd: this.eventDate[1].format('DD-MM-YYYY'),
-          timeStart: this.eventTime[0].format("HH:mm:ss"),
-          timeEnd: this.eventTime[1].format("HH:mm:ss"),
-          duration: Number((this.eventDate[1].diff(this.eventDate[0], 'days') + 1) * this.eventTime[1].diff(this.eventTime[0], 'hours')),
-          noOfOpenings: Number(this.noOfOpenings),
-          eventCauses: this.eventCauses,
-          badgeAwarded: this.badgeAwarded,
-          participants: {},
-          orgId: this.$store.state.id,
-          orgEmail: this.$store.state.email
-        }).then(() => {
-              alert("Event successfully created!")
-              console.log("Document successfully written!");
-            }).catch((error) => {
-              console.error("Error writing document: ", error);
-            });
+        const storage = getStorage()
+        const storageRef = ref(storage, "Event photos/" + this.file.name);
+        uploadBytes(storageRef, this.file).then((snapshot) => {
+          getDownloadURL(snapshot.ref).then((downloadURL) => {
+            this.eventUrl = downloadURL;
+            const colRef = collection(db, 'events')
+            const docRef = addDoc(colRef, {
+              eventName: this.eventName,
+              location: this.location,
+              eventUrl: this.eventUrl,
+              eventType: this.eventType,
+              eventDescription: this.eventDescription,
+              dateStart: this.eventDate[0].format('DD-MM-YYYY'),
+              dateEnd: this.eventDate[1].format('DD-MM-YYYY'),
+              timeStart: this.eventTime[0].format("HH:mm:ss"),
+              timeEnd: this.eventTime[1].format("HH:mm:ss"),
+              duration: Number((this.eventDate[1].diff(this.eventDate[0], 'days') + 1) * this.eventTime[1].diff(this.eventTime[0], 'hours')),
+              noOfOpenings: Number(this.noOfOpenings),
+              eventCauses: this.eventCauses,
+              badgeAwarded: this.badgeAwarded,
+              participants: {},
+              orgId: this.$store.state.id,
+              orgName: this.$store.state.details.orgName
+            }).then(() => {
+                  alert("Event successfully created!")
+                  console.log("Document successfully written!");
+                }).catch((error) => {
+                  console.error("Error writing document: ", error);
+                });
+          })
+        });
+     
+        
     },
     createEvent() {
       this.createDb();
+    },
+    previewFile(event) {
+      this.file = event.target.files[0]
+      console.log(this.file)
+    }
+  },
+  async mounted() {
+    var docRef = doc(db, "organisation", this.$store.state.id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      this.$store.state.details = docSnap.data();
+      console.log(docSnap.data())
+      this.rendered = true;
     }
   }
 }
