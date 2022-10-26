@@ -36,22 +36,6 @@ import { updateEmail } from "firebase/auth";
                 email: this.$store.getters.getEmail,
             }
         },
-        setup() {
-            // var visible = false;
-
-            // const showModal = () => {
-            //     visible = true;   
-            // };
-
-            // const handleOk = () => {
-            //     visible = false;
-            // };
-            // return {
-            //     visible,
-            //     showModal,
-            //     handleOk,
-            // };
-        },
         methods: {
             edit_profile() {
                 this.$store.dispatch('updateProfile')
