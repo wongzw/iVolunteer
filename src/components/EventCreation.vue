@@ -99,8 +99,6 @@
 import { collection, addDoc, doc, getDoc } from "firebase/firestore";
 import { getStorage, uploadBytes, ref, getDownloadURL } from 'firebase/storage'
 import { db } from "../firebase.js";
-import moment from 'moment';
-import UploadImage from 'v-upload-image';
 
 export default {
   name: "EventCreation",
