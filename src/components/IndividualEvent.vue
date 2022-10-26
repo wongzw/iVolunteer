@@ -292,11 +292,13 @@ h1 {
 }
 #wrapper {
   margin-top: 50px;
+  justify-content: center
 }
 #content {
   width: 75%;
 }
 #imgDiv {
+  display:block;
   width: 100%;
   margin-right: 10px;
 }
@@ -320,6 +322,7 @@ h1 {
   padding-bottom: 5%;
   padding-left: 5%;
   padding-right: 5;
+  margin-top: 10%;
 }
 .icon {
   display: flex;
@@ -341,7 +344,6 @@ h1 {
   display: flex;
   flex-direction: column;
   text-align: left;
-  justify-content: space-between;
   width: 80%;
 }
 
@@ -360,7 +362,7 @@ h1 {
 
 .submitButton {
   width: 50%;
-  margin-top: 10%;
+  margin-top: 5%;
   background-color: #FF5B2E;
 }
 #causeContainer {
