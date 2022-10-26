@@ -92,7 +92,7 @@ export default {
       this.createDb(user.uid);
       this.$store.commit("updateOrganisation", user);
       alert("Registration Success!");
-      this.$router.push("/onboard/organisation");
+      this.$router.push("/organisation/onboard");
     },
     async finaliseGoogle(user) {
       var docRef = doc(db, "organisation", user.uid);

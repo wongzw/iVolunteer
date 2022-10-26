@@ -13,6 +13,7 @@ import VolunteerBoard from "@/views/onboarding/VolunteerBoard.vue";
 import OrgBoard from "@/views/onboarding/OrgBoard.vue";
 import VolunteerProfile from "@/views/volunteers/VolunteerProfileView.vue";
 import OrgProfileView from "@/views/organisations/OrgProfileView.vue";
+import OrgDashboardView from "@/views/organisations/OrgDashboardView.vue";
 //Shell Views
 import RegisterShell from "@/views/register/RegisterShell.vue";
 import OnboardShell from "@/views/onboarding/OnboardShell.vue";
@@ -108,6 +109,11 @@ const routes = [
         path: "profile",
         name: "OrganisationProfile",
         component: OrgProfileView,
+      },
+      {
+        path: "dashboard",
+        name: "OrgDashboard",
+        component: OrgDashboardView,
       },
     ],
   },

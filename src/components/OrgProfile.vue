@@ -1,23 +1,28 @@
 <template>
     <a-layout class = "background">
-            <a-row gutter={[24,16]}>
-                <OrgDetails/>
-            </a-row>
+      <a-col span="9">
+        <img src="" alt="companyImg"/>
+      </a-col>
 
-            <a-row>
-                <CurrentUserEvents/>
-            </a-row>
+      <a-row gutter={[24,16]}>
+        <OrgDetails/>
+      </a-row>
+
+      <a-row>
+        <CurrOrgEvents/>
+      </a-row>
+
     </a-layout>
 </template>
 
 <script>
-import CurrentUserEvents from './orgprofile/CurrentUserEvents.vue';
+import CurrOrgEvents from './orgprofile/CurrOrgEvents.vue';
 import OrgDetails from './orgprofile/OrgDetails.vue';
 
 export default {
   name: "UserDashboard",
   components: {
-    CurrentUserEvents,
+    CurrOrgEvents,
     OrgDetails
   },
 };
