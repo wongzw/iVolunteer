@@ -2,7 +2,6 @@
     <div id="userEvents">
         <div class="box">
             <div id="box-title"> Current Events </div>
-    
             <div id="box details">
                 Some Events
             </div>

@@ -12,16 +12,16 @@
 </template>
 
 <script>
-import CurrentUserEvents from './dashboard/CurrentUserEvents.vue'
-import UserAchievements from './dashboard/UserAchievements.vue'
-import UserContactDetails from './dashboard/UserContactDetails.vue';
+import CurrentUserEvents from './profile/CurrentUserEvents.vue'
+import UserAchievements from './profile/UserAchievements.vue'
+import UserContactDetails from './profile/UserContactDetails.vue';
 
 export default {
   name: "UserDashboard",
   components: {
     UserContactDetails,
     UserAchievements,
-    CurrentUserEvent
+    CurrentUserEvents
   },
 };
 </script>

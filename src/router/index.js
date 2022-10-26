@@ -11,6 +11,7 @@ import EventCreation from "@/views/EventCreationView.vue";
 import UserDashboard from "@/views/volunteers/UserDashboardView.vue";
 import VolunteerBoard from "@/views/onboarding/VolunteerBoard.vue";
 import OrgBoard from "@/views/onboarding/OrgBoard.vue";
+import VolunteerProfile from "@/views/volunteers/VolunteerProfileView.vue";
 //Shell Views
 import RegisterShell from "@/views/register/RegisterShell.vue";
 import OnboardShell from "@/views/onboarding/OnboardShell.vue";
@@ -82,6 +83,11 @@ const routes = [
         path: "dashboard",
         name: "UserDashboard",
         component: UserDashboard,
+      },
+      {
+        path: "profile",
+        name: "VolunteerProfile",
+        component: VolunteerProfile,
       },
       {
         path: "/event/:catchAll(.*)",
