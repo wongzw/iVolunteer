@@ -22,7 +22,7 @@
         <a-upload
           v-model:file-list="fileList"
           name="file"
-          action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+          action="//jsonplaceholder.typicode.com/posts/"
           :headers="headers"
         >
           <a-button style="margin-bottom: 10px">
@@ -30,8 +30,21 @@
             Click to Upload
           </a-button>
         </a-upload>
+        <label class="eventCreationLeft">Event Type</label><br /><br />
+        <a-select
+          v-model:value="eventType"
+          mode="multiple"
+          placeholder="Select all that apply"
+          style="width: 60%; height: 35px; margin-bottom: 10px"
+          :token-separators="[',']"
+        >
+          <a-select-option value="Carnival">Carnival</a-select-option>
+          <a-select-option value="Fund Raising">Fund Raising</a-select-option>
+          <a-select-option value="Recycling">Recycling</a-select-option>
+          <a-select-option value="Clean-up">Clean-up</a-select-option>
+        </a-select>
         <label class="eventCreation">Event Description</label><br />
-        <a-textarea style="width: 60%; margin-bottom: 10px" v-model:value="eventDescription" placeholder="Enter the description of your event" :rows="6" />
+        <a-textarea style="width: 60%; margin-bottom: 10px" v-model:value="eventDescription" maxlength="1000" placeholder="Enter the description of your event (Max char: 1000)" :rows="6" />
         <label class="eventCreation">Event Details</label><br />
         <label class="eventCreation">Date</label><br />
         <a-space style="width: 60%; margin-bottom: 10px" direction="vertical" :size="12">
@@ -39,7 +52,7 @@
         </a-space>
         <label class="eventCreation">Time</label><br />
         <a-space style="width: 60%; margin-bottom: 10px" direction="vertical">
-          <a-time-range-picker :v-model:value="eventTime" style="width: 100%; margin-bottom: 10px" />
+          <a-time-range-picker v-model:value="eventTime" style="width: 100%; margin-bottom: 10px" />
         </a-space><br />
         <label class="eventCreationLeft">Location</label>
         <label class="eventCreationRight">Number of openings</label><br />
@@ -57,7 +70,7 @@
           v-model:value="noOfOpenings"
           placeholder="Enter a number"
         ></a-input><br /><br/>
-        <label class="eventCreationLeft">Event causes</label><br /><br />
+        <label class="eventCreationLeft">Event causes (Max: 3)</label><br /><br />
         <a-select
           v-model:value="eventCauses"
           mode="tags"
@@ -67,7 +80,7 @@
         ></a-select>
         <label class="eventCreation">Preferred Volunteers (badges)</label><br />
         <a-select
-          v-model:value="preferredBadges"
+          v-model:value="badgeAwarded"
           mode="tags"
           style="width: 60%; height: 35px; margin-bottom: 30px"
           :token-separators="[',']"
@@ -91,47 +104,58 @@
 </template>
 
 <script>
-import { collection, addDoc, Timestamp } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase.js";
+import moment from 'moment';
 
 export default {
   name: "EventCreation",
   data() {
     return {
       eventName: "",
-      //eventPhoto:
+      location: "",
+      eventType: [],
+      duration: 0,
+      eventUrl: "",
       eventDescription: "",
-      eventStartDate: new Date(),
-      eventEndDate: new Date(),
-      eventLocation: "",
+      dateStart: "",
+      dateEnd: "",
+      timeStart: "",
+      timeEnd: "",
       noOfOpenings: 0,
       eventCauses: [],
-      preferredBadges: [],
+      badgeAwarded: [],
+      participants: {},
+      orgId: "",
+      orgEmail:""
     }
   },
   methods: {
     async createDb() {
-        // console.log(this.eventDate)
-        // console.log(this.eventDate)
         const colRef = collection(db, 'events')
         const docRef = await addDoc(colRef, {
-        eventName: this.eventName,
-        // eventPhoto: ,
-        eventDescription: this.eventDescription,
-        eventStartDate: Timestamp.now(),
-        eventEndDate: Timestamp.now(),
-        eventDurationInMins: 10,
-        // eventLocation: this.eventLocation,
-        noOfOpenings: Number(this.noOfOpenings),
-        eventCauses: this.eventCauses,
-        preferredBadges: this.preferredBadges,
-        participants: {}
-      }).then(() => {
-            alert("Event successfully created!")
-            console.log("Document successfully written!");
-          }).catch((error) => {
-            console.error("Error writing document: ", error);
-          });
+          eventName: this.eventName,
+          location: this.location,
+          eventUrl: "thisisafakeurl",
+          eventType: this.eventType,
+          eventDescription: this.eventDescription,
+          dateStart: this.eventDate[0].format('DD-MM-YYYY'),
+          dateEnd: this.eventDate[1].format('DD-MM-YYYY'),
+          timeStart: this.eventTime[0].format("HH:mm:ss"),
+          timeEnd: this.eventTime[1].format("HH:mm:ss"),
+          duration: Number((this.eventDate[1].diff(this.eventDate[0], 'days') + 1) * this.eventTime[1].diff(this.eventTime[0], 'hours')),
+          noOfOpenings: Number(this.noOfOpenings),
+          eventCauses: this.eventCauses,
+          badgeAwarded: this.badgeAwarded,
+          participants: {},
+          orgId: this.$store.state.id,
+          orgEmail: this.$store.state.email
+        }).then(() => {
+              alert("Event successfully created!")
+              console.log("Document successfully written!");
+            }).catch((error) => {
+              console.error("Error writing document: ", error);
+            });
     },
     createEvent() {
       this.createDb();
