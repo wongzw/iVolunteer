@@ -1,7 +1,5 @@
 <template>
-  <TheNavbar />
-  <div class="box">
-    <TheSidebar />
+  <div id="container" class="box">
     <div id="content" v-if="this.eventLoaded">
       <div id="wrapper">
         <div class="box">
@@ -130,24 +128,17 @@
     </div>
     <NoPageFound v-if="eventNotExist" />
   </div>
-  <TheFooter style="margin-top: 5%" />
 </template>
 
 <script>
 import { db } from "../firebase.js";
 import NoPageFound from "@/views/NoPageFound.vue";
 import { doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
-import TheNavbar from "@/components/TheNavbar.vue";
-import TheFooter from "@/components/TheFooter.vue";
-import TheSidebar from "@/components/TheSidebar.vue";
 
 export default {
   name: "IndividualEvent",
   components: {
     NoPageFound,
-    TheNavbar,
-    TheSidebar,
-    TheFooter,
   },
   data() {
     return {
@@ -277,6 +268,10 @@ export default {
 </script>
 
 <style scoped>
+#container {
+  width: 140%;
+  margin-left: 1%;
+}
 h1 {
   font-weight: bolder;
   color: #020957;
@@ -289,8 +284,8 @@ h1 {
 }
 #imgDiv {
   display: block;
-  width: 100%;
-  margin-right: 20px;
+  width: 70%;
+  margin-right: 10px;
 }
 #img {
   max-width: 100%;
@@ -307,7 +302,7 @@ h1 {
   align-items: left;
   margin-top: 5%;
   border: solid #cdd0ec;
-  width: 120%;
+  width: 500px;
   border-radius: 10px;
   padding-top: 5%;
   padding-bottom: 5%;
@@ -335,6 +330,7 @@ h1 {
   flex-direction: column;
   text-align: left;
   justify-content: space-between;
+  width: 80%;
 }
 
 #eventDetails {

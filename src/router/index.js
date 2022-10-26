@@ -75,12 +75,14 @@ const routes = [
     component: VolunteerShell,
     children: [
       {
-        path: "profile",
+        path: "dashboard",
         name: "UserDashboard",
         component: UserDashboard,
-        meta: {
-          requiresAuth: true,
-        },
+      },
+      {
+        path: "/event/:catchAll(.*)",
+        name: "indvolEventView",
+        component: indvolEventView,
       },
       {
         path: "rewards",
@@ -114,11 +116,6 @@ const routes = [
     name: "EventCreationView",
     component: EventCreation,
   },
-  {
-    path: "/event/:catchAll(.*)",
-    name: "indvolEventView",
-    component: indvolEventView,
-  },
 ];
 
 const router = createRouter({
@@ -131,7 +128,7 @@ router.beforeEach((to, from, next) => {
   const userType = store.state.userType;
   if (auth & to.meta.redirect) {
     if (userType == "Volunteer") {
-      next("/volunteer");
+      next("/volunteer/dashboard");
     } else {
       next("/organisation");
     }
