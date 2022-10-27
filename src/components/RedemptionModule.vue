@@ -19,7 +19,12 @@
         <div class="rewardClaimed" v-if="this.claimedRewardTiers[key] == true">
           <div class="rewardClaimed">
             <h2>
-              <b>Tier Reward Claimed ❤</b>
+              <b
+                >Tier Reward Claimed ❤ Check your Rewards at
+                <a href="/volunteer/profile" style="color: #ff5b2e">
+                  your profile!
+                </a>
+              </b>
             </h2>
           </div>
         </div>
@@ -280,7 +285,7 @@ export default {
   padding: 20px;
   margin-bottom: 20px;
   margin-top: 20px;
-  min-height: 50%;
+  height: 100%;
 }
 
 .rewardClaimed {

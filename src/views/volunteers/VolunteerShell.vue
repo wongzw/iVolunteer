@@ -61,7 +61,7 @@ export default {
 
 .the-footer {
   bottom: 0;
-  height: 30vh;
+  height: 25vh;
   min-height: 150px;
 }
 
@@ -71,5 +71,6 @@ export default {
 
 .flexbox .router-view {
   width: 75vw;
+  height: 62vh;
 }
 </style>
