@@ -11,6 +11,7 @@ import EventCreation from "@/views/EventCreationView.vue";
 import UserDashboard from "@/views/volunteers/UserDashboardView.vue";
 import VolunteerBoard from "@/views/onboarding/VolunteerBoard.vue";
 import OrgBoard from "@/views/onboarding/OrgBoard.vue";
+import RewardsRedemption from "@/views/volunteers/RewardsRedemption.vue";
 //Shell Views
 import RegisterShell from "@/views/register/RegisterShell.vue";
 import OnboardShell from "@/views/onboarding/OnboardShell.vue";
@@ -82,6 +83,14 @@ const routes = [
         path: "/event/:catchAll(.*)",
         name: "indvolEventView",
         component: indvolEventView,
+      },
+      {
+        path: "rewards",
+        name: "RewardsRedemption",
+        component: RewardsRedemption,
+        meta: {
+          requiresAuth: true,
+        },
       },
     ],
   },
