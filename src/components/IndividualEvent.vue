@@ -17,6 +17,7 @@
 
               <a-button
                 class="submitButton"
+                id="volunteerButton"
                 htmlType="submit"
                 size="large"
                 type="primary"
@@ -28,6 +29,7 @@
 
               <a-button
                 class="submitButton"
+                id="volunteerButton"
                 htmlType="submit"
                 size="large"
                 type="primary"
@@ -51,14 +53,14 @@
                   <p>
                     <b
                       >{{ this.event["eventName"] }} by
-                      {{ this.event["eventHost"] }}</b
+                      {{ this.event["orgName"] }}</b
                     >
                   </p>
                   <p>on</p>
                   <p>
                     <b>{{ fullDate }}</b>
                   </p>
-                  <p><b>TBC</b></p>
+                  <p><b>{{displayTime}}</b></p>
                   <p>
                     <b>at {{ displayLocation }}</b>
                   </p>
@@ -86,7 +88,7 @@
               <div>
                 <h1>{{ this.event["eventName"] }}</h1>
                 <p id="textBox">
-                  <b>by {{ this.event["eventHost"] }}</b>
+                  <b>by {{ this.event["orgName"] }}</b>
                 </p>
                 <p id="textBox">
                   Description: {{ this.event["eventDescription"] }}
@@ -167,34 +169,54 @@ export default {
         "November",
         "December",
       ];
-      let start_day = this.eventStartDate.getDate();
-      let start_month = this.eventStartDate.getMonth();
-      let start_year = this.eventStartDate.getFullYear();
-      let eventStart = `${start_day} ${monthNames[start_month]} ${start_year}`;
-
-      let end_day = this.eventEndDate.getDate();
-      let end_month = this.eventEndDate.getMonth();
-      let end_year = this.eventEndDate.getFullYear();
-      let eventEnd = `${end_day} ${monthNames[end_month]} ${end_year}`;
-
-      if (eventStart == eventEnd) {
-        return eventStart;
+      let startDate = this.eventStartDate.split('-');
+      startDate[1] = monthNames[startDate[1]]
+      let endDate = this.eventEndDate.split('-');
+      endDate[1] = monthNames[endDate[1]]
+      startDate = startDate.join(' ')
+      endDate = endDate.join(' ')
+      if (startDate == endDate) {
+        return this.startDate;
       } else {
-        return `${eventStart} to ${eventEnd}`;
+        return `${startDate} to ${endDate}`;
       }
     },
     displayExpGain() {
-      let diff = this.eventEndDate - this.eventStartDate;
-      let msec = diff;
-      let hh = Math.floor(msec / 1000 / 60 / 60);
-      return hh * 50;
+      let timeStart = this.event["timeStart"].split(':').map(Number);
+      let timeEnd = this.event["timeEnd"].split(':').map(Number);
+      let hh = 0;
+      hh += (timeEnd[0] - timeStart[0])
+      if (hh == 0) {
+        return 50;
+      } else {
+        return hh * 50;
+      }
     },
-    displayTime() {},
+    displayTime() {
+      const zeroPad = (num, places) => String(num).padStart(places, '0')
+      let timeStart = this.event["timeStart"].split(':').map(Number)
+      if (timeStart[0] >= 12) {
+        timeStart[2] = "pm"
+      } else {
+        timeStart[2] = "am"
+      }
+      let timeEnd = this.event["timeEnd"].split(':').map(Number)
+      if (timeEnd[2] >= 12) {
+        timeEnd[2] = 'pm'
+      } else {
+        timeEnd[2] = 'am'
+      }
+      timeStart[0] = timeStart[0] % 12;
+      timeEnd[0] = timeEnd[0] % 12;
+      timeStart = String(timeStart[0]) + "." + String(zeroPad(timeStart[1], 2)) + " " + String(timeStart[2])
+      timeEnd = String(timeEnd[0]) + "." + String(zeroPad(timeEnd[1], 2)) + " " + String(timeEnd[2])  
+      return `${timeStart} to ${timeEnd}`;
+    },
     displayLocation() {
       return this.event["location"];
     },
     displayVacancy() {
-      return `${this.event["vacancy"]} Openings`;
+      return `${this.event["noOfOpenings"]} Openings`;
     },
     currentRouteName() {
       let arr = this.$route.path.split("/");
@@ -223,8 +245,8 @@ export default {
     if (docSnap.exists()) {
       this.eventLoaded = true;
       this.event = docSnap.data();
-      this.eventStartDate = this.event["timeStart"].toDate();
-      this.eventEndDate = this.event["timeEnd"].toDate();
+      this.eventStartDate = this.event["dateStart"];
+      this.eventEndDate = this.event["dateEnd"];
     } else {
       this.eventNotExist = true;
     }
@@ -278,13 +300,14 @@ h1 {
 }
 #wrapper {
   margin-top: 50px;
+  justify-content: center
 }
 #content {
-  width: 70%;
+  width: 75%;
 }
 #imgDiv {
-  display: block;
-  width: 70%;
+  display:block;
+  width: 100%;
   margin-right: 10px;
 }
 #img {
@@ -293,14 +316,13 @@ h1 {
 }
 #bottomLeft {
   flex-direction: column;
-  align-items: center;
+  align-items: left;
   padding-top: 5%;
   justify-content: space-between;
 }
 #bottomRight {
   flex-direction: column;
   align-items: left;
-  margin-top: 5%;
   border: solid #cdd0ec;
   width: 500px;
   border-radius: 10px;
@@ -308,6 +330,7 @@ h1 {
   padding-bottom: 5%;
   padding-left: 5%;
   padding-right: 5;
+  margin-top: 10%;
 }
 .icon {
   display: flex;
@@ -329,7 +352,6 @@ h1 {
   display: flex;
   flex-direction: column;
   text-align: left;
-  justify-content: space-between;
   width: 80%;
 }
 
@@ -363,9 +385,10 @@ h1 {
 .causeBox {
   background-color: #ffe3dc;
   color: orange;
-  width: 30%;
+  width: 32%;
+  height: 50%;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 18px;
   padding-left: 20px;
   padding-right: 20px;
   margin-top: 5%;
@@ -397,5 +420,9 @@ h1 {
   width: 50%;
   margin-top: 10%;
   background-color: #ff5b2e;
+}
+
+#volunteerButton {
+  margin-left: 25%;
 }
 </style>
