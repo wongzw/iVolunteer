@@ -15,6 +15,7 @@
         v-for="(value, key) in this.rewards"
         :key="key"
         :tab="'Tier ' + key"
+        :disabled="this.rewardTier > key"
       >
         <div class="rewards" v-for="reward in this.rewards[key]" :key="reward">
           <div class="rewardContent">
@@ -30,9 +31,10 @@
                 size="large"
                 class="orange"
                 @click="claim_reward(reward)"
-                :disabled="reward.availableQty == 0"
+                :disabled="reward.availableQty == 0 || this.rewardTier > key"
               >
-                <span v-if="reward.availableQty == 0">Fully Redeemed</span>
+                <span v-if="this.rewardTier > key">Tier Reward Claimed</span>
+                <span v-else-if="reward.availableQty == 0">Fully Redeemed</span>
                 <span v-else>Redeem Reward</span>
               </a-button>
             </div>
@@ -47,17 +49,20 @@
 import { collection, query, where } from "firebase/firestore";
 import { doc, getDocs } from "firebase/firestore";
 import { db } from "../firebase.js";
+import { ref } from "vue";
 
 export default {
   name: "RedemptionModule",
   data() {
     return {
       rewards: {},
+      rewardTier: null,
     };
   },
 
   mounted() {
     this.queryDB();
+    this.currentRewardTier();
   },
 
   methods: {
@@ -82,6 +87,18 @@ export default {
         }
       });
       console.log("Document data:", this.rewards);
+      console.log(this.$store.state.details);
+    },
+
+    currentRewardTier() {
+      const userRewards = this.$store.state.details.userRewards;
+      for (const userReward of Object.keys(userRewards)) {
+        var rewardClaimed = userRewards[userReward];
+        if (rewardClaimed == "") {
+          this.rewardTier = userReward;
+          break;
+        }
+      }
     },
   },
 };
