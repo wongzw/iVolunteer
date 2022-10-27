@@ -16,10 +16,7 @@
         :key="key"
         :tab="'Tier ' + key"
       >
-        <div
-          class="rewardClaimed"
-          v-if="this.rewardTier > key || this.rewardTier == 0"
-        >
+        <div class="rewardClaimed" v-if="this.claimedRewardTiers[key] == true">
           <div class="rewardClaimed">
             <h2>
               <b>Tier Reward Claimed ❤</b>
@@ -51,7 +48,9 @@
                   this.rewardTier == 0
                 "
               >
-                <span v-if="reward.availableQty == 0">Fully Redeemed</span>
+                <span v-if="reward.availableQty == 0" style="color: #020957"
+                  >Fully Redeemed</span
+                >
                 <span v-else>Redeem Reward</span>
               </a-button>
             </div>
@@ -116,7 +115,8 @@ export default {
   data() {
     return {
       rewards: {},
-      rewardTier: 0,
+      userRewardTier: 0,
+      claimedRewardTiers: {},
       rewardsConfirmModal: false,
       rewardConfirm: {},
       rewardConfirmChecked: false,
@@ -194,7 +194,7 @@ export default {
       this.rewardConfirm = {};
 
       // Assign to user
-      if (this.$store.state.details["userRewards"][reward_level] == "") {
+      if (this.$store.state.details["userRewards"][reward_level]["id"] == "") {
         var assigned_code = reward["redemptionCode"].pop();
         reward["availableQty"] -= 1;
         this.$store.commit("updateRewards", {
@@ -238,14 +238,14 @@ export default {
         this.rewards[reward_level].push(data);
       });
     },
-
     rewardLevel() {
       const userRewards = this.$store.state.details["userRewards"];
       for (const userReward of Object.keys(userRewards)) {
-        var rewardClaimed = userRewards[userReward]["redemptionCode"];
+        var rewardClaimed = userRewards[userReward]["id"];
         if (rewardClaimed == "") {
-          this.rewardTier = userReward;
-          break;
+          this.claimedRewardTiers[userReward] = false;
+        } else {
+          this.claimedRewardTiers[userReward] = true;
         }
       }
     },
@@ -280,6 +280,7 @@ export default {
   padding: 20px;
   margin-bottom: 20px;
   margin-top: 20px;
+  min-height: 50%;
 }
 
 .rewardClaimed {

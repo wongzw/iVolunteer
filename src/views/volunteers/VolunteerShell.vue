@@ -1,5 +1,6 @@
 <template>
-  <TheNavbar />
+  <div class="navbar"><TheNavbar /></div>
+
   <div class="block"></div>
   <div class="flexbox" v-if="rendered">
     <div class="side-bar">
@@ -48,12 +49,20 @@ export default {
   width: 100%;
 }
 
+.navbar {
+  height: 7vh;
+  min-height: 50px;
+}
+
 .flexbox {
   display: flex;
+  height: 80vh;
 }
 
 .the-footer {
   bottom: 0;
+  height: 30vh;
+  min-height: 150px;
 }
 
 .flexbox .side-bar {
