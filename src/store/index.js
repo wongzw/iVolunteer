@@ -43,8 +43,10 @@ export default createStore({
     },
 
     updateRewards(state, payload) {
-      state.details["userRewards"][payload.reward_level] =
-        payload.assigned_code;
+      state.details["userRewards"][payload.reward_level] = {
+        id: payload.reward_id,
+        redemptionCode: payload.assigned_code,
+      };
     },
   },
   getters: {

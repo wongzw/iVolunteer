@@ -27,7 +27,7 @@
           </div>
         </div>
         <div
-          class="rewards"
+          class="rewardsCard"
           v-for="reward in this.rewards[key]"
           :key="reward"
           v-else
@@ -200,6 +200,7 @@ export default {
         this.$store.commit("updateRewards", {
           reward_level: reward_level,
           assigned_code: assigned_code,
+          reward_id: reward.id,
         });
         this.updateDb(this.$store.state.id, reward);
       } else {
@@ -241,7 +242,7 @@ export default {
     rewardLevel() {
       const userRewards = this.$store.state.details["userRewards"];
       for (const userReward of Object.keys(userRewards)) {
-        var rewardClaimed = userRewards[userReward];
+        var rewardClaimed = userRewards[userReward]["redemptionCode"];
         if (rewardClaimed == "") {
           this.rewardTier = userReward;
           break;
@@ -315,6 +316,19 @@ export default {
   background-color: #ff3700;
   border-color: #ff3700;
   transition: 0.3s ease;
+}
+
+.rewardsTable .ant-tabs-ink-bar {
+  background: #020957;
+}
+
+.rewardsTable .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #020957;
+  font-size: 150%;
+}
+
+.rewardsTable .ant-tabs-tab-btn {
+  font-size: 110%;
 }
 
 .a-modal {
