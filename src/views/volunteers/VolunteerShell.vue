@@ -1,12 +1,12 @@
 <template>
   <TheNavbar />
   <div class="block"></div>
-  <div class="flexbox">
+  <div class="flexbox" v-if="rendered">
     <div class="side-bar">
-      <TheSidebar v-if="rendered" />
+      <TheSidebar />
     </div>
     <div class="router-view">
-      <router-view v-if="rendered"></router-view>
+      <router-view></router-view>
     </div>
   </div>
   <div class="the-footer">
@@ -54,5 +54,13 @@ export default {
 
 .the-footer {
   bottom: 0;
+}
+
+.flexbox .side-bar {
+  width: 20vw;
+}
+
+.flexbox .router-view {
+  width: 75vw;
 }
 </style>

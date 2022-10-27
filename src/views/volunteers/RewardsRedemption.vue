@@ -1,7 +1,5 @@
 <template>
-  <a-row type="flex">
-    <a-col flex="auto"><RedemptionModule /></a-col>
-  </a-row>
+  <RedemptionModule />
 </template>
 
 
