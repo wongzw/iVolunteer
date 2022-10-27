@@ -41,6 +41,11 @@ export default createStore({
       state.email = payload.email;
       state.auth = true;
     },
+
+    updateRewards(state, payload) {
+      state.details["userRewards"][payload.reward_level] =
+        payload.assigned_code;
+    },
   },
   getters: {
     getAuth: function (state) {

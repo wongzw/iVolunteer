@@ -1,19 +1,17 @@
 <template>
-  <TheNavbar/>
-  <div class="block">
-  </div>
+  <TheNavbar />
+  <div class="block"></div>
   <div class="flexbox">
     <div class="side-bar">
-      <TheSidebar v-if="rendered"/>
+      <TheSidebar v-if="rendered" />
     </div>
     <div class="router-view">
-      <router-view></router-view>
+      <router-view v-if="rendered"></router-view>
     </div>
   </div>
   <div class="the-footer">
-      <TheFooter/>
+    <TheFooter />
   </div>
-
 </template>
   
 <script>
@@ -25,7 +23,7 @@ import { getDoc, doc } from "firebase/firestore";
 
 export default {
   name: "OrgShell",
-  components: { TheFooter, TheNavbar, TheSidebar},
+  components: { TheFooter, TheNavbar, TheSidebar },
   data() {
     return {
       rendered: false,
@@ -36,7 +34,7 @@ export default {
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       this.$store.state.details = docSnap.data();
-      console.log(docSnap.data())
+      console.log(docSnap.data());
       this.rendered = true;
     }
   },
@@ -45,17 +43,16 @@ export default {
 
 
 <style scoped>
-  .block {
-    height:68px;
-    width: 100%;
-  }
+.block {
+  height: 68px;
+  width: 100%;
+}
 
-  .flexbox {
-    display: flex;
-  }
-  
-  .the-footer {
-    bottom: 0;
-  }
+.flexbox {
+  display: flex;
+}
 
+.the-footer {
+  bottom: 0;
+}
 </style>

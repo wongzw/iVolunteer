@@ -15,9 +15,20 @@
         v-for="(value, key) in this.rewards"
         :key="key"
         :tab="'Tier ' + key"
-        :disabled="this.rewardTier > key"
       >
-        <div class="rewards" v-for="reward in this.rewards[key]" :key="reward">
+        <div class="rewardClaimed" v-if="this.rewardTier > key">
+          <div class="rewardName">
+            <h3>
+              <b>Tier Reward Claimed</b>
+            </h3>
+          </div>
+        </div>
+        <div
+          class="rewards"
+          v-for="reward in this.rewards[key]"
+          :key="reward"
+          v-else
+        >
           <div class="rewardContent">
             <div class="rewardName">
               <h3>
@@ -30,11 +41,10 @@
                 type="primary"
                 size="large"
                 class="orange"
-                @click="claim_reward(reward)"
+                @click="claimReward(reward)"
                 :disabled="reward.availableQty == 0 || this.rewardTier > key"
               >
-                <span v-if="this.rewardTier > key">Tier Reward Claimed</span>
-                <span v-else-if="reward.availableQty == 0">Fully Redeemed</span>
+                <span v-if="reward.availableQty == 0">Fully Redeemed</span>
                 <span v-else>Redeem Reward</span>
               </a-button>
             </div>
@@ -56,42 +66,57 @@ export default {
   data() {
     return {
       rewards: {},
-      rewardTier: null,
+      rewardTier: 0,
     };
   },
 
   mounted() {
     this.queryDB();
-    this.currentRewardTier();
+    this.rewardLevel();
   },
 
   methods: {
-    claim_reward(reward) {
+    claimReward(reward) {
+      // Pop Data from FS
       console.log(reward);
+      var reward_level = reward["level"];
+
+      // Assign to user
+      if (this.$store.state.details["userRewards"][reward_level] == "") {
+        var assigned_code = reward["redemptionCode"].pop();
+        this.$store.commit("updateRewards", {
+          reward_level: reward_level,
+          assigned_code: assigned_code,
+        });
+        this.rewardLevel();
+      } else {
+        alert("Reward Tier Has Already Been Redeemed");
+        this.rewardLevel();
+      }
+
+      console.log(this.$store.state.details["userRewards"]);
     },
 
     async queryDB() {
       const rewardsRef = collection(db, "level");
       const rewardDocSnap = await getDocs(rewardsRef);
-
-      rewardDocSnap.forEach((doc) => {
-        const data = doc.data();
-        const reward_id = data["rewardID"];
-        const reward_level = data["level"];
-        if (reward_level in Object.keys(this.rewards)) {
-          var current_reward = this.rewards[reward_level];
-          current_reward.push(data);
-          this.rewards[reward_level] = current_reward;
-        } else {
-          this.rewards[reward_level] = [data];
-        }
-      });
-      console.log("Document data:", this.rewards);
-      console.log(this.$store.state.details);
+      this.computeRewards(rewardDocSnap);
     },
 
-    currentRewardTier() {
-      const userRewards = this.$store.state.details.userRewards;
+    computeRewards(rewardDocSnap) {
+      rewardDocSnap.forEach((doc) => {
+        let data = doc.data();
+        let reward_id = data["rewardID"];
+        let reward_level = data["level"];
+        if (!this.rewards[reward_level]) {
+          this.rewards[reward_level] = [];
+        }
+        this.rewards[reward_level].push(data);
+      });
+    },
+
+    rewardLevel() {
+      const userRewards = this.$store.state.details["userRewards"];
       for (const userReward of Object.keys(userRewards)) {
         var rewardClaimed = userRewards[userReward];
         if (rewardClaimed == "") {
@@ -110,6 +135,7 @@ export default {
 .rewardName h3 {
   color: #020957;
   text-align: left;
+  margin-bottom: 10px;
 }
 
 .header h1 {
@@ -128,9 +154,14 @@ export default {
 .rewardsTable {
   background-color: #ffefe2;
   padding: 20px;
+  height: 100%;
+  width: 100%;
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
-body {
+.header,
+.rewardsTable {
   width: 100%;
 }
 
