@@ -3,11 +3,9 @@
 </template>
     
   <script>
-import { db } from "../firebase.js";
+import { db } from "../../firebase.js";
 import { getDoc, doc } from "firebase/firestore";
-import UserDashboard from "../components/UserDashboard.vue";
-import IndividualEvent from "../components/IndividualEvent.vue";
-
+import IndividualEvent from "../../components/volunteer/IndividualEvent.vue";
 
 export default {
   name: "indEventView",
@@ -25,8 +23,7 @@ export default {
     }
   },
   components: {
-    UserDashboard,
-    IndividualEvent
+    IndividualEvent,
   },
 };
 </script>

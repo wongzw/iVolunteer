@@ -2,32 +2,36 @@
   <img
     style="margin-top: 2vh"
     alt="Logo of IVolunteer"
-    src="../assets/ivolunteer_logo.svg"
+    src="../../assets/ivolunteer_logo.svg"
   />
   <div class="box">
     <a-form
-      id="formSignUp"
-      class="user-layout-signup"
-      ref="formSignup"
-      @submit.prevent="signUp"
+      id="formLogin"
+      class="user-layout-login"
+      ref="formLogin"
+      @submit.prevent="register"
     >
-      <h1 id="signUpHeader" style="font-weight: 900">Sign Up</h1>
-      <a-form-item class="form">
-        <label class="formSignUp">Email</label><br />
+      <a-form-item>
+        <h1 id="loginHeader" style="font-weight: 900">Sign Up</h1>
+        <label class="fontLogin">Email</label><br />
         <a-input
-          style="width: 60%; margin-bottom: 10px"
           class="input"
+          required
+          style="width: 60%; margin-bottom: 10px"
           type="email"
           v-model:value="email"
           placeholder="Enter your email"
         ></a-input>
-        <label class="formSignUp">Password</label><br />
+        <label class="fontLogin">Password</label><br />
         <a-input-password
+          required
+          class="input"
           style="width: 60%; height: 35px; margin-bottom: 10px"
           v-model:value="password"
+          minlength="8"
           placeholder="Enter your password"
-        />
-        <label class="formSignUp">Confirm Password</label><br />
+        /><br />
+        <label class="fontLogin">Confirm Password</label><br />
         <a-input-password
           style="width: 60%; height: 35px; margin-bottom: 40px"
           v-model:value="passwordConfirmation"
@@ -36,12 +40,12 @@
         <div id="ant-button">
           <a-button
             htmlType="submit"
-            class="signUp"
+            class="register"
             size="large"
             type="primary"
             danger
-            >Sign Up</a-button
-          >
+            >Get Started
+          </a-button>
         </div>
       </a-form-item>
     </a-form>
@@ -49,10 +53,10 @@
   </div>
   <div id="box2" class="box">
     Already have an account?
-    <a style="color: #5a4ff3" @click="reroute()">Log in.</a>
+    <a @click="reroute" style="color: #5a4ff3">Login.</a>
   </div>
 </template>
-  
+
 <script>
 /* eslint-disable */
 import {
@@ -61,7 +65,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
-import { db } from "../firebase.js";
+import { db } from "../../firebase.js";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import GoogleButton from "./GoogleButton.vue";
 import { notification } from "ant-design-vue";
@@ -77,7 +81,7 @@ auth.languageCode = "en";
 const provider = new GoogleAuthProvider();
 
 export default {
-  name: "VolunteerSign",
+  name: "OrgSign",
   components: {
     GoogleButton,
   },
@@ -123,38 +127,18 @@ export default {
       formValidError,
     };
   },
-
   methods: {
     reroute() {
-      this.$router.push({ path: "/login", replace: true });
-    },
-    async createDb(oid) {
-      const val = {
-        firstName: "",
-        lastName: "",
-        interests: [],
-        skills: [],
-        hoursVolunteered: 0,
-        userLevel: 0,
-        userExp: 0,
-        noShowNum: 0,
-        userAppliedEvents: [],
-        userAcceptedEvents: [],
-        userAttendedEvents: [],
-        userBadges: {},
-        userRewards: {},
-      };
-      this.$store.state.details = val;
-      await setDoc(doc(db, "users", oid), val);
+      this.$router.push("/login");
     },
     finalise(user) {
       this.createDb(user.uid);
-      this.$store.commit("updateVolunteer", user);
+      this.$store.commit("updateOrganisation", user);
       this.success();
-      this.$router.push("/onboard/volunteer");
+      this.$router.push("/onboard/organisation");
     },
     async finaliseGoogle(user) {
-      var docRef = doc(db, "users", user.uid);
+      var docRef = doc(db, "organisation", user.uid);
       const docSnap = await getDoc(docRef);
       if (!docSnap.exists()) {
         this.finalise(user);
@@ -162,7 +146,17 @@ export default {
         this.error("Account Exist, please login instead!");
       }
     },
-    signUp() {
+    async createDb(oid) {
+      const val = {
+        orgName: "",
+        orgType: [],
+        events: [],
+        badges: [],
+      };
+      this.$store.state.details = val;
+      await setDoc(doc(db, "organisation", oid), val);
+    },
+    register() {
       if (this.password == "") {
         this.formValidError("Password not filled in");
       } else if (this.passwordConfirmation == "") {
@@ -207,7 +201,7 @@ export default {
   },
 };
 </script>
-  
+
 <style scoped>
 .box {
   background-color: white;
@@ -223,17 +217,17 @@ export default {
 
 #box2 {
   margin-top: 20px;
-  margin-bottom: 5%;
   text-align: center;
   padding-top: -30px;
   height: 10px;
+  margin-bottom: 10%;
   vertical-align: middle;
   font-weight: bold;
   line-height: 5px;
   box-shadow: 0px 4px 10px rgba(60, 78, 100, 0.1);
 }
 
-.formSignUp {
+.fontLogin {
   color: #020957;
   margin-left: 20%;
   display: flex;
@@ -242,7 +236,7 @@ export default {
   margin-bottom: -10px;
 }
 
-#signUpHeader {
+#loginHeader {
   font-size: 40px;
   color: #020957;
 }
@@ -251,12 +245,14 @@ export default {
   margin-bottom: 10px;
 }
 
-.signUp {
+.register {
   width: 60%;
   margin-bottom: -5px;
 }
+
+input:required:focus {
+  border: 1px solid red;
+  outline: none;
+}
 </style>
-
-  
-
-  
+>

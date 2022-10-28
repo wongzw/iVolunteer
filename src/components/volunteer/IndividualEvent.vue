@@ -135,7 +135,7 @@
 </template>
 
 <script>
-import { db } from "../firebase.js";
+import { db } from "../../firebase.js";
 import NoPageFound from "@/views/NoPageFound.vue";
 import { doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
 import { notification } from "ant-design-vue";

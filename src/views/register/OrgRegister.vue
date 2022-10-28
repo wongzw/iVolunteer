@@ -3,7 +3,7 @@
 </template>
   
   <script>
-import OrgSign from "../../components/OrgSign.vue";
+import OrgSign from "../../components/login-signup/OrgSign.vue";
 
 export default {
   name: "OrgRegister",

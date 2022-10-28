@@ -83,7 +83,7 @@ export default {
         this.formValidError("Please enter organisation type");
       } else {
         this.updateDb(this.$store.state.id);
-        this.$router.push({ path: "/organisation", replace: true });
+        this.$router.push({ path: "/organisation/profile", replace: true });
       }
     },
     async updateDb(oid) {
