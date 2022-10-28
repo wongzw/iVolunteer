@@ -50,13 +50,13 @@ export default {
 }
 
 .navbar {
-  height: 7vh;
+  height: 8vh;
   min-height: 50px;
 }
 
 .flexbox {
   display: flex;
-  height: 80vh;
+  height: auto
 }
 
 .the-footer {
@@ -72,6 +72,6 @@ export default {
 
 .flexbox .router-view {
   width: 75vw;
-  height: 62vh;
+  margin-bottom: 56px;
 }
 </style>
