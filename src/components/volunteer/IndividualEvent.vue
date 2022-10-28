@@ -9,7 +9,7 @@
               <div id="smallHeader">
                 <h1 id="causeTitle">Causes</h1>
                 <div class="box" id="causeContainer">
-                  <div class="causeBox" v-for="type in eventType">
+                  <div class="causeBox" v-for="type in eventType" :key="type">
                     {{ type }}
                   </div>
                 </div>
@@ -121,7 +121,7 @@
                   ><img src="@/assets/star.svg" />
                   {{ displayExpGain }} exp</span
                 ><br />
-                <p v-for="badge in badgeType">
+                <p v-for="badge in badgeType" :key="badge">
                   {{ badge }} upon successful completion
                 </p>
               </div>
@@ -138,6 +138,9 @@
 import { db } from "../../firebase.js";
 import NoPageFound from "@/views/NoPageFound.vue";
 import { doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
+import { notification } from "ant-design-vue";
+import { SmileOutlined, robotOutlined } from "@ant-design/icons-vue";
+import { h } from "vue";
 
 export default {
   name: "IndividualEvent",
@@ -155,6 +158,30 @@ export default {
       visible: false,
     };
   },
+
+  setup() {
+    const successfulEventApplied = () => {
+      notification.open({
+        message: "Success",
+        description:
+          "Succesfully applied for event! Organisation will get back soon.",
+        duration: 3,
+        icon: () => h(SmileOutlined, { style: "color: #020957" }),
+      });
+    };
+
+    const error = () => {
+      notification.open({
+        message: "Error",
+        description: "An Error Occurred. Please try again. ",
+        duration: 3,
+        icon: () => h(robotOutlined, { style: "color: #ff3700" }),
+      });
+    };
+
+    return { successfulEventApplied, error };
+  },
+
   computed: {
     fullDate() {
       const monthNames = [
@@ -287,11 +314,9 @@ export default {
         this.updateEvent();
         this.visible = false;
         this.hasRegistered = true;
-        alert(
-          "Succesfully applied for event! Organisation will get back soon!"
-        );
+        this.successfulEventApplied();
       } catch {
-        alert("Error registering, please try again!");
+        this.error();
       }
     },
     clickVolunteer() {

@@ -122,6 +122,9 @@
 import { collection, addDoc, doc, getDoc } from "firebase/firestore";
 import { getStorage, uploadBytes, ref, getDownloadURL } from "firebase/storage";
 import { db } from "../../firebase.js";
+import { notification } from "ant-design-vue";
+import { SmileOutlined } from "@ant-design/icons-vue";
+import { h } from "vue";
 
 export default {
   name: "EventCreation",
@@ -145,6 +148,20 @@ export default {
       orgName: "",
     };
   },
+
+  setup() {
+    const eventCreateNotification = () => {
+      notification.open({
+        message: "Success",
+        description: "Event successfully created!",
+        duration: 3,
+        icon: () => h(SmileOutlined, { style: "color: #020957" }),
+      });
+    };
+
+    return eventCreateNotification;
+  },
+
   methods: {
     async createDb() {
       const storage = getStorage();
@@ -175,7 +192,7 @@ export default {
             orgName: this.$store.state.details.orgName,
           })
             .then(() => {
-              alert("Event successfully created!");
+              this.eventCreateNotification();
               console.log("Document successfully written!");
             })
             .catch((error) => {

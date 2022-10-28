@@ -61,10 +61,26 @@ export default {
       orgType: [],
     };
   },
+
+  setup() {
+    const formValidError = (msg) => {
+      notification.open({
+        message: "Error",
+        description: msg,
+        duration: 3,
+        icon: () => h(ExclamationCircleOutlined, { style: "color: #ff3700" }),
+      });
+    };
+
+    return {
+      formValidError,
+    };
+  },
+
   methods: {
     updateData() {
       if (this.orgType.length == 0) {
-        alert("Please enter organisation type");
+        this.formValidError("Please enter organisation type");
       } else {
         this.updateDb(this.$store.state.id);
         this.$router.push({ path: "/organisation/profile", replace: true });
