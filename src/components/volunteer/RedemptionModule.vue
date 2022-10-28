@@ -110,7 +110,7 @@
 <script>
 import { collection, query, where } from "firebase/firestore";
 import { doc, getDocs, updateDoc } from "firebase/firestore";
-import { db } from "../firebase.js";
+import { db } from "../../firebase.js";
 import { notification } from "ant-design-vue";
 import { SmileOutlined, robotOutlined } from "@ant-design/icons-vue";
 import { defineComponent, h } from "vue";

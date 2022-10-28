@@ -5,7 +5,7 @@
 
 
 <script>
-import RedemptionModule from "../../components/RedemptionModule.vue";
+import RedemptionModule from "../../components/volunteer/RedemptionModule.vue";
 
 export default {
   name: "RewardsRedemption",

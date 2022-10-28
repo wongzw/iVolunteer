@@ -16,7 +16,7 @@
 <script>
 import TheFooter from "@/components/global/TheFooter.vue";
 import TheNavbar from "@/components/global/TheNavbar.vue";
-import TheSidebar from "@/components/TheSidebar.vue";
+import TheSidebar from "@/components/volunteer/TheSidebar.vue";
 export default {
   name: "OrgShell",
   components: { TheFooter, TheNavbar, TheSidebar },

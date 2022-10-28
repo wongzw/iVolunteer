@@ -45,33 +45,33 @@ import { defineComponent } from "vue";
 import expBar from "@/components/expBar.vue";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../firebase.js";
-    export default ({
-        name: 'TheSidebar',
-        data() {
-            return {
-              name: this.$store.state.details['fullName']
-            }
-        },
-        computed: {
-            computeExp() {
-                let exp = this.$store.state.details['userExp'] % 1000;
-                return exp;
-            }
-        },
-        components: {
-            UserOutlined,
-            expBar,
-        },
-        methods: {
-            reroute_profile() {
-                this.$router.push({ path: "/volunteer/profile" });
-            },
-            reroute_leaderboard() {
-                this.$router.push({ path: "/volunteer" });
-            },
-        }
-    });   
+import { db } from "../../firebase.js";
+export default {
+  name: "TheSidebar",
+  data() {
+    return {
+      name: this.$store.state.details["fullName"],
+    };
+  },
+  computed: {
+    computeExp() {
+      let exp = this.$store.state.details["userExp"] % 1000;
+      return exp;
+    },
+  },
+  components: {
+    UserOutlined,
+    expBar,
+  },
+  methods: {
+    reroute_profile() {
+      this.$router.push({ path: "/volunteer/profile" });
+    },
+    reroute_leaderboard() {
+      this.$router.push({ path: "/volunteer" });
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -85,7 +85,7 @@ import { db } from "../firebase.js";
   margin-top: 16px;
   background-color: #ffefe2;
   border-radius: 5px;
-  padding: 20px
+  padding: 20px;
 }
 #sidebar {
   margin-top: 36px;

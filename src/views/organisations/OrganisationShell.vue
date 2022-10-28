@@ -17,7 +17,7 @@
   <script>
 import TheFooter from "@/components/global/TheFooter.vue";
 import TheNavbar from "@/components/global/TheNavbar.vue";
-import TheSidebar from "@/components/TheSidebar.vue";
+import TheSidebar from "@/components/volunteer/TheSidebar.vue";
 import { db } from "../../firebase.js";
 import { getDoc, doc } from "firebase/firestore";
 
