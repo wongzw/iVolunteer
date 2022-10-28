@@ -149,20 +149,15 @@ export default {
     };
   },
 
-  setup() {
-    const eventCreateNotification = () => {
+  methods: {
+    eventCreateNotification() {
       notification.open({
         message: "Success",
         description: "Event successfully created!",
         duration: 3,
         icon: () => h(SmileOutlined, { style: "color: #020957" }),
       });
-    };
-
-    return eventCreateNotification;
-  },
-
-  methods: {
+    },
     async createDb() {
       const storage = getStorage();
       const storageRef = ref(storage, "Event photos/" + this.file.name);
