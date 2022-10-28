@@ -121,7 +121,7 @@
 <script>
 import { collection, addDoc, doc, getDoc } from "firebase/firestore";
 import { getStorage, uploadBytes, ref, getDownloadURL } from "firebase/storage";
-import { db } from "../firebase.js";
+import { db } from "../../firebase.js";
 import { notification } from "ant-design-vue";
 import { SmileOutlined } from "@ant-design/icons-vue";
 import { h } from "vue";
