@@ -64,6 +64,14 @@ import {
 import { db } from "../firebase.js";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import GoogleButton from "./GoogleButton.vue";
+import { notification } from "ant-design-vue";
+import {
+  SmileOutlined,
+  RobotOutlined,
+  ExclamationCircleOutlined,
+} from "@ant-design/icons-vue";
+import { defineComponent, h } from "vue";
+
 const auth = getAuth();
 auth.languageCode = "en";
 const provider = new GoogleAuthProvider();
@@ -80,6 +88,42 @@ export default {
       passwordConfirmation: "",
     };
   },
+
+  setup() {
+    const success = () => {
+      notification.open({
+        message: "Success",
+        description: "Registration Success!",
+        duration: 3,
+        icon: () => h(SmileOutlined, { style: "color: #020957" }),
+      });
+    };
+
+    const error = (msg) => {
+      notification.open({
+        message: "Error",
+        description: msg,
+        duration: 3,
+        icon: () => h(RobotOutlined, { style: "color: #ff3700" }),
+      });
+    };
+
+    const formValidError = (msg) => {
+      notification.open({
+        message: "Error",
+        description: msg,
+        duration: 3,
+        icon: () => h(ExclamationCircleOutlined, { style: "color: #ff3700" }),
+      });
+    };
+
+    return {
+      success,
+      error,
+      formValidError,
+    };
+  },
+
   methods: {
     reroute() {
       this.$router.push({ path: "/login", replace: true });
@@ -106,7 +150,7 @@ export default {
     finalise(user) {
       this.createDb(user.uid);
       this.$store.commit("updateVolunteer", user);
-      alert("Registration Success!");
+      this.success();
       this.$router.push("/onboard/volunteer");
     },
     async finaliseGoogle(user) {
@@ -115,16 +159,16 @@ export default {
       if (!docSnap.exists()) {
         this.finalise(user);
       } else {
-        alert("Account Exist, please login instead!");
+        this.error("Account Exist, please login instead!");
       }
     },
     signUp() {
       if (this.password == "") {
-        alert("Password not filled in");
+        this.formValidError("Password not filled in");
       } else if (this.passwordConfirmation == "") {
-        alert("Confirm Password not filled in");
+        this.formValidError("Confirm Password not filled in");
       } else if (this.password != this.passwordConfirmation) {
-        alert("Passwords do not match");
+        this.formValidError("Passwords do not match");
       } else {
         createUserWithEmailAndPassword(auth, this.email, this.password)
           .then((userCredential) => {
@@ -137,9 +181,9 @@ export default {
             if (
               errorMessage == "Firebase: Error (auth/email-already-in-use)."
             ) {
-              alert("Account Exist, please login instead!");
+              this.error("Account Exist, please login instead!");
             } else {
-              alert("Unable to create account, please try again!");
+              this.error("Unable to create account, please try again!");
             }
           });
       }
@@ -157,6 +201,7 @@ export default {
           const errorMessage = error.message;
           const email = error.customData.email;
           const credential = GoogleAuthProvider.credentialFromError(error);
+          this.error("Unable to create account, please try again!");
         });
     },
   },

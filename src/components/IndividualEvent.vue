@@ -179,7 +179,7 @@ export default {
       });
     };
 
-    return successfulEventApplied, error;
+    return { successfulEventApplied, error };
   },
 
   computed: {
