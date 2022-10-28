@@ -1,5 +1,5 @@
 <template>
-    <TheNavbar/>
+    <TheNavbar v-if="rendered"/>
     <div class="block">
     </div>
     <div class="flexbox">
@@ -32,7 +32,7 @@
       };
     },
     async mounted() {
-      var docRef = doc(db, "users", this.$store.state.id);
+      var docRef = doc(db, "organisation", this.$store.state.id);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         this.$store.state.details = docSnap.data();

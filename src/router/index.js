@@ -37,11 +37,6 @@ const routes = [
       redirect: true,
     },
   },
-  {
-    path: "/volunteer/register",
-    name: "VolunteerRegister",
-    component: VolunteerRegister,
-  },
   // Register Views
   {
     path: "/register",
@@ -148,16 +143,6 @@ const routes = [
     path: "/event/creation",
     name: "EventCreationView",
     component: EventCreation,
-  },
-  {
-    path: "/volunteer/onboard",
-    name: "VolunteerBoard",
-    component: VolunteerBoard,
-  },
-  {
-    path: "/organisation/onboard",
-    name: "OrgBoard",
-    component: OrgBoard,
   },
 ];
 
