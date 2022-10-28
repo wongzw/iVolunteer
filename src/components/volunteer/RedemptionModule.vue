@@ -188,6 +188,7 @@ export default {
       this.rewardsConfirmModal = false;
       this.rewardConfirmChecked = false;
       this.cancelNotification();
+      location.reload();
     },
 
     claimReward(reward) {
@@ -209,8 +210,9 @@ export default {
         });
         this.updateDb(this.$store.state.id, reward);
       } else {
-        this.tierClaimed();
         this.rewardLevel();
+        this.tierClaimed();
+        location.reload();
       }
 
       console.log(this.$store.state.details["userRewards"]);
