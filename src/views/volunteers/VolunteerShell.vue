@@ -67,6 +67,7 @@ export default {
 
 .flexbox .side-bar {
   width: 20vw;
+  margin-right: 50px
 }
 
 .flexbox .router-view {

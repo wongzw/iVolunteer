@@ -90,9 +90,8 @@ export default {
 #sidebar {
   margin-top: 36px;
   margin-left: 30px;
-  margin-right: 30px;
   color: #020957;
-  width: 300px;
+  width: 90%;
 }
 #sidebarName {
   font-family: "Mulish";
