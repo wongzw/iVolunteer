@@ -31,7 +31,7 @@ export default {
           name: "Level",
           dataIndex: "Level",
           key: "Level",
-          sorter: (a, b) => a.Experience - b.Experience,
+          sorter: (a, b) => a.Level - b.Level,
           sortOrder: "descend",
         },
         {
