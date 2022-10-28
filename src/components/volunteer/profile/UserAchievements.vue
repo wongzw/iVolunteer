@@ -4,12 +4,14 @@
       <div id="box-title">Achievements</div>
 
       <div id="box details">
-        <img
+        <li v-for="item in userBadges.slice(0,5)" v-bind:key="item"> 
+          <img
           style="margin-right: 6px"
           src="@/assets/achievementIcon.svg"
           alt="tickIcon"
-        />
-        <label class="fontUser"> {{ userBadges }} </label> <br />
+          />
+          {{ item }} 
+        </li> <br />
       </div>
     </div>
   </div>
@@ -20,9 +22,11 @@ export default {
   name: "UserAchievements",
   data() {
     return {
-      userBadges: this.$store.state.details["userBadges"],
+      userBadges: Object.keys(this.$store.state.details.userBadges),
     };
   },
+  setup() {
+  }
 };
 </script>
 
@@ -43,8 +47,8 @@ export default {
 }
 
 #box-title {
-  margin-top: 4px;
-  margin-bottom: 15px;
+  margin-top: 0.5vh;
+  margin-bottom: 0.8vh;
   font-size: x-large;
   font-weight: bold;
   color: #ff734c;
