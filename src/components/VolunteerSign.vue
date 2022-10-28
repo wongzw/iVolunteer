@@ -186,7 +186,6 @@ export default {
   font-weight: bold;
   line-height: 5px;
   box-shadow: 0px 4px 10px rgba(60, 78, 100, 0.1);
-
 }
 
 .formSignUp {
