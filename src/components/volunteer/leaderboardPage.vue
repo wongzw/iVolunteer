@@ -1,6 +1,6 @@
 <template>
-  <div class="leaderboard">
-    <h1>This is leaderboard Page</h1>
+  <div class="header">
+    <h1><b>Leaderboard</b></h1>
   </div>
 </template>
 
@@ -11,4 +11,10 @@ export default {
 </script>
 
 <style scoped>
+.header h1 {
+  padding-top: 30px;
+  color: #020957;
+  text-align: left;
+  margin-bottom: 10px;
+}
 </style>

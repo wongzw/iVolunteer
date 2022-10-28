@@ -83,6 +83,7 @@ export default {
 #sidebarMenu {
   height: 20vh;
   margin-top: 16px;
+  margin-right: 15px;
   background-color: #ffefe2;
   border-radius: 5px;
   padding: 20px;
@@ -92,7 +93,7 @@ export default {
   margin-left: 30px;
   margin-right: 30px;
   color: #020957;
-  width: 300px;
+  width: 15vw;
 }
 #sidebarName {
   font-family: "Mulish";
