@@ -42,7 +42,7 @@
 <script>
 import { UserOutlined } from "@ant-design/icons-vue";
 import { defineComponent } from "vue";
-import expBar from "@/components/expBar.vue";
+import expBar from "./expBar.vue";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase.js";
