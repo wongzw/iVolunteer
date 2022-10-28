@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import CurrOrgEvents from './orgprofile/CurrOrgEvents.vue';
-import OrgDetails from './orgprofile/OrgDetails.vue';
+import CurrOrgEvents from '../orgprofile/CurrOrgEvents.vue';
+import OrgDetails from '../orgprofile/OrgDetails.vue';
 
 export default {
   name: "UserDashboard",

@@ -2,7 +2,7 @@
   <img
     style="margin-top: 2vh"
     alt="Logo of IVolunteer"
-    src="../assets/ivolunteer_logo.svg"
+    src="../../assets/ivolunteer_logo.svg"
   />
   <div class="box">
     <a-form
@@ -65,9 +65,9 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
-import { db } from "../firebase.js";
+import { db } from "../../firebase.js";
 import { doc, setDoc, getDoc } from "firebase/firestore";
-import GoogleButton from "./GoogleButton.vue";
+import GoogleButton from "../GoogleButton.vue";
 const auth = getAuth();
 auth.languageCode = "en";
 const provider = new GoogleAuthProvider();
