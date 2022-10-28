@@ -14,6 +14,7 @@ import OrgBoard from "@/views/onboarding/OrgBoard.vue";
 import VolunteerProfile from "@/views/volunteers/VolunteerProfileView.vue";
 import OrgProfileView from "@/views/organisations/OrgProfileView.vue";
 import OrgDashboardView from "@/views/organisations/OrgDashboardView.vue";
+import OrgEventView from "@/views/organisations/OrgEventView.vue";
 import RewardsRedemption from "@/views/volunteers/RewardsRedemption.vue";
 
 //Shell Views
@@ -60,6 +61,9 @@ const routes = [
     path: "/onboard",
     name: "OnboardShell",
     component: OnboardShell,
+    meta: {
+      requiresAuth: true,
+    },
     children: [
       {
         path: "volunteer",
@@ -71,6 +75,11 @@ const routes = [
         name: "OrgBoard",
         component: OrgBoard,
       },
+      {
+        path: "event/edit/:catchAll(.*)",
+        name: "OrgEventView",
+        component: OrgEventView,
+      }
     ],
   },
   // User Views
@@ -78,6 +87,9 @@ const routes = [
     path: "/volunteer",
     name: "VolunteerShell",
     component: VolunteerShell,
+    meta: {
+      requiresAuth: true,
+    },
     children: [
       {
         path: "dashboard",
@@ -98,9 +110,6 @@ const routes = [
         path: "rewards",
         name: "RewardsRedemption",
         component: RewardsRedemption,
-        meta: {
-          requiresAuth: true,
-        },
       },
     ],
   },
@@ -109,6 +118,10 @@ const routes = [
     path: "/organisation",
     name: "OrganisationShell",
     component: OrganisationShell,
+    meta: {
+      isOrg: true,
+      requiresAuth: true,
+    },
     children: [
       {
         path: "profile",
@@ -164,7 +177,13 @@ router.beforeEach((to, from, next) => {
     if (!auth) {
       next("/login");
     } else {
-      next();
+      if (userType == "Volunteer" && to.meta.isOrg) {
+        next("/volunteer/dashboard")
+      } else if (userType == "Organisation" && !to.meta.isOrg) {
+        next("/organisation/dashboard")
+      } else {
+        next();
+      }
     }
   } else {
     next();
