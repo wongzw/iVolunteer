@@ -69,4 +69,11 @@ export default createStore({
       return state.sidebarCollapsed;
     },
   },
+  // actions: {
+  //   updateProfile({dispatch, commit}) {
+  //     return dispatch('updateProfile').then(() => {
+  //       commit('mutation')
+  //     })
+  //   },
+  // }
 });

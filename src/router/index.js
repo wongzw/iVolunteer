@@ -11,11 +11,16 @@ import EventCreation from "@/views/EventCreationView.vue";
 import UserDashboard from "@/views/volunteers/UserDashboardView.vue";
 import VolunteerBoard from "@/views/onboarding/VolunteerBoard.vue";
 import OrgBoard from "@/views/onboarding/OrgBoard.vue";
+import VolunteerProfile from "@/views/volunteers/VolunteerProfileView.vue";
+import OrgProfileView from "@/views/organisations/OrgProfileView.vue";
+import OrgDashboardView from "@/views/organisations/OrgDashboardView.vue";
 import RewardsRedemption from "@/views/volunteers/RewardsRedemption.vue";
+
 //Shell Views
 import RegisterShell from "@/views/register/RegisterShell.vue";
 import OnboardShell from "@/views/onboarding/OnboardShell.vue";
 import VolunteerShell from "@/views/volunteers/VolunteerShell.vue";
+import OrganisationShell from "@/views/organisations/OrganisationShell.vue";
 import store from "@/store";
 
 const routes = [
@@ -80,6 +85,11 @@ const routes = [
         component: UserDashboard,
       },
       {
+        path: "profile",
+        name: "VolunteerProfile",
+        component: VolunteerProfile,
+      },
+      {
         path: "/event/:catchAll(.*)",
         name: "indvolEventView",
         component: indvolEventView,
@@ -91,6 +101,24 @@ const routes = [
         meta: {
           requiresAuth: true,
         },
+      },
+    ],
+  },
+  // Organisations
+  {
+    path: "/organisation",
+    name: "OrganisationShell",
+    component: OrganisationShell,
+    children: [
+      {
+        path: "profile",
+        name: "OrganisationProfile",
+        component: OrgProfileView,
+      },
+      {
+        path: "dashboard",
+        name: "OrgDashboard",
+        component: OrgDashboardView,
       },
     ],
   },

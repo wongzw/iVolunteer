@@ -46,7 +46,6 @@ import expBar from "@/components/expBar.vue";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase.js";
-
     export default ({
         name: 'TheSidebar',
         data() {
@@ -81,7 +80,6 @@ import { db } from "../firebase.js";
   font-size: 18px;
   color: #020957;
 }
-
 #sidebarMenu {
   height: 20vh;
   margin-top: 16px;
@@ -89,7 +87,6 @@ import { db } from "../firebase.js";
   border-radius: 5px;
   padding: 20px
 }
-
 #sidebar {
   margin-top: 36px;
   margin-left: 30px;
@@ -97,7 +94,6 @@ import { db } from "../firebase.js";
   color: #020957;
   width: 300px;
 }
-
 #sidebarName {
   font-family: "Mulish";
   font-weight: 700;
@@ -106,22 +102,17 @@ import { db } from "../firebase.js";
   padding: 14px 0;
   color: #020957;
 }
-
 .sidebarContainer {
   text-align: left;
 }
-
 .linkContainer {
   margin-bottom: 16px;
 }
-
 .container {
   display: flex;
   margin-bottom: 20px;
 }
-
 .antDP {
   margin-right: 18px;
 }
 </style>
-
