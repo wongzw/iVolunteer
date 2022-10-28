@@ -285,7 +285,8 @@ export default {
   padding: 20px;
   margin-bottom: 20px;
   margin-top: 20px;
-  height: 100%;
+  border-radius: 8px;
+  height: auto;
 }
 
 .rewardClaimed {

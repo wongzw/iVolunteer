@@ -24,7 +24,6 @@ export default ({
         margin-top: 36px;
         margin-left: 40px;
         margin-right: 36px;
-        margin-bottom: 62px;
         background-color: #FFEFE2;
         width: 876px;
         height: 217px;

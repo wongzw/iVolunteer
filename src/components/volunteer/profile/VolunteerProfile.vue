@@ -27,13 +27,8 @@ export default {
 </script>
 
 <style scoped>
-/* body {
-  min-height: 100vh;
-  background-color: #fef8f3;
-} */
 
 .background {
-  min-height: 100vh;
   background-color: #fef8f3;
 }
 </style>
