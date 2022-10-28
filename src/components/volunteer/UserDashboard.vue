@@ -1,18 +1,18 @@
 <template>
   <div>
     <body>
-      <VolCurrentEvents/>
+      <VolCurrentEvents />
     </body>
   </div>
 </template>
 
 <script>
-import VolCurrentEvents from '@/components/VolCurrentEvents.vue'
+import VolCurrentEvents from "./VolCurrentEvents.vue";
 
 export default {
   name: "UserDashboard",
   components: {
-    VolCurrentEvents, 
+    VolCurrentEvents,
   },
 };
 </script>

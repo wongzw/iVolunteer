@@ -8,7 +8,7 @@
 </template>
   
 <script>
-import TheFooter from "@/components/TheFooter.vue";
+import TheFooter from "@/components/global/TheFooter.vue";
 export default {
   name: "OrgShell",
   components: { TheFooter },

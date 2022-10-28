@@ -7,7 +7,7 @@
   </template>
   
   <script>
-  import OrgCurrentEvents from '@/components/OrgCurrentEvents.vue'
+  import OrgCurrentEvents from '@/components/organisation/OrgCurrentEvents.vue'
   
   export default {
     name: "OrgCurrentEvents",

@@ -1,61 +1,58 @@
 <template>
-    <TheNavbar v-if="rendered"/>
-    <div class="block">
+  <TheNavbar v-if="rendered" />
+  <div class="block"></div>
+  <div class="flexbox">
+    <div class="side-bar">
+      <TheSidebar v-if="rendered" />
     </div>
-    <div class="flexbox">
-      <div class="side-bar">
-        <TheSidebar v-if="rendered"/>
-      </div>
-      <div class="router-view">
-        <router-view></router-view>
-      </div>
+    <div class="router-view">
+      <router-view></router-view>
     </div>
-    <div class="the-footer">
-        <TheFooter/>
-    </div>
-  
-  </template>
+  </div>
+  <div class="the-footer">
+    <TheFooter />
+  </div>
+</template>
     
   <script>
-  import TheFooter from "@/components/TheFooter.vue";
-  import TheNavbar from "@/components/TheNavbar.vue";
-  import TheSidebar from "@/components/TheSidebar.vue";
-  import { db } from "../../firebase.js";
-  import { getDoc, doc } from "firebase/firestore";
-  
-  export default {
-    name: "OrgShell",
-    components: { TheFooter, TheNavbar, TheSidebar},
-    data() {
-      return {
-        rendered: false,
-      };
-    },
-    async mounted() {
-      var docRef = doc(db, "organisation", this.$store.state.id);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        this.$store.state.details = docSnap.data();
-        console.log(docSnap.data())
-        this.rendered = true;
-      }
-    },
-  };
-  </script>
+import TheFooter from "@/components/global/TheFooter.vue";
+import TheNavbar from "@/components/global/TheNavbar.vue";
+import TheSidebar from "@/components/volunteer/TheSidebar.vue";
+import { db } from "../../firebase.js";
+import { getDoc, doc } from "firebase/firestore";
+
+export default {
+  name: "OrgShell",
+  components: { TheFooter, TheNavbar, TheSidebar },
+  data() {
+    return {
+      rendered: false,
+    };
+  },
+  async mounted() {
+    var docRef = doc(db, "organisation", this.$store.state.id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      this.$store.state.details = docSnap.data();
+      console.log(docSnap.data());
+      this.rendered = true;
+    }
+  },
+};
+</script>
   
   
   <style scoped>
-    .block {
-      height:68px;
-      width: 100%;
-    }
-  
-    .flexbox {
-      display: flex;
-    }
-    
-    .the-footer {
-      bottom: 0;
-    }
-  
-  </style>
+.block {
+  height: 68px;
+  width: 100%;
+}
+
+.flexbox {
+  display: flex;
+}
+
+.the-footer {
+  bottom: 0;
+}
+</style>
