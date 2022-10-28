@@ -3,7 +3,7 @@
 </template>
   
 <script>
-import VolunteerSign from "../../components/VolunteerSign.vue";
+import VolunteerSign from "../../components/login-signup/VolunteerSign.vue";
 
 export default {
   name: "VolunteerRegister",

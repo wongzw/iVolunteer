@@ -6,15 +6,21 @@ import VolunteerRegister from "@/views/register/VolunteerRegister.vue";
 import OrgRegister from "@/views/register/OrgRegister.vue";
 import TheSupport from "@/views/TheSupport.vue";
 import NoPageFound from "@/views/NoPageFound.vue";
-import indvolEventView from "@/views/indvolEventView.vue";
-import EventCreation from "@/views/EventCreationView.vue";
+import indvolEventView from "@/views/volunteers/indvolEventView.vue";
+import EventCreation from "@/views/organisations/EventCreationView.vue";
 import UserDashboard from "@/views/volunteers/UserDashboardView.vue";
 import VolunteerBoard from "@/views/onboarding/VolunteerBoard.vue";
 import OrgBoard from "@/views/onboarding/OrgBoard.vue";
+import VolunteerProfile from "@/views/volunteers/VolunteerProfileView.vue";
+import OrgProfileView from "@/views/organisations/OrgProfileView.vue";
+import OrgDashboardView from "@/views/organisations/OrgDashboardView.vue";
+import RewardsRedemption from "@/views/volunteers/RewardsRedemption.vue";
+
 //Shell Views
 import RegisterShell from "@/views/register/RegisterShell.vue";
 import OnboardShell from "@/views/onboarding/OnboardShell.vue";
 import VolunteerShell from "@/views/volunteers/VolunteerShell.vue";
+import OrganisationShell from "@/views/organisations/OrganisationShell.vue";
 import store from "@/store";
 
 const routes = [
@@ -79,9 +85,40 @@ const routes = [
         component: UserDashboard,
       },
       {
+        path: "profile",
+        name: "VolunteerProfile",
+        component: VolunteerProfile,
+      },
+      {
         path: "/event/:catchAll(.*)",
         name: "indvolEventView",
         component: indvolEventView,
+      },
+      {
+        path: "rewards",
+        name: "RewardsRedemption",
+        component: RewardsRedemption,
+        meta: {
+          requiresAuth: true,
+        },
+      },
+    ],
+  },
+  // Organisations
+  {
+    path: "/organisation",
+    name: "OrganisationShell",
+    component: OrganisationShell,
+    children: [
+      {
+        path: "profile",
+        name: "OrganisationProfile",
+        component: OrgProfileView,
+      },
+      {
+        path: "dashboard",
+        name: "OrgDashboard",
+        component: OrgDashboardView,
       },
     ],
   },

@@ -10,7 +10,9 @@
       <!-- NAVIGATION MENUS -->
       <div class="menu">
         <li><router-link to="/Login">Home</router-link></li>
-        <li><router-link to="/">Redemption</router-link></li>
+        <li v-if="this.$store.state.userType == 'Volunteer'">
+          <router-link to="/volunteer/rewards">Redemption</router-link>
+        </li>
         <li><router-link to="/">Support</router-link></li>
         <li><router-link to="/">Notifications</router-link></li>
         <!-- <li><a href="/Support">Support</a></li>

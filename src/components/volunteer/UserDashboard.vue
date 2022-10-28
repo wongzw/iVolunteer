@@ -1,23 +1,24 @@
 <template>
   <div>
     <body>
-        <VolCurrentEvents />
+      <VolCurrentEvents />
     </body>
   </div>
 </template>
 
 <script>
-import VolCurrentEvents from '@/components/VolCurrentEvents.vue'
+import VolCurrentEvents from "./VolCurrentEvents.vue";
+
 export default {
   name: "UserDashboard",
-  components: {VolCurrentEvents},
+  components: {
+    VolCurrentEvents,
+  },
 };
 </script>
 
 <style scoped>
 body {
-  min-height: 100vh;
   background-color: #fef8f3;
 }
-
 </style>

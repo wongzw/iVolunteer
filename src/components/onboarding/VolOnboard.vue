@@ -87,13 +87,29 @@ export default {
       skills: [],
     };
   },
+
+  setup() {
+    const formValidError = (msg) => {
+      notification.open({
+        message: "Error",
+        description: msg,
+        duration: 3,
+        icon: () => h(ExclamationCircleOutlined, { style: "color: #ff3700" }),
+      });
+    };
+
+    return {
+      formValidError,
+    };
+  },
+
   methods: {
     updateData() {
       if (this.interests.length == 0 || this.skills.length == 0) {
-        alert("Please fill in all fields!");
+        this.formValidError("Please fill in all fields!");
       } else {
         this.updateDb(this.$store.state.id);
-        this.$router.push({ path: "/volunteer", replace: true });
+        this.$router.push({ path: "/volunteer/profile", replace: true });
       }
     },
     async updateDb(uid) {
@@ -144,6 +160,5 @@ export default {
   width: 60%;
   margin-bottom: -5px;
 }
-
 </style>
   
