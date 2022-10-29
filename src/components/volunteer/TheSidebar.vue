@@ -68,7 +68,7 @@ export default {
       this.$router.push({ path: "/volunteer/profile" });
     },
     reroute_leaderboard() {
-      this.$router.push({ path: "/volunteer" });
+      this.$router.push({ path: "/volunteer/leaderboard" });
     },
   },
 };
@@ -81,8 +81,9 @@ export default {
   color: #020957;
 }
 #sidebarMenu {
-  height: 20vh;
+  height: auto;
   margin-top: 16px;
+  margin-right: 15px;
   background-color: #ffefe2;
   border-radius: 5px;
   padding: 20px;
@@ -91,8 +92,10 @@ export default {
   margin-top: 36px;
   margin-left: 30px;
   color: #020957;
-  width: 90%;
+  width: 15vw;
+  height: auto;
 }
+
 #sidebarName {
   font-family: "Mulish";
   font-weight: 700;
