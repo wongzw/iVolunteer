@@ -50,7 +50,7 @@ export default {
   name: "TheSidebar",
   data() {
     return {
-      name: this.$store.state.details["fullName"],
+      name: this.$store.state.details["firstName"] + " " + this.$store.state.details["lastName"]
     };
   },
   computed: {
