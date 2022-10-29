@@ -37,17 +37,27 @@ export default {
       const q = query(collection(db, "events"), where('eventCauses', 'array-contains-any', userInterests))
       const eventSnapshot = await getDocs(q)
       eventSnapshot.forEach((doc) => {
-        console.log(doc.id, "=>", doc.data())
-        this.interestCards.push({ id: doc.id, data: doc.data()})
+        const eventDate = doc.data()["dateStart"];
+        const eventDateParts = eventDate.split("-");
+        const eventDateObject = new Date(+eventDateParts[2], eventDateParts[1] - 1, +eventDateParts[0]);
+        const today = new Date();
+        if (eventDateObject > today) {
+          this.interestCards.push({ id: doc.id, data: doc.data()})
+        }
       })
     },
     async queryEvents() {
       const eventSnapshot = await getDocs(collection(db, "events"))
       eventSnapshot.forEach((doc) => {
-        console.log(doc.id, "=>", doc.data())
-        this.allCards.push({ id: doc.id, data: doc.data()})
+        const eventDate = doc.data()["dateStart"];
+        const eventDateParts = eventDate.split("-");
+        const eventDateObject = new Date(+eventDateParts[2], eventDateParts[1] - 1, +eventDateParts[0]);
+        const today = new Date();
+        if (eventDateObject > today) {
+          this.allCards.push({ id: doc.id, data: doc.data()})
+        }
       })
-    }
+    },
   },
 };
 </script>
