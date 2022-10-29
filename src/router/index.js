@@ -75,11 +75,6 @@ const routes = [
         name: "OrgBoard",
         component: OrgBoard,
       },
-      {
-        path: "event/edit/:catchAll(.*)",
-        name: "OrgEventView",
-        component: OrgEventView,
-      }
     ],
   },
   // User Views
@@ -133,6 +128,11 @@ const routes = [
         name: "OrgDashboard",
         component: OrgDashboardView,
       },
+      {
+        path: "event/:catchAll(.*)",
+        name: "OrgEventView",
+        component: OrgEventView,
+      }
     ],
   },
 
