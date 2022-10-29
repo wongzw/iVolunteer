@@ -15,6 +15,7 @@ import VolunteerProfile from "@/views/volunteers/VolunteerProfileView.vue";
 import OrgProfileView from "@/views/organisations/OrgProfileView.vue";
 import OrgDashboardView from "@/views/organisations/OrgDashboardView.vue";
 import RewardsRedemption from "@/views/volunteers/RewardsRedemption.vue";
+import LeaderboardView from "@/views/volunteers/LeaderboardView.vue";
 
 //Shell Views
 import RegisterShell from "@/views/register/RegisterShell.vue";
@@ -101,6 +102,11 @@ const routes = [
         meta: {
           requiresAuth: true,
         },
+      },
+      {
+        path: "leaderboard",
+        name: "VolunteerLeaderboard",
+        component: LeaderboardView,
       },
     ],
   },
