@@ -229,26 +229,16 @@ export default {
       } else {
         timeStart[2] = "am";
       }
-      let timeEnd = this.event["timeEnd"].split(":").map(Number);
-      if (timeEnd[2] >= 12) {
-        timeEnd[2] = "pm";
+      let timeEnd = this.event["timeEnd"].split(':').map(Number)
+      if (timeEnd[0] >= 12) {
+        timeEnd[2] = 'pm'
       } else {
         timeEnd[2] = "am";
       }
-      timeStart[0] = timeStart[0] % 12;
-      timeEnd[0] = timeEnd[0] % 12;
-      timeStart =
-        String(timeStart[0]) +
-        "." +
-        String(zeroPad(timeStart[1], 2)) +
-        " " +
-        String(timeStart[2]);
-      timeEnd =
-        String(timeEnd[0]) +
-        "." +
-        String(zeroPad(timeEnd[1], 2)) +
-        " " +
-        String(timeEnd[2]);
+      timeStart[0] = timeStart[0] % 13;
+      timeEnd[0] = timeEnd[0] % 13;
+      timeStart = String(timeStart[0]) + "." + String(zeroPad(timeStart[1], 2)) + " " + String(timeStart[2])
+      timeEnd = String(timeEnd[0]) + "." + String(zeroPad(timeEnd[1], 2)) + " " + String(timeEnd[2])  
       return `${timeStart} to ${timeEnd}`;
     },
     displayLocation() {
