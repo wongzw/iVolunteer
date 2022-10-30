@@ -1,9 +1,9 @@
 <template>
   <div class="participant-cards">
-    <h1>Current Participants</h1>
+    <h1>Current Participants: ({{ numAccepted }} volunteers accepted)</h1>
     <div class="participant-box">
     <ParticipantCard
-      v-for="participant in participants" :participant="participant" :eventId="eventId"
+      v-for="participant in participants" :participant="participant" :eventId="eventId" @incrementVol="updateAccepted($event)"
     />
     </div>
   </div>
@@ -21,19 +21,25 @@ export default {
   data() {
     return {
       participants: [],
+      numAccepted: 0,
     };
-  },
-  computed: {
-
   },
   mounted() {
     let participantMap = this.event["participants"];
     console.log(participantMap);
     for (let key in participantMap) {
       this.participants.push([key, participantMap[key]]);
+      if (participantMap[key]["applicationStatus"] == "accepted") {
+        this.numAccepted += 1;
+      }
     }
     console.log(this.participants)
   },
+  methods: {
+    updateAccepted(x) {
+      this.numAccepted += 1;
+    }
+  }
 };
 </script>
 
