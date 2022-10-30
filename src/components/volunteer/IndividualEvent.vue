@@ -42,7 +42,6 @@
               <a-modal
                 v-model:visible="visible"
                 title="Event Confirmation"
-                @ok="handleOk"
               >
                 <template #footer> </template>
                 <div class="modal">

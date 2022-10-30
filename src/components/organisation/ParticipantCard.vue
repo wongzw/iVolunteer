@@ -2,7 +2,6 @@
   <a-modal
     title="Volunteer Details"
     v-model:visible="toggleProfile"
-    @ok="handleOk"
   >
     <template #footer> </template>
     <VolunteerProfile :participantId="this.participant[0]"/>
@@ -79,6 +78,7 @@ import VolunteerProfile from "@/components/organisation/VolunteerProfile.vue";
 export default {
   name: "ParticipantCard",
   props: ["participant", "eventId"],
+  emits: ["incrementVol"],
   data() {
     return {
       interests: [],
@@ -129,6 +129,7 @@ export default {
       this.status = "accepted";
       this.updateAcceptEvent();
       this.updateAcceptUser();
+      this.$emit("incrementVol", 1)
     },
     rejectHandler() {
       this.status = "rejected";
