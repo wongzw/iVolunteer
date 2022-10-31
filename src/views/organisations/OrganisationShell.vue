@@ -2,9 +2,6 @@
   <TheNavbar v-if="rendered" />
   <div class="block"></div>
   <div class="flexbox">
-    <div class="side-bar">
-      <TheSidebar v-if="rendered" />
-    </div>
     <div class="router-view">
       <router-view></router-view>
     </div>
@@ -23,7 +20,7 @@ import { getDoc, doc } from "firebase/firestore";
 
 export default {
   name: "OrgShell",
-  components: { TheFooter, TheNavbar, TheSidebar },
+  components: { TheFooter, TheNavbar },
   data() {
     return {
       rendered: false,

@@ -112,7 +112,7 @@ import { collection, query, where } from "firebase/firestore";
 import { doc, getDocs, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase.js";
 import { notification } from "ant-design-vue";
-import { SmileOutlined, robotOutlined } from "@ant-design/icons-vue";
+import { SmileOutlined, RobotOutlined } from "@ant-design/icons-vue";
 import { defineComponent, h } from "vue";
 
 export default {
@@ -161,7 +161,7 @@ export default {
         message: "Error",
         description: "An Error Occurred. Please try again. ",
         duration: 3,
-        icon: () => h(robotOutlined, { style: "color: #ff3700" }),
+        icon: () => h(RobotOutlined, { style: "color: #ff3700" }),
       });
     };
 

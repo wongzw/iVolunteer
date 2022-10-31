@@ -42,7 +42,6 @@
               <a-modal
                 v-model:visible="visible"
                 title="Event Confirmation"
-                @ok="handleOk"
               >
                 <template #footer> </template>
                 <div class="modal">
@@ -139,7 +138,7 @@ import { db } from "../../firebase.js";
 import NoPageFound from "@/views/NoPageFound.vue";
 import { doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
 import { notification } from "ant-design-vue";
-import { SmileOutlined, robotOutlined } from "@ant-design/icons-vue";
+import { SmileOutlined, RobotOutlined } from "@ant-design/icons-vue";
 import { h } from "vue";
 
 export default {
@@ -155,6 +154,7 @@ export default {
       hasRegistered: false,
       eventStartDate: new Date(),
       eventEndDate: new Date(),
+      docSnap: false,
       visible: false,
     };
   },
@@ -175,7 +175,7 @@ export default {
         message: "Error",
         description: "An Error Occurred. Please try again. ",
         duration: 3,
-        icon: () => h(robotOutlined, { style: "color: #ff3700" }),
+        icon: () => h(RobotOutlined, { style: "color: #ff3700" }),
       });
     };
 
@@ -271,6 +271,7 @@ export default {
     //Update event store
     var docRef = doc(db, "events", this.currentRouteName);
     const docSnap = await getDoc(docRef);
+    this.docSnap = docSnap
     if (docSnap.exists()) {
       this.eventLoaded = true;
       this.event = docSnap.data();
@@ -290,11 +291,15 @@ export default {
     },
     async updateEvent() {
       let participantMap = this.event["participants"];
+      console.log(participantMap)
       participantMap[this.$store.state.id] = {
         applicationStatus: "pending",
         attendanceStatus: "unconfirmed",
+        fullName: this.$store.state.details["firstName"] + " " + this.$store.state.details["lastName"],
+        interests: this.$store.state.details["interests"]
       };
       this.event["participants"] = participantMap;
+      console.log(participantMap)
       const eventRef = doc(db, "events", this.currentRouteName);
       await setDoc(eventRef, this.event);
     },
