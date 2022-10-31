@@ -32,7 +32,6 @@ export default {
   margin-left: 40px;
   margin-right: 36px;
   background-color: #ffefe2;
-  /* width: 50vw; */
   height: 23vh;
   border-radius: 5px;
   padding: 24px;
