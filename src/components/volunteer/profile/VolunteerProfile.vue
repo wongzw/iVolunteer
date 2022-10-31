@@ -31,6 +31,7 @@ export default {
 
 <style scoped>
 .background {
+  min-height: 30vh;
   background-color: #fef8f3;
 }
 </style>
