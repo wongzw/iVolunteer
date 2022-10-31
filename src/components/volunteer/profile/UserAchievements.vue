@@ -69,8 +69,6 @@ export default {
       seenAll: false,
     };
   },
-  setup() {
-  },
   methods: {
     showAll() {
       this.showMore = true;
