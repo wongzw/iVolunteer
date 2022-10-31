@@ -86,9 +86,8 @@ export default {
 #userAchievements {
   margin-top: 36px;
   margin-left: 40px;
-  margin-right: 36px;
+  margin-right: 40px;
   background-color: #ffefe2;
-  height: 23vh;
   border-radius: 5px;
   padding: 24px;
 }

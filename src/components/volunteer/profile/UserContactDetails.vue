@@ -49,13 +49,17 @@ export default {
 #contactDetails {
   margin-top: 36px;
   background-color: #ffefe2;
-  height: 23vh;
   border-radius: 5px;
   padding: 24px;
 }
 .box {
   text-align: left;
   margin-left: 15px;
+  margin-right: 15px;
+}
+
+.box .button {
+  margin-left: 0px;
 }
 
 #box-title {
@@ -70,10 +74,6 @@ export default {
   color: #020957;
   font-weight: bold;
   margin-right: "";
-}
-
-.box button {
-  align-items: center;
 }
 
 .ant-button .orange {
