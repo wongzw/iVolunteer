@@ -14,50 +14,19 @@
             <div class="ant-button">
             <a-button type="primary" size="large" class="orange" @click="showModal">
                 Edit Personal Details </a-button>
-            <!-- <a-modal
-                v-model:visible="visible"
-                title="Event Confirmation"
-                @ok="handleOk"
-              >
-                <template #footer> </template>
-                <div class="modal">
-                  <h1 id="modalHeader">
-                    Hi, {{ `${this.$store.state.details["lastName"]}!` }}
-                  </h1>
-                  <p>Yes, I want to sign up as a volunteer for</p>
-                  <p>
-                    <b
-                      >{{ this.event["eventName"] }} by
-                      {{ this.event["eventHost"] }}</b
-                    >
-                  </p>
-                  <p>on</p>
-                  <p>
-                    <b>{{ fullDate }}</b>
-                  </p>
-                  <p><b>TBC</b></p>
-                  <p>
-                    <b>at {{ displayLocation }}</b>
-                  </p>
-                  <br /><br />
-                  <span id="spanModal">
-                    <p>I agree with the</p>
-                    <p style="color: orange">Terms & Conditions</p>
-                  </span>
-
-                  <a-button id="confirmButton" htmlType="submit" size="large" type="primary" danger @click="confirmVolunteer"
-                    >Confirm
-                  </a-button>
-                </div>
-              </a-modal> -->
-            </div>
         </div>
+      </div>
     </div>
 </div>
 </template>
   
 <script>
 import { updateEmail } from "firebase/auth";
+import { notification } from "ant-design-vue";
+import { SmileOutlined, robotOutlined } from "@ant-design/icons-vue";
+import { collection, query, where } from "firebase/firestore";
+import { doc, getDocs, updateDoc } from "firebase/firestore";
+import { db } from "../../../firebase.js";
 
     export default ({
         name: 'ContactDetails',
@@ -67,11 +36,6 @@ import { updateEmail } from "firebase/auth";
                 email: this.$store.getters.getEmail,
             }
         },
-        methods: {
-            edit_profile() {
-                this.$store.dispatch('updateProfile')
-            }
-        }
     });
 
 </script>
