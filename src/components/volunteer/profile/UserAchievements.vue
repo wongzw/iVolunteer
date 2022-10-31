@@ -34,10 +34,12 @@ export default {
   background-color: #ffefe2;
   border-radius: 5px;
   padding: 24px;
+  height: 23vh;
 }
 .box {
   text-align: left;
   margin-left: 15px;
+  height: auto;
 }
 
 #box-title {
