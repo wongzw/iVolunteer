@@ -13,6 +13,48 @@
           {{ item }} 
         </li> <br />
       </div>
+
+      <div class="box more" v-if="userBadges.length > 5">
+        <div class="showingAll">
+          <a style="color: #5a4ff3" @click="showAll"> 
+            Show All
+          </a>
+        </div>
+      </div>
+
+      <div class="a-modal">
+            <a-modal
+            v-model:visible="this.showMore"
+            title="Badges earned:"
+            @ok="handleOk"
+            >
+
+            <template #footer>
+              <div class="ant-button">
+                <a-button
+                    class="orange"
+                    key="Confirm"
+                    type="primary"
+                    :loading="loading"
+                    @click="showNone"
+                    style="width: 40%"
+                    >Close</a-button
+                >
+              </div>
+            </template>
+            
+            <div class="modalContent">
+              <li v-for="item in userBadges" v-bind:key="item"> 
+                <img
+                style="margin-right: 6px"
+                src="@/assets/achievementIcon.svg"
+                alt="tickIcon"
+                />
+                {{ item }} 
+              </li> <br />
+            </div>
+            </a-modal>
+        </div>
     </div>
   </div>
 </template>
@@ -23,9 +65,21 @@ export default {
   data() {
     return {
       userBadges: Object.keys(this.$store.state.details.userBadges),
+      showMore: false,
+      seenAll: false,
     };
   },
   setup() {
+  },
+  methods: {
+    showAll() {
+      this.showMore = true;
+    },
+    showNone() {
+      this.seenAll = false; 
+      this.showMore = false;
+    },
+
   }
 };
 </script>
@@ -37,13 +91,17 @@ export default {
   margin-right: 36px;
   background-color: #ffefe2;
   width: 400px;
-  height: 217px;
+  height: 33vh;
   border-radius: 5px;
   padding: 24px;
 }
 .box {
   text-align: left;
   margin-left: 15px;
+}
+
+.box .more {
+  text-align: right;
 }
 
 #box-title {
