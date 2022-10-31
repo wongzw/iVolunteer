@@ -88,7 +88,7 @@ export default {
   margin-left: 40px;
   margin-right: 36px;
   background-color: #ffefe2;
-  height: 23vh;
+  height: 28vh;
   border-radius: 5px;
   padding: 24px;
 }
@@ -99,6 +99,7 @@ export default {
 
 .box .more {
   text-align: right;
+  vertical-align: middle;
 }
 
 #box-title {
