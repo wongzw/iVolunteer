@@ -1,10 +1,13 @@
 <template>
   <a-layout class="background">
-    <a-row gutter="{[24,16]}">
+    <!-- <a-row gutter="{[24,16]}">
       <UserContactDetails />
       <UserAchievements />
+    </a-row> -->
+    <a-row type="flex">
+      <a-col :flex="0.5"><UserContactDetails /></a-col>
+      <a-col :flex="4.5"><UserAchievements /></a-col>
     </a-row>
-
     <a-row>
       <CurrentUserEvents />
     </a-row>
