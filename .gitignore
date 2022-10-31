@@ -25,3 +25,5 @@ pnpm-debug.log*
 # Config Files
 firebaseConfig.json
 .firebase
+src/emailService/credentials.json
+src/emailService/token.json
