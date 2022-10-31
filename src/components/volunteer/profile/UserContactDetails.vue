@@ -13,6 +13,35 @@
             <a-button type="primary" size="large" class="orange" @click="showModal">
                 Edit Personal Details </a-button>
         </div>
+
+        <div class="a-modal">
+            <a-modal
+            v-model:visible="this.showMore"
+            title="Edit Personal Details:"
+            @ok="handleOk"
+            >
+
+            <template #footer>
+              <div class="ant-button">
+                <a-button
+                    class="orange"
+                    key="Confirm"
+                    type="primary"
+                    :loading="loading"
+                    @click="showNone"
+                    style="width: 40%"
+                    :disabled="this.rewardConfirmChecked == false"
+                    >Confirm</a-button
+                >
+              </div>
+            </template>
+            
+            <div class="modalContent">
+                some content
+            </div>
+            </a-modal>
+        </div>
+
       </div>
     </div>
   </div>
@@ -26,23 +55,27 @@ import { collection, query, where } from "firebase/firestore";
 import { doc, getDocs, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase.js";
 
-export default {
-  name: "ContactDetails",
-  data() {
-    return {
-      name:
-        this.$store.state.details["firstName"] +
-        " " +
-        this.$store.state.details["lastName"],
-      email: this.$store.getters.getEmail,
-    };
-  },
-  methods: {
-    edit_profile() {
-      this.$store.dispatch("updateProfile");
-    },
-  },
-};
+    export default ({
+        name: 'ContactDetails',
+        data() {
+            return {
+                name: this.$store.state.details['firstName'] + " " + this.$store.state.details['lastName'],
+                email: this.$store.getters.getEmail,
+                showMore: false,
+                seenAll: false,
+            }
+        },
+        methods: {
+            showAll() {
+                this.showMore = true;
+            },
+            showNone() {
+                this.seenAll = false; 
+                this.showMore = false;
+            },
+        }
+    });
+
 </script>
   
 <style scoped>
@@ -58,12 +91,12 @@ export default {
   margin-left: 15px;
 }
 
-#box-title {
-  margin-top: 4px;
-  margin-bottom: 15px;
-  font-size: x-large;
-  font-weight: bold;
-  color: #ff734c;
+#box-title{
+    margin-top:4px;
+    margin-bottom:3vh;
+    font-size: x-large;
+    font-weight: bold;
+    color: #ff734c; 
 }
 
 .box .fontUser {
@@ -74,6 +107,9 @@ export default {
 
 .box button {
   align-items: center;
+}
+.box .button{
+    margin-top: 2vh; 
 }
 
 .ant-button .orange {
