@@ -199,9 +199,9 @@ export default {
         "December",
       ];
       let startDate = this.eventStartDate.split("-");
-      startDate[1] = monthNames[startDate[1]];
+      startDate[1] = monthNames[startDate[1]-1];
       let endDate = this.eventEndDate.split("-");
-      endDate[1] = monthNames[endDate[1]];
+      endDate[1] = monthNames[endDate[1]-1];
       startDate = startDate.join(" ");
       endDate = endDate.join(" ");
       if (startDate == endDate) {

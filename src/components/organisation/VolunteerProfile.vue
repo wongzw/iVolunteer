@@ -9,6 +9,7 @@
       </p>
       <p>No Show Count: {{ this.participantDetails["noShowNum"] }}</p>
       <p>Skills: {{ displaySkills }}</p>
+      <p>Badge Awarded: {{ displayBadges }}</p>
       <p>Number of Applied Events: {{ numAppliedEvents }}</p>
       <p>Number of Accepted Events: {{ numAcceptedEvents }}</p>
     </div>
@@ -34,6 +35,13 @@ export default {
     },
     displayFullName() {
         return this.participantDetails["firstName"] + " " + this.participantDetails["lastName"]
+    },
+    displayBadges() {
+      let showBadges = []
+      for (let key in this.participantDetails["userBadges"]) {
+        showBadges.push(key);
+      }
+      return showBadges.join(",");
     }
   },
   data() {
@@ -73,5 +81,6 @@ h2 {
 p {
   color: orange;
   font-weight: bold;
+  line-height: 120%;
 }
 </style>
