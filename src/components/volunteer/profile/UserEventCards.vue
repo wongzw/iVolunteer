@@ -1,19 +1,19 @@
 <template>
     <div class="eventCards">
         <a-card class = "indivEvent" type="inner">
-            <div class="info">
+            <div class="title">
                 <h2 class="event-title">{{ event.data.eventName }}</h2>
 
                 <div class="info">
-                    <div class="details">
+                    <div class="info details">
                         <img class="image" src="@/assets/calendarIcon.svg" alt="calendar" />
                         <h2 class="event-host">{{ event.data.dateStart }}</h2>
                     </div>
-                    <div class="details">
+                    <div class="info details">
                         <img class="image" src="@/assets/clockIcon.svg" alt="clock" />
                         <h2 class="event-host">{{ event.data.timeStart }}</h2>
                     </div>
-                    <div class="details">
+                    <div class="info details">
                         <img class="image" src="@/assets/locationIcon.svg" alt="location" />
                         <h2 class="event-host">{{ event.data.location }}</h2>
                     </div>
@@ -53,13 +53,14 @@ export default {
   font-weight: 700;
   font-size: 16px;
   color: #020957;
-  margin-top: 24px;
-  margin-left: 28px;
+  margin-top: 2vh;
+  margin-left: 2vh;
   text-align: left;
 }
-.details {
+.info {
   display: flex;
-  margin-left: 24px;
+  margin-left: 1vh;
+  text-align: left;
 }
 
 .event-host {
@@ -85,6 +86,5 @@ export default {
   border-color: #ff734c;
   border-radius: 5px;
   height: auto;
-  margin-top: 2vh;
 }
 </style>

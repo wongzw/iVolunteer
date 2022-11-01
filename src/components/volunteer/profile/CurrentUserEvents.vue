@@ -25,7 +25,6 @@ export default {
   data() {
     return {
       EventCards: [],
-      userEvents: this.$store.state['userAcceptedEvents'],
     };
   },
   components: {
