@@ -84,7 +84,7 @@
             </div>
           </div>
         </div>
-        <ParticipantList :event="event" :eventId="this.currentRouteName" v-if="event"/>
+        <ParticipantList :event="event" :eventId="this.currentRouteName" :eventClose="this.eventClose" :eventHour="this.eventHour()" v-if="event"/>
       </div>
       <NoPageFound v-if="eventNotExist" />
     </div>
@@ -108,8 +108,9 @@
         eventLoaded: false,
         eventNotExist: false,
         hasRegistered: false,
-        eventStartDate: new Date(),
-        eventEndDate: new Date(),
+        eventStartDate: "",
+        eventEndDate: "",
+        eventClose: false,
       };
     },
   
@@ -130,9 +131,9 @@
           "December",
         ];
         let startDate = this.eventStartDate.split("-");
-        startDate[1] = monthNames[startDate[1]];
+        startDate[1] = monthNames[startDate[1]-1];
         let endDate = this.eventEndDate.split("-");
-        endDate[1] = monthNames[endDate[1]];
+        endDate[1] = monthNames[endDate[1]-1];
         startDate = startDate.join(" ");
         endDate = endDate.join(" ");
         if (startDate == endDate) {
@@ -207,11 +208,28 @@
         this.event = docSnap.data();
         this.eventStartDate = this.event["dateStart"];
         this.eventEndDate = this.event["dateEnd"];
+        this.eventClose = this.hasCompleted();
       } else {
         this.eventNotExist = true;
       }
     },
     methods: {
+      hasCompleted() {
+        let currentDate = new Date();
+        let endDate = new Date(this.eventEndDate.split("-").reverse());
+        return new Date().getTime() > endDate.getTime();
+      },
+      eventHour() {
+        let timeStart = this.event["timeStart"].split(":").map(Number);
+        let timeEnd = this.event["timeEnd"].split(":").map(Number);
+        let hh = 0;
+        hh += timeEnd[0] - timeStart[0];
+        if (hh == 0) {
+          return 1;
+        } else {
+          return hh;
+        }
+      }
     },
   };
   </script>

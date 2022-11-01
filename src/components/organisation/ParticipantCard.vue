@@ -34,7 +34,7 @@
       </div>
     </div>
 
-    <div class="confirm">
+    <div class="confirm" v-if="!eventClose">
       <a-button
         class="confirmButton"
         htmlType="submit"
@@ -67,17 +67,62 @@
         >Volunteer Accepted
       </a-button>
     </div>
+
+    <div class="confirm" v-if="eventClose">
+      <a-button
+        class="confirmButton"
+        htmlType="submit"
+        size="large"
+        type="primary"
+        danger
+        @click="attendHandler"
+        v-if="this.confirmStatus == 'unconfirmed'"
+        >Attended
+      </a-button>
+      <a-button
+        class="confirmButton"
+        htmlType="submit"
+        size="large"
+        type="primary"
+        danger
+        @click="noShowHandler"
+        v-if="this.confirmStatus == 'unconfirmed'"
+        >No Show
+      </a-button>
+      <a-button
+        class="confirmButton"
+        htmlType="submit"
+        @click="rejectHandler"
+        size="large"
+        type="primary"
+        disabled
+        danger
+        v-if="this.confirmStatus == 'noshow'"
+        >No Show
+      </a-button>
+      <a-button
+        class="confirmButton"
+        htmlType="submit"
+        @click="rejectHandler"
+        size="large"
+        type="primary"
+        disabled
+        danger
+        v-if="this.confirmStatus == 'attend'"
+        >Attended
+      </a-button>
+    </div>
   </div>
 </template>
 
 <script>
 import { db } from "../../firebase.js";
-import { doc, getDoc, updateDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc, setDoc, arrayUnion, increment } from "firebase/firestore";
 import VolunteerProfile from "@/components/organisation/VolunteerProfile.vue";
 
 export default {
   name: "ParticipantCard",
-  props: ["participant", "eventId"],
+  props: ["participant", "eventId", "eventClose", "eventHour", "eventBadge", "eventClose"],
   emits: ["incrementVol"],
   data() {
     return {
@@ -86,6 +131,7 @@ export default {
       render: false,
       visible: false,
       toggleProfile: false,
+      confirmStatus: "",
     };
   },
   components: {
@@ -94,6 +140,7 @@ export default {
   mounted() {
     this.interests = this.participant[1]["interests"];
     this.status = this.participant[1]["applicationStatus"];
+    this.confirmStatus = this.participant[1]["attendanceStatus"]
     this.render = true;
   },
   computed: {
@@ -119,11 +166,44 @@ export default {
     },
     async updateAcceptUser() {
       let participantId = this.participant[0];
-      const eventDocRef = doc(db, "users", participantId);
+      const participantDocRef = doc(db, "users", participantId);
+      await updateDoc(participantDocRef, {
+        userAcceptedEvents: arrayUnion(this.eventId)
+      })
+    },
+    async updateAttendEvent() {
+      let participantId = this.participant[0];
+      const eventDocRef = doc(db, "events", this.eventId);
       const docSnap = await getDoc(eventDocRef);
       let eventDocRefData = docSnap.data();
-      eventDocRefData["userAcceptedEvents"].push(this.eventId);
-      await setDoc(doc(db, "users", participantId), eventDocRefData);
+      eventDocRefData["participants"][participantId]["attendanceStatus"] =
+        this.confirmStatus;
+      await setDoc(doc(db, "events", this.eventId), eventDocRefData);      
+    },
+    async updateUser() {
+      let participantId = this.participant[0];
+      const participantDocRef = doc(db, "users", participantId);
+      const docSnap = await getDoc(participantDocRef);
+      let participantDocSnapData = docSnap.data();
+
+      for (const badge of this.eventBadge) {
+        let now = new Date()
+        let todayUTC = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+        participantDocSnapData["userBadges"][badge] = todayUTC.toISOString().slice(0, 10).split("-").reverse().join("/")
+      }
+
+      if (this.confirmStatus == "attend") {
+        await updateDoc(participantDocRef, {
+          userAttendedEvents: arrayUnion(this.eventId),
+          hoursVolunteered: increment(this.eventHour),
+          userExp: increment(this.eventHour * 50),
+          userBadges: participantDocSnapData["userBadges"]
+        })          
+      } else {
+        await updateDoc(participantDocRef, {
+          noShowNum: increment(1)
+        })
+      }
     },
     acceptHandler() {
       this.status = "accepted";
@@ -138,6 +218,16 @@ export default {
     viewProfile() {
       this.toggleProfile = true;
     },
+    attendHandler() {
+      this.confirmStatus = "attend";
+      this.updateAttendEvent();
+      this.updateUser();
+    },
+    noShowHandler() {
+      this.confirmStatus = "noshow";
+      this.updateAttendEvent();
+      this.updateUser();
+    }
   },
 };
 </script>
