@@ -103,14 +103,13 @@
 </template>
   
 <script>
-import { getAuth, updateEmail, reauthenticateWithPopup, GoogleAuthProvider, EmailAuthProvider, reauthenticateWithCredential} from "firebase/auth";
-import { doc, getDocs, setDoc, updateDoc, update} from "firebase/firestore";
+import { getAuth, updateEmail, EmailAuthProvider, reauthenticateWithCredential} from "firebase/auth";
+import { doc, updateDoc} from "firebase/firestore";
 import { db } from "../../../firebase.js";
 import { notification } from "ant-design-vue";
 import {
   SmileOutlined,
   RobotOutlined,
-  ExclamationCircleOutlined,
 } from "@ant-design/icons-vue";
 import { defineComponent, h } from "vue";
 
