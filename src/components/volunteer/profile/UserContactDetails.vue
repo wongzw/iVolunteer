@@ -46,7 +46,7 @@
                     @submit.prevent="confirmDetails"
                     >
                     <a-form-item class="form">
-                        <label class="formSignUp">First Name</label><br />
+                        <label class="formSignUp">New First Name</label><br />
                         <a-input
                         style="width: 60%; margin-bottom: 10px"
                         class="input"
@@ -55,7 +55,7 @@
                         placeholder="Enter your first name"
                         ></a-input> <br />
 
-                        <label class="formSignUp">Last Name</label><br />
+                        <label class="formSignUp">New Last Name</label><br />
                         <a-input
                         style="width: 60%; margin-bottom: 10px"
                         class="input"
@@ -64,15 +64,25 @@
                         placeholder="Enter your last name"
                         ></a-input> <br />
 
-                        <label class="formSignUp">Email</label><br />
+                        <label class="formSignUp">New Email</label><br />
                         <a-input
                         style="width: 60%; margin-bottom: 10px"
                         class="input"
                         type="email"
                         v-model:value="newEmail"
                         placeholder="Enter your email"
+                        ></a-input> <br />
+
+                        <label class="formSignUp">Current Password</label><br />
+                        <a-input
+                        style="width: 60%; margin-bottom: 10px"
+                        class="input"
+                        type="email"
+                        v-model:value="password"
+                        placeholder="Enter your password"
                         ></a-input>
-                    </a-form-item>
+
+                    </a-form-item> 
                 </a-form>
                 <div class="confirmBox">
                     <a-checkbox
@@ -93,7 +103,7 @@
 </template>
   
 <script>
-import { collection, query, where } from "firebase/firestore";
+import { getAuth, updateEmail, reauthenticateWithPopup, GoogleAuthProvider, EmailAuthProvider, reauthenticateWithCredential} from "firebase/auth";
 import { doc, getDocs, setDoc, updateDoc, update} from "firebase/firestore";
 import { db } from "../../../firebase.js";
 import { notification } from "ant-design-vue";
@@ -104,7 +114,6 @@ import {
 } from "@ant-design/icons-vue";
 import { defineComponent, h } from "vue";
 
-
 export default ({
   name: 'ContactDetails',
   data() {
@@ -114,6 +123,7 @@ export default ({
       newFirstName: "",
       newLastName: "",
       newEmail: "",
+      password: "",
       canEdit: false,
       seenAll: false,
       confirmDetails: false, 
@@ -159,34 +169,53 @@ export default ({
     confirm() {
       this.confirmDetails = true;
     },
+    emailProcess(newEmail) {
+      const auth = getAuth();
+      const user = auth.currentUser;
+
+      updateEmail(user, newEmail).then(() => {
+        // need to commit change to user!!!!
+        this.$store.commit("updateVolunteer", user);
+        console.log('Email updated')
+        console.log(this.$store.state.email)
+
+      }).catch((error) => { 
+        const errorMessage = error.message;
+        this.error('Unable to change email, please try again! \n' + errorMessage);
+        console.log(errorMessage);
+
+        // reauthentication without relogin from user
+        const credential = EmailAuthProvider.credential(
+          user.email, this.password
+        );
+
+        reauthenticateWithCredential(user, credential);
+        updateEmail(user, newEmail);
+      });
+    },
     changeDetails() {
       // check that fields were updated:
       if (this.newFirstName != "" & this.newLastName != "" & this.newEmail != "") {
         // Pop Data from FS
-        console.log(this.newFirstName, this.newLastName, this.newEmail);
+        console.log(this.newFirstName, this.newLastName, this.newEmail, this.password);
         this.confirmDetails = false;
         this.canEdit = false;
 
         // logging changes
-        console.log('fields are being updated...');
+        console.log('name fields are being updated...');
+        // update name
         const newFields = {
           firstName: this.newFirstName,
           lastName: this.newLastName,
-          // newEmail: this.newEmail,
         };
-
-        // this.$store.commit("updateUserDetails", {
-        //   newFirstName: this.newFirstName,
-        //   newLastName: this.newLastName,
-        //   // newEmail: this.newEmail,
-        // });
 
         console.log('updating database...');
         this.updateDb(this.$store.state.id, newFields);
+        this.emailProcess(this.newEmail);
 
         // success confirmation 
         this.success();
-        // location.reload();
+        location.reload();
       } 
       else {
         // error for incomplete fields
@@ -198,6 +227,7 @@ export default ({
     async updateDb(uid, data) {
       const userRef = doc(db, "users", uid);
       console.log(userRef);
+      // updates name fields 
       await updateDoc(userRef, data).then(userRef => {
         console.log("Value of an Existing Document Field has been updated")
       }).catch(error => {
