@@ -104,7 +104,7 @@
   
 <script>
 import { getAuth, updateEmail, EmailAuthProvider, reauthenticateWithCredential} from "firebase/auth";
-import { doc, updateDoc} from "firebase/firestore";
+import { doc, getDocs, setDoc, updateDoc} from "firebase/firestore";
 import { db } from "../../../firebase.js";
 import { notification } from "ant-design-vue";
 import {
@@ -187,14 +187,13 @@ export default ({
         const credential = EmailAuthProvider.credential(
           user.email, this.password
         );
-
         reauthenticateWithCredential(user, credential);
         updateEmail(user, newEmail);
       });
     },
     changeDetails() {
       // check that fields were updated:
-      if (this.newFirstName != "" & this.newLastName != "" & this.newEmail != "") {
+      if (this.newFirstName != "" & this.newLastName != "" & this.newEmail != "" & this.password != "") {
         // Pop Data from FS
         console.log(this.newFirstName, this.newLastName, this.newEmail, this.password);
         this.confirmDetails = false;
@@ -243,19 +242,15 @@ export default ({
 #contactDetails {
   margin-top: 36px;
   background-color: #ffefe2;
+  height: 28vh;
   border-radius: 5px;
   padding: 24px;
 }
 .box {
   text-align: left;
   margin-left: 15px;
-  margin-right: 15px;
+  height: auto;
 }
-
-.box .button {
-  margin-left: 0px;
-}
-
 #box-title{
     margin-top:4px;
     margin-bottom:3vh;
@@ -263,20 +258,17 @@ export default ({
     font-weight: bold;
     color: #ff734c; 
 }
-
 .box .fontUser {
   color: #020957;
   font-weight: bold;
   margin-right: "";
 }
-
 .box button {
   align-items: center;
 }
 .box .button{
     margin-top: 2vh; 
 }
-
 .ant-button .orange {
   background-color: #ff734c;
   border-color: #ff734c;
