@@ -1,39 +1,72 @@
 <template>
-  <div id="userEvents">
-    <div class="box">
-      <div id="box-title">Current Events</div>
-      <div id="box details">Some Events</div>
+    <div class="card-holder">
+    <div class="current-events">
+      <h1 style="color: #ff734c; font-family: 'Mulish'; font-weight: 700">
+        Current Events
+      </h1>
+    </div>
+
+    <div class="event-cards">
+      <VolProfileEventCard
+        :event="event"
+        v-for="(event, index) in acceptedEvents"
+        :key="index"
+      />
     </div>
   </div>
 </template>
     
 <script>
+import VolProfileEventCard from "@/components/volunteer/profile/VolProfileEventCard.vue";
+import { collection, query, where } from "firebase/firestore";
+import { doc, getDocs } from "firebase/firestore";
+import { db } from "../../../firebase.js";
+
+
 export default {
-  name: "CurrentUserEvents",
-  components: {},
-};
+    name: 'CurrentUserEvents',
+    data() {
+        return {
+            acceptedEvents: [],
+        };
+    },
+    components: {
+        VolProfileEventCard,
+    },
+    mounted() {
+        this.queryDb();
+    },
+    methods: {
+        async queryDb() {
+            const userAccepted = this.$store.state.details["userAcceptedEvents"]
+            const eventSnapshot = await getDocs(collection(db, "events"))
+            eventSnapshot.forEach((doc) => {
+                if (userAccepted.includes(doc.id)) {
+                    this.acceptedEvents.push({ id: doc.id, data: doc.data()})
+                } 
+            })
+            console.log(this.acceptedEvents);
+        },
+    },
+  };
+
 </script>
     
 <style scoped>
-#userEvents {
-  margin-top: 36px;
-  margin-right: 36px;
-  background-color: #ffefe2;
-  width: 100%;
-  height: 50vh;
-  border-radius: 5px;
-  padding: 24px;
-}
-.box {
-  text-align: left;
-  margin-left: 15px;
-}
 
-#box-title {
-  margin-top: 4px;
-  margin-bottom: 15px;
-  font-size: x-large;
-  font-weight: bold;
-  color: #ff734c;
-}
+    .card-holder {
+        width: 876px;
+        margin-top: 36px;
+        margin-right: 40px;
+        margin-left: 40px;
+        margin-bottom: 38px;
+        background-color: #ffefe2;
+        padding: 26px 36px 16px;
+        border-radius: 5px;
+    }
+
+    .current-events {
+    display: flex;
+    margin-bottom: 20px;
+    }
 </style>
