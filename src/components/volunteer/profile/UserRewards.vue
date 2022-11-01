@@ -12,7 +12,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #userAchievements {
   margin-top: 36px;
   margin-right: 40px;
