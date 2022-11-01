@@ -3,21 +3,34 @@
     <div class="box">
       <div id="box-title">Current Events</div>
       <div id="box details">
-        <UserEventCards 
-        :event="event"
-        v-for="(event, index) in EventCards"
-        :key="index"
-      />
+        <UserEventCards
+          :event="event"
+          v-for="(event, index) in EventCards"
+          :key="index"
+        />
       </div>
 
+      <div v-if="this.EventCards.length == 0">
+        <div class="noEvents">
+          <h2>
+            <b>
+              No Current Events Found 😔 <br />
+              <a href="/volunteer/dashboard" style="color: #ff5b2e">
+                Sign up
+              </a>
+              for one today!
+            </b>
+          </h2>
+        </div>
+      </div>
     </div>
   </div>
 </template>
     
 <script>
-import UserEventCards from './UserEventCards.vue';
+import UserEventCards from "./UserEventCards.vue";
 import { collection, query, where } from "firebase/firestore";
-import { doc, getDoc, getDocs} from "firebase/firestore";
+import { doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase.js";
 
 export default {
@@ -39,8 +52,8 @@ export default {
       const userId = this.$store.state.id;
       const userRef = await doc(db, "users", userId);
       const user = await getDoc(userRef);
-      let data = user.data(); 
-      console.log('Document data:', data);
+      let data = user.data();
+      console.log("Document data:", data);
       const userEvents = data.userAcceptedEvents;
 
       // event snapshot
@@ -48,38 +61,36 @@ export default {
       userEvents.forEach((ev) => {
         eventSnapshot.forEach((doc) => {
           if (doc.id == ev) {
-            // get end date of event 
+            // get end date of event
             const str = doc.data().dateEnd;
-            
+
             // parse string & make into datetime object
-            const [day, month, year] = str.split('-');
+            const [day, month, year] = str.split("-");
             const date = new Date(year, month, day);
 
             // get today's date
             const today = new Date(); // returns time
 
             // only show the events that have yet to end; compare time
-            if (date.getTime() >= today){
+            if (date.getTime() >= today) {
               console.log(doc.id, "=>", doc.data());
               this.EventCards.push({ id: doc.id, data: doc.data() });
             }
-
           }
-      });
+        });
       });
     },
-  }
+  },
 };
-
 </script>
     
 <style scoped>
 #box-title {
-  margin-top:4px;
-  margin-bottom:3vh;
+  margin-top: 4px;
+  margin-bottom: 3vh;
   font-size: x-large;
   font-weight: bold;
-  color: #ff734c; 
+  color: #ff734c;
 }
 
 #userEvents {
@@ -98,4 +109,9 @@ export default {
   margin-bottom: 20px;
 }
 
+.noEvents {
+  justify-content: center;
+  display: flex;
+  text-align: center;
+}
 </style>
