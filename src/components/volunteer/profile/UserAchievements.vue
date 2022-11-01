@@ -88,12 +88,16 @@ export default {
   background-color: #ffefe2;
   border-radius: 5px;
   padding: 24px;
-  height: 23vh;
+  height: 28vh;
 }
 .box {
   text-align: left;
   margin-left: 15px;
   height: auto;
+}
+
+.box .more {
+  text-align: right;
 }
 
 #box-title {
@@ -103,4 +107,13 @@ export default {
   font-weight: bold;
   color: #ff734c;
 }
+
+.ant-button .orange {
+  background-color: #ff734c;
+  border-color: #ff734c;
+  border-radius: 5px;
+  height: auto;
+  margin-top: 2vh;
+}
+
 </style>
