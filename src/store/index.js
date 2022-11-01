@@ -48,13 +48,6 @@ export default createStore({
         redemptionCode: payload.assigned_code,
       };
     },
-
-    updateUserDetails(state, payload) {
-      state.id = payload.uid;
-      state.details["firstName"] = payload.newFirstName;
-      state.details["lastName"] = payload.newLastName;
-      state.email = payload.newEmail;
-    },
   },
   getters: {
     getAuth: function (state) {

@@ -169,18 +169,24 @@ export default ({
 
         // logging changes
         console.log('fields are being updated...');
-        this.$store.commit("updateUserDetails", {
-          newFirstName: this.newFirstName,
-          newLastName: this.newLastName,
-          newEmail: this.newEmail,
-        });
+        const newFields = {
+          firstName: this.newFirstName,
+          lastName: this.newLastName,
+          // newEmail: this.newEmail,
+        };
+
+        // this.$store.commit("updateUserDetails", {
+        //   newFirstName: this.newFirstName,
+        //   newLastName: this.newLastName,
+        //   // newEmail: this.newEmail,
+        // });
 
         console.log('updating database...');
-        this.updateDb(this.$store.state.id);
+        this.updateDb(this.$store.state.id, newFields);
 
         // success confirmation 
         this.success();
-        location.reload();
+        // location.reload();
       } 
       else {
         // error for incomplete fields
@@ -189,9 +195,14 @@ export default ({
         this.error("Please ensure that you've completed all fields.")
       }
     },
-    async updateDb(uid) {
+    async updateDb(uid, data) {
       const userRef = doc(db, "users", uid);
-      await updateDoc(userRef, this.$store.state.details);
+      console.log(userRef);
+      await updateDoc(userRef, data).then(userRef => {
+        console.log("Value of an Existing Document Field has been updated")
+      }).catch(error => {
+        console.log(error);
+      });
     },
   },
 
