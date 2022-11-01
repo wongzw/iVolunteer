@@ -94,7 +94,7 @@
   
 <script>
 import { collection, query, where } from "firebase/firestore";
-import { doc, getDocs, setDoc, updateDoc} from "firebase/firestore";
+import { doc, getDocs, setDoc, updateDoc, update} from "firebase/firestore";
 import { db } from "../../../firebase.js";
 import { notification } from "ant-design-vue";
 import {
@@ -172,7 +172,7 @@ export default ({
         this.$store.commit("updateUserDetails", {
           newFirstName: this.newFirstName,
           newLastName: this.newLastName,
-          email: this.newEmail,
+          newEmail: this.newEmail,
         });
 
         console.log('updating database...');

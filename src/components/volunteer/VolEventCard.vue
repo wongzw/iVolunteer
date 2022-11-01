@@ -5,15 +5,15 @@
       <h2 class="event-title">{{ event.data.eventName }}</h2>
       <div class="details">
         <img class="image" src="../../assets/calendarIcon.svg" alt="calendar" />
-        <h2 class="event-host">{{ event.data.eventDate }}</h2>
+        <h2 class="event-host">{{ event.data.dateStart }}</h2>
       </div>
       <div class="details">
         <img class="image" src="../../assets/clockIcon.svg" alt="clock" />
-        <h2 class="event-host">{{ event.data.eventTime }}</h2>
+        <h2 class="event-host">{{ event.data.timeStart }}</h2>
       </div>
       <div class="details">
         <img class="image" src="../../assets/locationIcon.svg" alt="location" />
-        <h2 class="event-host">{{ event.data.eventLocation }}</h2>
+        <h2 class="event-host">{{ event.data.location }}</h2>
       </div>
     </div>
     <div class="ant-button">
