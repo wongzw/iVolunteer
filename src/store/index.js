@@ -48,6 +48,13 @@ export default createStore({
         redemptionCode: payload.assigned_code,
       };
     },
+
+    updateUserDetails(state, payload) {
+      state.id = payload.uid;
+      state.details["firstName"] = payload.newFirstName;
+      state.details["lastName"] = payload.newLastName;
+      state.email = payload.newEmail;
+    },
   },
   getters: {
     getAuth: function (state) {
@@ -69,11 +76,4 @@ export default createStore({
       return state.sidebarCollapsed;
     },
   },
-  // actions: {
-  //   updateProfile({dispatch, commit}) {
-  //     return dispatch('updateProfile').then(() => {
-  //       commit('mutation')
-  //     })
-  //   },
-  // }
 });

@@ -23,14 +23,14 @@
 
             <template #footer>
               <div class="ant-button">
-                <a-button key="cancel" @click="confirmCancel" style="width: 40%"
-            >Cancel</a-button>
+                <a-button key="cancel" @click="confirmCancel" style="width: 40%">
+                  Cancel</a-button>
                 <a-button
                     class="orange"
                     key="Confirm"
                     type="primary"
                     :loading="loading"
-                    @click="showNone"
+                    @click="changeDetails"
                     style="width: 40%"
                     :disabled="this.confirmDetails == false"
                     >Confirm</a-button
@@ -51,6 +51,7 @@
                         style="width: 60%; margin-bottom: 10px"
                         class="input"
                         type="name"
+                        v-model:value="newFirstName"
                         placeholder="Enter your first name"
                         ></a-input> <br />
 
@@ -58,7 +59,8 @@
                         <a-input
                         style="width: 60%; margin-bottom: 10px"
                         class="input"
-                        type="email"
+                        type="name"
+                        v-model:value="newLastName"
                         placeholder="Enter your last name"
                         ></a-input> <br />
 
@@ -67,7 +69,7 @@
                         style="width: 60%; margin-bottom: 10px"
                         class="input"
                         type="email"
-                        v-model:value="email"
+                        v-model:value="newEmail"
                         placeholder="Enter your email"
                         ></a-input>
                     </a-form-item>
@@ -91,35 +93,109 @@
 </template>
   
 <script>
-    export default ({
-        name: 'ContactDetails',
-        data() {
-            return {
-                name: this.$store.state.details['firstName'] + " " + this.$store.state.details['lastName'],
-                email: this.$store.getters.getEmail,
-                canEdit: false,
-                seenAll: false,
-                confirmDetails: false, 
-            }
-        },
-        methods: {
-            edit_details() {
-                this.canEdit = true;
-            },
-            showNone() {
-                this.seenAll = false; 
-                this.canEdit = false;
-            },
-            confirmCancel() {
-                this.canEdit = false;
-                this.confirmDetails = false;
-                location.reload();
-            },
-            confirm() {
-                this.confirmDetails = true;
-            }
-        }
-    });
+import { collection, query, where } from "firebase/firestore";
+import { doc, getDocs, setDoc, updateDoc} from "firebase/firestore";
+import { db } from "../../../firebase.js";
+import { notification } from "ant-design-vue";
+import {
+  SmileOutlined,
+  RobotOutlined,
+  ExclamationCircleOutlined,
+} from "@ant-design/icons-vue";
+import { defineComponent, h } from "vue";
+
+
+export default ({
+  name: 'ContactDetails',
+  data() {
+    return {
+      name: this.$store.state.details['firstName'] + " " + this.$store.state.details['lastName'],
+      email: this.$store.getters.getEmail,
+      newFirstName: "",
+      newLastName: "",
+      newEmail: "",
+      canEdit: false,
+      seenAll: false,
+      confirmDetails: false, 
+    }
+  },
+  setup() {
+    const success = () => {
+      notification.open({
+        message: "Success",
+        description: "Personal Details Successfully Updated!",
+        duration: 3,
+        icon: () => h(SmileOutlined, { style: "color: #020957" }),
+      });
+    };
+
+    const error = (msg) => {
+      notification.open({
+        message: "Error",
+        description: msg,
+        duration: 3,
+        icon: () => h(RobotOutlined, { style: "color: #ff3700" }),
+      });
+    };
+
+    return {
+      success,
+      error
+    }
+  },
+  methods: {
+    edit_details() {
+      this.canEdit = true;
+    },
+    showNone() {
+      this.seenAll = false; 
+      this.canEdit = false;
+    },
+    confirmCancel() {
+      this.canEdit = false;
+      this.confirmDetails = false;
+      location.reload();
+    },
+    confirm() {
+      this.confirmDetails = true;
+    },
+    changeDetails() {
+      // check that fields were updated:
+      if (this.newFirstName != "" & this.newLastName != "" & this.newEmail != "") {
+        // Pop Data from FS
+        console.log(this.newFirstName, this.newLastName, this.newEmail);
+        this.confirmDetails = false;
+        this.canEdit = false;
+
+        // logging changes
+        console.log('fields are being updated...');
+        this.$store.commit("updateUserDetails", {
+          newFirstName: this.newFirstName,
+          newLastName: this.newLastName,
+          email: this.newEmail,
+        });
+
+        console.log('updating database...');
+        this.updateDb(this.$store.state.id);
+
+        // success confirmation 
+        this.success();
+        location.reload();
+      } 
+      else {
+        // error for incomplete fields
+        this.canEdit = true;
+        this.confirmDetails = true;
+        this.error("Please ensure that you've completed all fields.")
+      }
+    },
+    async updateDb(uid) {
+      const userRef = doc(db, "users", uid);
+      await setDoc(userRef, this.$store.state.details);
+    },
+  },
+
+});
 
 </script>
   
