@@ -19,7 +19,6 @@ import UserEventCards from './UserEventCards.vue';
 import { collection, query, where } from "firebase/firestore";
 import { doc, getDoc, getDocs} from "firebase/firestore";
 import { db } from "../../../firebase.js";
-import { breakStatement } from '@babel/types';
 
 export default {
   name: "CurrentUserEvents",
@@ -75,20 +74,28 @@ export default {
 </script>
     
 <style scoped>
+#box-title {
+  margin-top:4px;
+  margin-bottom:3vh;
+  font-size: x-large;
+  font-weight: bold;
+  color: #ff734c; 
+}
 
-    .card-holder {
-        width: 876px;
-        margin-top: 36px;
-        margin-right: 40px;
-        margin-left: 40px;
-        margin-bottom: 38px;
-        background-color: #ffefe2;
-        padding: 26px 36px 16px;
-        border-radius: 5px;
-    }
+#userEvents {
+  margin-top: 36px;
+  margin-right: 36px;
+  background-color: #ffefe2;
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  padding: 24px;
+}
+.box {
+  text-align: left;
+  margin-left: 15px;
+  height: auto;
+  margin-bottom: 20px;
+}
 
-    .current-events {
-    display: flex;
-    margin-bottom: 20px;
-    }
 </style>

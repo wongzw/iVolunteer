@@ -77,6 +77,7 @@ export default {
 
 .indivEvent{
     margin-top: 4vh;
+    height: auto;
 }
 .ant-button{
     float: right;
