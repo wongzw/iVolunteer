@@ -50,7 +50,7 @@ export default {
 }
 
 .navbar {
-  height: 8vh;
+  height: 68px;
   min-height: 50px;
 }
 

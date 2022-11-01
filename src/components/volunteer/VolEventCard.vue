@@ -1,6 +1,6 @@
 <template>
   <div class="blog-card">
-    <img class="display" :src="event.data.eventPhoto" alt="" />
+    <img class="display" :src="event.data.eventUrl" alt="" />
     <div class="info">
       <h2 class="event-title">{{ event.data.eventName }}</h2>
       <div class="details">
@@ -48,8 +48,6 @@ export default {
   font-weight: 700;
   font-size: 24px;
   color: #020957;
-  margin-top: 24px;
-  margin-left: 28px;
   text-align: left;
 }
 
@@ -61,11 +59,15 @@ export default {
   min-width: 300px;
   transition: 0.5s ease all;
   margin-right: 32px;
-  margin-bottom: 28px;
+  margin-bottom: 32px;
   position: relative;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+}
+
+.info {
+  padding: 20px;
 }
 
 .blog-card:hover {
@@ -76,7 +78,6 @@ export default {
 
 .details {
   display: flex;
-  margin-left: 24px;
 }
 
 .event-host {

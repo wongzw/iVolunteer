@@ -244,13 +244,17 @@ export default ({
 #contactDetails {
   margin-top: 36px;
   background-color: #ffefe2;
-  height: 28vh;
   border-radius: 5px;
   padding: 24px;
 }
 .box {
   text-align: left;
   margin-left: 15px;
+  margin-right: 15px;
+}
+
+.box .button {
+  margin-left: 0px;
 }
 
 #box-title{

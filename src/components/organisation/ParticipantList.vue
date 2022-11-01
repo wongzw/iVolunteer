@@ -1,9 +1,18 @@
 <template>
-  <div class="participant-cards">
+  <div class="participant-cards" v-if="!eventClose">
     <h1>Current Participants: ({{ numAccepted }} volunteers accepted)</h1>
     <div class="participant-box">
     <ParticipantCard
       v-for="participant in participants" :participant="participant" :eventId="eventId" @incrementVol="updateAccepted($event)"
+    />
+    </div>
+  </div>
+
+  <div class="participant-cards" v-if="eventClose">
+    <h1>Event Closed: (Confirm Attendance Status)</h1>
+    <div class="participant-box">
+    <ParticipantCard
+      v-for="participant in acceptedParticipants" :participant="participant" :eventId="eventId" :eventClose="eventClose" :eventHour="eventHour" :eventBadge="this.event['badgeAwarded']" @incrementVol="updateAccepted($event)"
     />
     </div>
   </div>
@@ -14,13 +23,14 @@ import ParticipantCard from "@/components/organisation/ParticipantCard.vue";
 
 export default {
   name: "ParticipantList",
-  props: ["event", "eventId"],
+  props: ["event", "eventId", "eventClose", "eventHour"],
   components: {
     ParticipantCard,
   },
   data() {
     return {
       participants: [],
+      acceptedParticipants: [],
       numAccepted: 0,
     };
   },
@@ -31,6 +41,7 @@ export default {
       this.participants.push([key, participantMap[key]]);
       if (participantMap[key]["applicationStatus"] == "accepted") {
         this.numAccepted += 1;
+        this.acceptedParticipants.push([key, participantMap[key]]);
       }
     }
     console.log(this.participants)
@@ -38,7 +49,7 @@ export default {
   methods: {
     updateAccepted(x) {
       this.numAccepted += 1;
-    }
+    },
   }
 };
 </script>

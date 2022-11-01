@@ -55,7 +55,7 @@
                       {{ this.event["orgName"] }}</b
                     >
                   </p>
-                  <p>on</p>
+                  <p>on</p><br><br>
                   <p>
                     <b>{{ fullDate }}</b>
                   </p>
@@ -65,8 +65,9 @@
                   <p>
                     <b>at {{ displayLocation }}</b>
                   </p>
-                  <br /><br />
-                  <span id="spanModal">
+                  <br><br><br>
+                  <p><strong>By clicking confirm,</strong> </p>
+                  <span id="spanModal"> 
                     <p>I agree with the</p>
                     <p style="color: orange">Terms & Conditions</p>
                   </span>
@@ -199,9 +200,9 @@ export default {
         "December",
       ];
       let startDate = this.eventStartDate.split("-");
-      startDate[1] = monthNames[startDate[1]];
+      startDate[1] = monthNames[startDate[1]-1];
       let endDate = this.eventEndDate.split("-");
-      endDate[1] = monthNames[endDate[1]];
+      endDate[1] = monthNames[endDate[1]-1];
       startDate = startDate.join(" ");
       endDate = endDate.join(" ");
       if (startDate == endDate) {
