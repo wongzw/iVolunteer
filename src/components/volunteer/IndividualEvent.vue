@@ -55,7 +55,7 @@
                       {{ this.event["orgName"] }}</b
                     >
                   </p>
-                  <p>on</p>
+                  <p>on</p><br><br>
                   <p>
                     <b>{{ fullDate }}</b>
                   </p>
@@ -65,8 +65,9 @@
                   <p>
                     <b>at {{ displayLocation }}</b>
                   </p>
-                  <br /><br />
-                  <span id="spanModal">
+                  <br><br><br>
+                  <p><strong>By clicking confirm,</strong> </p>
+                  <span id="spanModal"> 
                     <p>I agree with the</p>
                     <p style="color: orange">Terms & Conditions</p>
                   </span>
