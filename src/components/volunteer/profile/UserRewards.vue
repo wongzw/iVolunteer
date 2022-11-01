@@ -125,7 +125,7 @@ export default {
   margin-top: 36px;
   margin-right: 40px;
   background-color: #ffefe2;
-  height: 23vh;
+  height: 28vh;
   border-radius: 5px;
   padding: 24px;
 }
