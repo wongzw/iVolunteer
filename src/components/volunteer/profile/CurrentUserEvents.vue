@@ -48,8 +48,22 @@ export default {
       userEvents.forEach((ev) => {
         eventSnapshot.forEach((doc) => {
           if (doc.id == ev) {
-            console.log(doc.id, "=>", doc.data());
-            this.EventCards.push({ id: doc.id, data: doc.data() });
+            // get end date of event 
+            const str = doc.data().dateEnd;
+            
+            // parse string & make into datetime object
+            const [day, month, year] = str.split('-');
+            const date = new Date(year, month, day);
+
+            // get today's date
+            const today = new Date(); // returns time
+
+            // only show the events that have yet to end; compare time
+            if (date.getTime() >= today){
+              console.log(doc.id, "=>", doc.data());
+              this.EventCards.push({ id: doc.id, data: doc.data() });
+            }
+
           }
       });
       });
