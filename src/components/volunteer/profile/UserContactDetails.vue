@@ -191,7 +191,7 @@ export default ({
     },
     async updateDb(uid) {
       const userRef = doc(db, "users", uid);
-      await setDoc(userRef, this.$store.state.details);
+      await updateDoc(userRef, this.$store.state.details);
     },
   },
 

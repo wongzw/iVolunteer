@@ -2,15 +2,21 @@
   <div id="userEvents">
     <div class="box">
       <div id="box-title">Current Events</div>
-      <div id="box details">Some Events</div>
+      <div id="box details">
+        <UserEventCards/>
+      </div>
     </div>
   </div>
 </template>
     
 <script>
+import UserEventCards from './UserEventCards.vue';
+
 export default {
   name: "CurrentUserEvents",
-  components: {},
+  components: {
+    UserEventCards,
+  },
 };
 </script>
     
