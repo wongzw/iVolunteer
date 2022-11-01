@@ -53,7 +53,7 @@
                   this.rewardTier == 0
                 "
               >
-                <span v-if="reward.availableQty == 0" style="color: #020957"
+                <span v-if="reward.availableQty == 0" style="color: darkgray"
                   >Fully Redeemed</span
                 >
                 <span v-else>Redeem Reward</span>
@@ -289,6 +289,7 @@ export default {
   margin-top: 20px;
   border-radius: 8px;
   height: auto;
+  min-height: 60vh;
 }
 
 .rewardClaimed {
@@ -321,19 +322,15 @@ export default {
 }
 
 .ant-button .orange:hover {
-  /* color: black; */
   background-color: #ff3700;
   border-color: #ff3700;
   transition: 0.3s ease;
 }
 
-.rewardsTable .ant-tabs-ink-bar {
-  background: #020957;
-}
-
-.rewardsTable .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  color: #020957;
-  font-size: 150%;
+.ant-button .orange:disabled {
+  background-color: lightgray;
+  border-color: darkgray;
+  transition: 0.3s ease;
 }
 
 .rewardsTable .ant-tabs-tab-btn {

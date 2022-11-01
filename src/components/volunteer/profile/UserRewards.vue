@@ -4,8 +4,38 @@
       <div id="box-title">Rewards</div>
     </div>
     <div class="box rewardsDisplay">
-      <div class="singleReward" v-if="rewardArray.length == 1"></div>
-      <p>{{ this.rewardArray }}</p>
+      <a-tabs v-model:activeKey="activeKey">
+        <a-tab-pane
+          v-for="(value, key) in this.reward_dict"
+          :key="key"
+          :tab="'Tier ' + key"
+        >
+          <div class="rewardContent">
+            <div
+              class="rewardsCard"
+              v-for="reward in this.reward_dict[key]"
+              :key="reward"
+            >
+              <div class="rewardName">
+                <h3>
+                  <b>{{ reward[1] }}</b>
+                </h3>
+              </div>
+
+              <div class="ant-button">
+                <a-button
+                  type="primary"
+                  size="large"
+                  class="orange"
+                  @click="showCode(reward)"
+                >
+                  <span>Show Code</span>
+                </a-button>
+              </div>
+            </div>
+          </div>
+        </a-tab-pane>
+      </a-tabs>
     </div>
   </div>
 </template>
@@ -14,11 +44,38 @@
 import { collection, query, where } from "firebase/firestore";
 import { db } from "../../../firebase.js";
 import { getDoc, doc } from "firebase/firestore";
+import { notification } from "ant-design-vue";
+import { SmileOutlined, RobotOutlined } from "@ant-design/icons-vue";
+import { defineComponent, h } from "vue";
+
 export default {
   name: "UserRewards",
   data() {
     return {
-      rewardArray: [],
+      reward_dict: {},
+      showCodeDisplay: false,
+    };
+  },
+  setup() {
+    const showCodeNotif = (reward) => {
+      notification.open({
+        message: reward[0] + " Reward",
+        description: "Reward Code: " + reward[3],
+        duration: 10,
+        icon: () => h(SmileOutlined, { style: "color: #020957" }),
+      });
+    };
+    const error = () => {
+      notification.open({
+        message: "Error",
+        description: "An Error Occurred. Please try again. ",
+        duration: 3,
+        icon: () => h(RobotOutlined, { style: "color: #ff3700" }),
+      });
+    };
+    return {
+      showCodeNotif,
+      error,
     };
   },
   mounted() {
@@ -26,34 +83,38 @@ export default {
   },
   methods: {
     async getRewards() {
-      const userRewards = this.$store.state.details["userRewards"];
-      console.log(userRewards);
-      for (const rewardLevel of Object.keys(userRewards)) {
-        var rewardId = userRewards[rewardLevel]["id"];
-        console.log(rewardId);
-        if (rewardId != "") {
-          var rewardDetails = this.getRewardDetails(rewardId);
-          console.log(rewardDetails.data());
+      const user_rewards = this.$store.state.details["userRewards"];
+      for (const rewardLevel of Object.keys(user_rewards)) {
+        var reward_id = user_rewards[rewardLevel]["id"];
+        var reward_code = user_rewards[rewardLevel]["redemptionCode"];
+        if (reward_id != "") {
+          const docRef = doc(db, "level", reward_id);
+          const docSnap = await getDoc(docRef);
+          const reward_details = docSnap.data();
+          const reward_level = reward_details["level"];
 
-          if (rewardDetails != {}) {
-            var rewardDisplayed = [
-              rewardDetails["merchant"],
-              rewardDetails["name"],
-              rewardId,
+          if (reward_details != {}) {
+            var reward_displayed = [
+              reward_details["merchant"],
+              reward_details["name"],
+              reward_id,
+              reward_code,
             ];
-            this.rewardArray.push(rewardDisplayed);
-            console.log(this.rewardArray);
+            if (!this.reward_dict[reward_level]) {
+              this.reward_dict[reward_level] = [];
+            }
+            this.reward_dict[reward_level].push(reward_displayed);
           } else {
-            console.log("No such Document");
+            this.error();
           }
         }
       }
     },
 
-    async getRewardDetails(rewardId) {
-      const docRef = doc(db, "level", rewardId);
-      const docSnap = await getDoc(docRef);
-      return docSnap.data();
+    showCode(reward) {
+      this.showCodeDisplay = true;
+      this.showCodeNotif(reward);
+      this.showCodeDisplay = false;
     },
   },
 };
@@ -76,9 +137,45 @@ export default {
 
 #box-title {
   margin-top: 4px;
-  margin-bottom: 15px;
   font-size: x-large;
   font-weight: bold;
   color: #ff734c;
+}
+
+.rewardContent {
+  margin-bottom: 10px;
+}
+
+.rewardsCard {
+  background-color: #fef8f3;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(60, 78, 100, 0.1);
+  padding: 21px 20px 15px;
+  display: flex;
+}
+
+.rewardName {
+  width: 80%;
+}
+
+.ant-button {
+  width: 40%;
+}
+
+.ant-button .orange {
+  background-color: #ff5b2e;
+  border-color: #ff5b2e;
+  border-radius: 5px;
+  height: auto;
+  padding-left: 40px;
+  padding-right: 40px;
+  white-space: normal;
+  margin: 0;
+}
+
+.ant-button .orange:hover {
+  background-color: #ff3700;
+  border-color: #ff3700;
+  transition: 0.3s ease;
 }
 </style>
