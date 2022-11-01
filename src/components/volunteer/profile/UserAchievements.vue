@@ -4,13 +4,57 @@
       <div id="box-title">Achievements</div>
 
       <div id="box details">
-        <img
+        <li v-for="item in userBadges.slice(0,5)" v-bind:key="item"> 
+          <img
           style="margin-right: 6px"
           src="@/assets/achievementIcon.svg"
           alt="tickIcon"
-        />
-        <label class="fontUser"> {{ userBadges }} </label> <br />
+          />
+          {{ item }} 
+        </li> <br />
       </div>
+
+      <div class="box more" v-if="userBadges.length > 5">
+        <div class="showingAll">
+          <a style="color: #5a4ff3" @click="showAll"> 
+            Show All
+          </a>
+        </div>
+      </div>
+
+      <div class="a-modal">
+            <a-modal
+            v-model:visible="this.showMore"
+            title="Badges earned:"
+            @ok="handleOk"
+            >
+
+            <template #footer>
+              <div class="ant-button">
+                <a-button
+                    class="orange"
+                    key="Confirm"
+                    type="primary"
+                    :loading="loading"
+                    @click="showNone"
+                    style="width: 40%"
+                    >Close</a-button
+                >
+              </div>
+            </template>
+            
+            <div class="modalContent">
+              <li v-for="item in userBadges" v-bind:key="item"> 
+                <img
+                style="margin-right: 6px"
+                src="@/assets/achievementIcon.svg"
+                alt="tickIcon"
+                />
+                {{ item }} 
+              </li> <br />
+            </div>
+            </a-modal>
+        </div>
     </div>
   </div>
 </template>
@@ -20,9 +64,21 @@ export default {
   name: "UserAchievements",
   data() {
     return {
-      userBadges: this.$store.state.details["userBadges"],
+      userBadges: Object.keys(this.$store.state.details.userBadges),
+      showMore: false,
+      seenAll: false,
     };
   },
+  methods: {
+    showAll() {
+      this.showMore = true;
+    },
+    showNone() {
+      this.seenAll = false; 
+      this.showMore = false;
+    },
+
+  }
 };
 </script>
 
@@ -30,10 +86,8 @@ export default {
 #userAchievements {
   margin-top: 36px;
   margin-left: 40px;
-  margin-right: 36px;
+  margin-right: 40px;
   background-color: #ffefe2;
-  width: 400px;
-  height: 217px;
   border-radius: 5px;
   padding: 24px;
 }
@@ -42,9 +96,13 @@ export default {
   margin-left: 15px;
 }
 
+.box .more {
+  text-align: right;
+}
+
 #box-title {
-  margin-top: 4px;
-  margin-bottom: 15px;
+  margin-top: 0.5vh;
+  margin-bottom: 0.8vh;
   font-size: x-large;
   font-weight: bold;
   color: #ff734c;
