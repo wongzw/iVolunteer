@@ -9,7 +9,7 @@
               <div id="smallHeader">
                 <h1 id="causeTitle">Causes</h1>
                 <div class="box" id="causeContainer">
-                  <div class="causeBox" v-for="type in eventType">
+                  <div class="causeBox" v-for="type in eventType" :key="type">
                     {{ type }}
                   </div>
                 </div>
@@ -42,7 +42,6 @@
               <a-modal
                 v-model:visible="visible"
                 title="Event Confirmation"
-                @ok="handleOk"
               >
                 <template #footer> </template>
                 <div class="modal">
@@ -56,16 +55,19 @@
                       {{ this.event["orgName"] }}</b
                     >
                   </p>
-                  <p>on</p>
+                  <p>on</p><br><br>
                   <p>
                     <b>{{ fullDate }}</b>
                   </p>
-                  <p><b>{{displayTime}}</b></p>
+                  <p>
+                    <b>{{ displayTime }}</b>
+                  </p>
                   <p>
                     <b>at {{ displayLocation }}</b>
                   </p>
-                  <br /><br />
-                  <span id="spanModal">
+                  <br><br><br>
+                  <p><strong>By clicking confirm,</strong> </p>
+                  <span id="spanModal"> 
                     <p>I agree with the</p>
                     <p style="color: orange">Terms & Conditions</p>
                   </span>
@@ -119,7 +121,7 @@
                   ><img src="@/assets/star.svg" />
                   {{ displayExpGain }} exp</span
                 ><br />
-                <p v-for="badge in badgeType">
+                <p v-for="badge in badgeType" :key="badge">
                   {{ badge }} upon successful completion
                 </p>
               </div>
@@ -133,9 +135,12 @@
 </template>
 
 <script>
-import { db } from "../firebase.js";
+import { db } from "../../firebase.js";
 import NoPageFound from "@/views/NoPageFound.vue";
 import { doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
+import { notification } from "ant-design-vue";
+import { SmileOutlined, RobotOutlined } from "@ant-design/icons-vue";
+import { h } from "vue";
 
 export default {
   name: "IndividualEvent",
@@ -150,9 +155,34 @@ export default {
       hasRegistered: false,
       eventStartDate: new Date(),
       eventEndDate: new Date(),
+      docSnap: false,
       visible: false,
     };
   },
+
+  setup() {
+    const successfulEventApplied = () => {
+      notification.open({
+        message: "Success",
+        description:
+          "Succesfully applied for event! Organisation will get back soon.",
+        duration: 3,
+        icon: () => h(SmileOutlined, { style: "color: #020957" }),
+      });
+    };
+
+    const error = () => {
+      notification.open({
+        message: "Error",
+        description: "An Error Occurred. Please try again. ",
+        duration: 3,
+        icon: () => h(RobotOutlined, { style: "color: #ff3700" }),
+      });
+    };
+
+    return { successfulEventApplied, error };
+  },
+
   computed: {
     fullDate() {
       const monthNames = [
@@ -169,12 +199,12 @@ export default {
         "November",
         "December",
       ];
-      let startDate = this.eventStartDate.split('-');
-      startDate[1] = monthNames[startDate[1]]
-      let endDate = this.eventEndDate.split('-');
-      endDate[1] = monthNames[endDate[1]]
-      startDate = startDate.join(' ')
-      endDate = endDate.join(' ')
+      let startDate = this.eventStartDate.split("-");
+      startDate[1] = monthNames[startDate[1]-1];
+      let endDate = this.eventEndDate.split("-");
+      endDate[1] = monthNames[endDate[1]-1];
+      startDate = startDate.join(" ");
+      endDate = endDate.join(" ");
       if (startDate == endDate) {
         return this.startDate;
       } else {
@@ -182,10 +212,10 @@ export default {
       }
     },
     displayExpGain() {
-      let timeStart = this.event["timeStart"].split(':').map(Number);
-      let timeEnd = this.event["timeEnd"].split(':').map(Number);
+      let timeStart = this.event["timeStart"].split(":").map(Number);
+      let timeEnd = this.event["timeEnd"].split(":").map(Number);
       let hh = 0;
-      hh += (timeEnd[0] - timeStart[0])
+      hh += timeEnd[0] - timeStart[0];
       if (hh == 0) {
         return 50;
       } else {
@@ -193,21 +223,21 @@ export default {
       }
     },
     displayTime() {
-      const zeroPad = (num, places) => String(num).padStart(places, '0')
-      let timeStart = this.event["timeStart"].split(':').map(Number)
+      const zeroPad = (num, places) => String(num).padStart(places, "0");
+      let timeStart = this.event["timeStart"].split(":").map(Number);
       if (timeStart[0] >= 12) {
-        timeStart[2] = "pm"
+        timeStart[2] = "pm";
       } else {
-        timeStart[2] = "am"
+        timeStart[2] = "am";
       }
       let timeEnd = this.event["timeEnd"].split(':').map(Number)
-      if (timeEnd[2] >= 12) {
+      if (timeEnd[0] >= 12) {
         timeEnd[2] = 'pm'
       } else {
-        timeEnd[2] = 'am'
+        timeEnd[2] = "am";
       }
-      timeStart[0] = timeStart[0] % 12;
-      timeEnd[0] = timeEnd[0] % 12;
+      timeStart[0] = timeStart[0] % 13;
+      timeEnd[0] = timeEnd[0] % 13;
       timeStart = String(timeStart[0]) + "." + String(zeroPad(timeStart[1], 2)) + " " + String(timeStart[2])
       timeEnd = String(timeEnd[0]) + "." + String(zeroPad(timeEnd[1], 2)) + " " + String(timeEnd[2])  
       return `${timeStart} to ${timeEnd}`;
@@ -242,6 +272,7 @@ export default {
     //Update event store
     var docRef = doc(db, "events", this.currentRouteName);
     const docSnap = await getDoc(docRef);
+    this.docSnap = docSnap
     if (docSnap.exists()) {
       this.eventLoaded = true;
       this.event = docSnap.data();
@@ -261,11 +292,15 @@ export default {
     },
     async updateEvent() {
       let participantMap = this.event["participants"];
+      console.log(participantMap)
       participantMap[this.$store.state.id] = {
         applicationStatus: "pending",
         attendanceStatus: "unconfirmed",
+        fullName: this.$store.state.details["firstName"] + " " + this.$store.state.details["lastName"],
+        interests: this.$store.state.details["interests"]
       };
       this.event["participants"] = participantMap;
+      console.log(participantMap)
       const eventRef = doc(db, "events", this.currentRouteName);
       await setDoc(eventRef, this.event);
     },
@@ -275,11 +310,9 @@ export default {
         this.updateEvent();
         this.visible = false;
         this.hasRegistered = true;
-        alert(
-          "Succesfully applied for event! Organisation will get back soon!"
-        );
+        this.successfulEventApplied();
       } catch {
-        alert("Error registering, please try again!");
+        this.error();
       }
     },
     clickVolunteer() {
@@ -300,13 +333,13 @@ h1 {
 }
 #wrapper {
   margin-top: 50px;
-  justify-content: center
+  justify-content: center;
 }
 #content {
   width: 75%;
 }
 #imgDiv {
-  display:block;
+  display: block;
   width: 100%;
   margin-right: 10px;
 }

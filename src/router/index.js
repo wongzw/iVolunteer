@@ -6,16 +6,23 @@ import VolunteerRegister from "@/views/register/VolunteerRegister.vue";
 import OrgRegister from "@/views/register/OrgRegister.vue";
 import TheSupport from "@/views/TheSupport.vue";
 import NoPageFound from "@/views/NoPageFound.vue";
-import indvolEventView from "@/views/indvolEventView.vue";
-import EventCreation from "@/views/EventCreationView.vue";
+import indvolEventView from "@/views/volunteers/indvolEventView.vue";
+import EventCreation from "@/views/organisations/EventCreationView.vue";
 import UserDashboard from "@/views/volunteers/UserDashboardView.vue";
 import VolunteerBoard from "@/views/onboarding/VolunteerBoard.vue";
 import OrgBoard from "@/views/onboarding/OrgBoard.vue";
+import VolunteerProfile from "@/views/volunteers/VolunteerProfileView.vue";
+import OrgProfileView from "@/views/organisations/OrgProfileView.vue";
+import OrgDashboardView from "@/views/organisations/OrgDashboardView.vue";
+import OrgEventView from "@/views/organisations/OrgEventView.vue";
 import RewardsRedemption from "@/views/volunteers/RewardsRedemption.vue";
+import LeaderboardView from "@/views/volunteers/LeaderboardView.vue";
+
 //Shell Views
 import RegisterShell from "@/views/register/RegisterShell.vue";
 import OnboardShell from "@/views/onboarding/OnboardShell.vue";
 import VolunteerShell from "@/views/volunteers/VolunteerShell.vue";
+import OrganisationShell from "@/views/organisations/OrganisationShell.vue";
 import store from "@/store";
 
 const routes = [
@@ -55,6 +62,9 @@ const routes = [
     path: "/onboard",
     name: "OnboardShell",
     component: OnboardShell,
+    meta: {
+      requiresAuth: true,
+    },
     children: [
       {
         path: "volunteer",
@@ -73,11 +83,19 @@ const routes = [
     path: "/volunteer",
     name: "VolunteerShell",
     component: VolunteerShell,
+    meta: {
+      requiresAuth: true,
+    },
     children: [
       {
         path: "dashboard",
         name: "UserDashboard",
         component: UserDashboard,
+      },
+      {
+        path: "profile",
+        name: "VolunteerProfile",
+        component: VolunteerProfile,
       },
       {
         path: "/event/:catchAll(.*)",
@@ -88,10 +106,39 @@ const routes = [
         path: "rewards",
         name: "RewardsRedemption",
         component: RewardsRedemption,
-        meta: {
-          requiresAuth: true,
-        },
       },
+      {
+        path: "leaderboard",
+        name: "VolunteerLeaderboard",
+        component: LeaderboardView,
+      },
+    ],
+  },
+  // Organisations
+  {
+    path: "/organisation",
+    name: "OrganisationShell",
+    component: OrganisationShell,
+    meta: {
+      isOrg: true,
+      requiresAuth: true,
+    },
+    children: [
+      {
+        path: "profile",
+        name: "OrganisationProfile",
+        component: OrgProfileView,
+      },
+      {
+        path: "dashboard",
+        name: "OrgDashboard",
+        component: OrgDashboardView,
+      },
+      {
+        path: "event/:catchAll(.*)",
+        name: "OrgEventView",
+        component: OrgEventView,
+      }
     ],
   },
 
@@ -136,7 +183,13 @@ router.beforeEach((to, from, next) => {
     if (!auth) {
       next("/login");
     } else {
-      next();
+      if (userType == "Volunteer" && to.meta.isOrg) {
+        next("/volunteer/dashboard")
+      } else if (userType == "Organisation" && !to.meta.isOrg) {
+        next("/organisation/dashboard")
+      } else {
+        next();
+      }
     }
   } else {
     next();

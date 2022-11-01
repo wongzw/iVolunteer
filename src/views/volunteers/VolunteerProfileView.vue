@@ -1,17 +1,16 @@
 <template>
-  <UserDashboard />
+  <VolunteerProfile />
 </template>
-  
+    
 <script>
 import { db } from "../../firebase.js";
 import { getDoc, doc } from "firebase/firestore";
-import UserDashboard from "../../components/volunteer/UserDashboard.vue";
+import VolunteerProfile from "../../components/volunteer/profile/VolunteerProfile.vue";
 
 export default {
-  name: "UserDashboardView",
-
+  name: "VolunteerProfileView",
   components: {
-    UserDashboard,
+    VolunteerProfile,
   },
 };
 </script>

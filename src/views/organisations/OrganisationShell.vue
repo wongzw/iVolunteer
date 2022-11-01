@@ -1,11 +1,7 @@
 <template>
-  <div class="navbar"><TheNavbar /></div>
-
+  <TheNavbar v-if="rendered" />
   <div class="block"></div>
-  <div class="flexbox" v-if="rendered">
-    <div class="side-bar">
-      <TheSidebar />
-    </div>
+  <div class="flexbox">
     <div class="router-view">
       <router-view></router-view>
     </div>
@@ -14,8 +10,8 @@
     <TheFooter />
   </div>
 </template>
-  
-<script>
+    
+  <script>
 import TheFooter from "@/components/global/TheFooter.vue";
 import TheNavbar from "@/components/global/TheNavbar.vue";
 import TheSidebar from "@/components/volunteer/TheSidebar.vue";
@@ -24,14 +20,14 @@ import { getDoc, doc } from "firebase/firestore";
 
 export default {
   name: "OrgShell",
-  components: { TheFooter, TheNavbar, TheSidebar },
+  components: { TheFooter, TheNavbar },
   data() {
     return {
       rendered: false,
     };
   },
   async mounted() {
-    var docRef = doc(db, "users", this.$store.state.id);
+    var docRef = doc(db, "organisation", this.$store.state.id);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       this.$store.state.details = docSnap.data();
@@ -41,37 +37,19 @@ export default {
   },
 };
 </script>
-
-
-<style scoped>
+  
+  
+  <style scoped>
 .block {
   height: 68px;
   width: 100%;
 }
 
-.navbar {
-  height: 68px;
-  min-height: 50px;
-}
-
 .flexbox {
   display: flex;
-  height: auto
 }
 
 .the-footer {
   bottom: 0;
-  height: 25vh;
-  min-height: 150px;
-}
-
-.flexbox .side-bar {
-  width: 20vw;
-  margin-right: 50px
-}
-
-.flexbox .router-view {
-  width: 75vw;
-  margin-bottom: 56px;
 }
 </style>

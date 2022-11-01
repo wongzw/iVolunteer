@@ -53,7 +53,7 @@
                   this.rewardTier == 0
                 "
               >
-                <span v-if="reward.availableQty == 0" style="color: #020957"
+                <span v-if="reward.availableQty == 0" style="color: darkgray"
                   >Fully Redeemed</span
                 >
                 <span v-else>Redeem Reward</span>
@@ -110,9 +110,9 @@
 <script>
 import { collection, query, where } from "firebase/firestore";
 import { doc, getDocs, updateDoc } from "firebase/firestore";
-import { db } from "../firebase.js";
+import { db } from "../../firebase.js";
 import { notification } from "ant-design-vue";
-import { SmileOutlined, robotOutlined } from "@ant-design/icons-vue";
+import { SmileOutlined, RobotOutlined } from "@ant-design/icons-vue";
 import { defineComponent, h } from "vue";
 
 export default {
@@ -161,7 +161,7 @@ export default {
         message: "Error",
         description: "An Error Occurred. Please try again. ",
         duration: 3,
-        icon: () => h(robotOutlined, { style: "color: #ff3700" }),
+        icon: () => h(RobotOutlined, { style: "color: #ff3700" }),
       });
     };
 
@@ -188,6 +188,7 @@ export default {
       this.rewardsConfirmModal = false;
       this.rewardConfirmChecked = false;
       this.cancelNotification();
+      location.reload();
     },
 
     claimReward(reward) {
@@ -209,8 +210,9 @@ export default {
         });
         this.updateDb(this.$store.state.id, reward);
       } else {
-        this.tierClaimed();
         this.rewardLevel();
+        this.tierClaimed();
+        location.reload();
       }
 
       console.log(this.$store.state.details["userRewards"]);
@@ -258,7 +260,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .header h1,
 .header h3,
 .rewardName h3 {
@@ -285,7 +287,9 @@ export default {
   padding: 20px;
   margin-bottom: 20px;
   margin-top: 20px;
-  height: 100%;
+  border-radius: 8px;
+  height: auto;
+  min-height: 60vh;
 }
 
 .rewardClaimed {
@@ -318,19 +322,15 @@ export default {
 }
 
 .ant-button .orange:hover {
-  /* color: black; */
   background-color: #ff3700;
   border-color: #ff3700;
   transition: 0.3s ease;
 }
 
-.rewardsTable .ant-tabs-ink-bar {
-  background: #020957;
-}
-
-.rewardsTable .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  color: #020957;
-  font-size: 150%;
+.ant-button .orange:disabled {
+  background-color: lightgray;
+  border-color: darkgray;
+  transition: 0.3s ease;
 }
 
 .rewardsTable .ant-tabs-tab-btn {

@@ -2,7 +2,7 @@
   <img
     style="margin-top: 2vh"
     alt="Logo of IVolunteer"
-    src="../assets/ivolunteer_logo.svg"
+    src="../../assets/ivolunteer_logo.svg"
   />
   <div class="box">
     <a-form
@@ -66,11 +66,18 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
-import { db } from "../firebase.js";
+import { db } from "../../firebase.js";
 import { getDoc, doc } from "firebase/firestore";
-import firebaseApp from "../firebase.js";
+import firebaseApp from "../../firebase.js";
 import GoogleButton from "./GoogleButton.vue";
-import { ref } from "vue";
+import { ref, defineComponent, h } from "vue";
+import { notification } from "ant-design-vue";
+import {
+  SmileOutlined,
+  RobotOutlined,
+  ExclamationCircleOutlined,
+} from "@ant-design/icons-vue";
+
 const auth = getAuth();
 auth.languageCode = "en";
 const provider = new GoogleAuthProvider();
@@ -87,13 +94,49 @@ export default {
       userType: "",
     };
   },
+
+  setup() {
+    const success = (msg) => {
+      notification.open({
+        message: "Welcome Back!",
+        description: msg,
+        duration: 3,
+        icon: () => h(SmileOutlined, { style: "color: #020957" }),
+      });
+    };
+
+    const error = (msg) => {
+      notification.open({
+        message: "Error",
+        description: msg,
+        duration: 3,
+        icon: () => h(RobotOutlined, { style: "color: #ff3700" }),
+      });
+    };
+
+    const formValidError = (msg) => {
+      notification.open({
+        message: "Error",
+        description: msg,
+        duration: 3,
+        icon: () => h(ExclamationCircleOutlined, { style: "color: #ff3700" }),
+      });
+    };
+
+    return {
+      success,
+      error,
+      formValidError,
+    };
+  },
+
   methods: {
     reroute() {
       this.$router.push({ path: "/", replace: true });
     },
     checkLogin() {
       if (!this.userType) {
-        alert("Please select user type!");
+        this.formValidError("Please select user type!");
       } else {
         this.login();
       }
@@ -103,19 +146,19 @@ export default {
         var docRef = doc(db, "organisation", user.uid);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          alert("Successful Organisation Login, welcome!");
+          this.success("Successful Organisation Login!");
           this.$store.commit("updateOrganisation", user);
         } else {
-          alert("Error, please try again!");
+          this.error("Something broke! Please try again!");
         }
       } else {
         var docRef = doc(db, "users", user.uid);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          alert("Succesful Volunteer Login, welcome!");
+          this.success("Succesful Volunteer Login");
           this.$store.commit("updateVolunteer", user);
         } else {
-          alert("Error, please try again!");
+          this.error("Something broke! Please try again!");
         }
       }
       location.reload();
@@ -131,12 +174,13 @@ export default {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          alert(errorMessage);
+          this.error("Unable to login, please try again! \n" + errorMessage);
+          console.log(errorMessage);
         });
     },
     googleSignIn() {
       if (!this.userType) {
-        alert("Please fill in user type!");
+        this.formValidError("Please fill in user type!");
       } else {
         signInWithPopup(auth, provider)
           .then((result) => {
@@ -150,7 +194,8 @@ export default {
             const errorMessage = error.message;
             const email = error.customData.email;
             const credential = GoogleAuthProvider.credentialFromError(error);
-            alert("Error " + errorMessage);
+            this.error("Unable to login, please try again! \n" + errorMessage);
+            console.log(errorMessage);
           });
       }
     },
