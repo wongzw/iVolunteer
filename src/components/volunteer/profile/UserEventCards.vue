@@ -2,25 +2,20 @@
     <div class="eventCards">
         <a-card class = "indivEvent" type="inner">
             <div class="info">
-                <!-- <h2 class="event-title">{{ event.data.eventName }}</h2> -->
-                <h2 class="event-title">Event 1</h2>
+                <h2 class="event-title">{{ event.data.eventName }}</h2>
 
                 <div class="info">
                     <div class="details">
                         <img class="image" src="@/assets/calendarIcon.svg" alt="calendar" />
-                        <!-- <h2 class="event-host">{{ event.data.dateStart }}</h2> -->
-                        <h2 class="event-host"> start date </h2>
+                        <h2 class="event-host">{{ event.data.dateStart }}</h2>
                     </div>
                     <div class="details">
                         <img class="image" src="@/assets/clockIcon.svg" alt="clock" />
-                        <!-- <h2 class="event-host">{{ event.data.timeStart }}</h2> -->
-                        <h2 class="event-host"> start time </h2>
-
+                        <h2 class="event-host">{{ event.data.timeStart }}</h2>
                     </div>
                     <div class="details">
                         <img class="image" src="@/assets/locationIcon.svg" alt="location" />
-                        <!-- <h2 class="event-host">{{ event.data.location }}</h2> -->
-                        <h2 class="event-host"> location </h2>
+                        <h2 class="event-host">{{ event.data.location }}</h2>
                     </div>
                 </div>
             </div>
@@ -35,21 +30,6 @@
             >
             </div>
         </a-card>
-
-        <!-- <a-card class="indivEvent" type="inner">
-            Event 2
-            <div class="ant-button">
-            <a-button
-                type="primary"
-                size="medium"
-                class="orange"
-                @click="reroute_event"
-            >
-                View Event</a-button
-            >
-            </div>
-        </a-card> -->
-
     </div>
 
 </template>

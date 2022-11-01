@@ -3,7 +3,11 @@
     <div class="box">
       <div id="box-title">Current Events</div>
       <div id="box details">
-        <UserEventCards/>
+        <UserEventCards 
+        :event="event"
+        v-for="(event, index) in EventCards"
+        :key="index"
+      />
       </div>
     </div>
   </div>
@@ -11,12 +15,47 @@
     
 <script>
 import UserEventCards from './UserEventCards.vue';
+import { collection, query, where } from "firebase/firestore";
+import { doc, getDoc, getDocs} from "firebase/firestore";
+import { db } from "../../../firebase.js";
+import { breakStatement } from '@babel/types';
 
 export default {
   name: "CurrentUserEvents",
+  data() {
+    return {
+      EventCards: [],
+      userEvents: this.$store.state['userAcceptedEvents'],
+    };
+  },
   components: {
     UserEventCards,
   },
+  mounted() {
+    this.queryDb();
+  },
+  methods: {
+    async queryDb() {
+      // user snapshot data
+      const userId = this.$store.state.id;
+      const userRef = await doc(db, "users", userId);
+      const user = await getDoc(userRef);
+      let data = user.data(); 
+      console.log('Document data:', data);
+      const userEvents = data.userAcceptedEvents;
+
+      // event snapshot
+      const eventSnapshot = await getDocs(collection(db, "events"));
+      userEvents.forEach((ev) => {
+        eventSnapshot.forEach((doc) => {
+          if (doc.id == ev) {
+            console.log(doc.id, "=>", doc.data());
+            this.EventCards.push({ id: doc.id, data: doc.data() });
+          }
+      });
+      });
+    },
+  }
 };
 </script>
     
