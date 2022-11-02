@@ -1,7 +1,7 @@
 <template>
   <div id="contactDetails">
     <div class="box">
-      <div id="box-title">Contact details</div>
+      <div id="box-title">Company Profile</div>
 
       <div id="box details">
         <label class="fontUser">Name</label> &nbsp; {{ name }} <br />
@@ -10,7 +10,7 @@
 
       <div class="box button">
             <div class="ant-button">
-            <a-button type="primary" size="large" class="orange" @click="edit_details">
+            <a-button type="primary" size="medium" class="orange" @click="edit_details">
                 Change Password </a-button>
         </div>
 
@@ -205,6 +205,7 @@ export default {
 .box {
   text-align: left;
   margin-left: 15px;
+  margin-bottom: 20px;
 }
 
 #box-title {
