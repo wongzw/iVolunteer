@@ -1,13 +1,13 @@
 <template>
-  <UserNotifications />
+  <UserNotification />
 </template>
 
 <script>
-import UserNotifications from "../../components/volunteer/UserNotification.vue";
+import UserNotification from "../../components/volunteer/UserNotification.vue";
 
 export default {
   name: "UserNotifications",
-  components: { UserNotifications },
+  components: { UserNotification },
 };
 </script>
 
