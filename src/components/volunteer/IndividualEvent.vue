@@ -21,7 +21,6 @@
                 htmlType="submit"
                 size="large"
                 type="primary"
-                danger
                 @click="clickVolunteer()"
                 v-if="!hasVolunteered"
                 >Volunteer Now
@@ -74,10 +73,8 @@
 
                   <a-button
                     id="confirmButton"
-                    htmlType="submit"
                     size="large"
                     type="primary"
-                    danger
                     @click="confirmVolunteer"
                     >Confirm
                   </a-button>
@@ -405,7 +402,20 @@ h1 {
   width: 50%;
   margin-top: 10%;
   background-color: #ff5b2e;
+  border-color: #ff5b2e;
+  border-radius: 5px;
 }
+
+.submitButton:hover {
+  background-color: #ff3700;
+  border-color: #ff3700;
+}
+
+.submitButton:focus {
+  background-color: #ff5b2e;
+  border-color: #ff5b2e;
+}
+
 #causeContainer {
   width: 100%;
   display: flex;
@@ -453,6 +463,15 @@ h1 {
   width: 50%;
   margin-top: 10%;
   background-color: #ff5b2e;
+  border-color: #ff5b2e;
+  border-radius: 5px;
+  white-space: normal;
+}
+
+#confirmButton:hover {
+  background-color: #ff3700;
+  border-color: #ff3700;
+  transition: 0.3s ease;
 }
 
 #volunteerButton {
