@@ -79,7 +79,7 @@ h2 {
 }
 
 p {
-  color: orange;
+  color: #ff5b2e;
   font-weight: bold;
   line-height: 120%;
 }
