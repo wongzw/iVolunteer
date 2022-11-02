@@ -8,6 +8,7 @@ import TheSupport from "@/views/TheSupport.vue";
 import NoPageFound from "@/views/NoPageFound.vue";
 import indvolEventView from "@/views/volunteers/indvolEventView.vue";
 import EventCreation from "@/views/organisations/EventCreationView.vue";
+import EventEditView from "@/views/organisations/EventEditView.vue";
 import UserDashboard from "@/views/volunteers/UserDashboardView.vue";
 import VolunteerBoard from "@/views/onboarding/VolunteerBoard.vue";
 import OrgBoard from "@/views/onboarding/OrgBoard.vue";
@@ -138,7 +139,12 @@ const routes = [
         path: "event/:catchAll(.*)",
         name: "OrgEventView",
         component: OrgEventView,
-      }
+      },
+      {
+        path: "event/edit/:catchAll(.*)",
+        name: "EventEditView",
+        component: EventEditView,
+      },
     ],
   },
 
@@ -163,6 +169,8 @@ const routes = [
     name: "EventCreationView",
     component: EventCreation,
   },
+  
+  
 ];
 
 const router = createRouter({
