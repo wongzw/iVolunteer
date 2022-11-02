@@ -125,6 +125,7 @@ import { db } from "../../firebase.js";
 import { notification } from "ant-design-vue";
 import { SmileOutlined } from "@ant-design/icons-vue";
 import { h } from "vue";
+import { bool } from "vue-types";
 
 export default {
   name: "EventCreation",
@@ -146,6 +147,7 @@ export default {
       participants: {},
       orgId: "",
       orgName: "",
+      eventClosed: false
     };
   },
 
@@ -185,6 +187,7 @@ export default {
             participants: {},
             orgId: this.$store.state.id,
             orgName: this.$store.state.details.orgName,
+            eventClosed:this.eventClosed
           })
             .then(() => {
               this.eventCreateNotification();
@@ -221,9 +224,10 @@ export default {
   background-color: white;
   align-items: center;
   border-radius: 2px;
-  margin-top: 2%;
+  margin-top: 3%;
   margin-left: 35%;
   margin-right: 35%;
+  margin-bottom: 3%;
   padding-top: 30px;
   padding-bottom: 30px;
   filter: drop-shadow(1px 1px 1px black);

@@ -22,7 +22,7 @@
                   size="large"
                   type="primary"
                   danger
-                  @click="clickVolunteer()"
+                  @click="proceedToEdit()"
                   v-if="!hasVolunteered"
                   >Edit Details
                 </a-button>
@@ -212,6 +212,12 @@
       }
     },
     methods: {
+      proceedToEdit() {
+        let arr = this.$route.path.split("/");
+        var currentRouteName = arr[arr.length - 1];
+        var route = "/organisation/event/edit/" + currentRouteName
+        this.$router.replace({ path: route });
+      },
     },
   };
   </script>
