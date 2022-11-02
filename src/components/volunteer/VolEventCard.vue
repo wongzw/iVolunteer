@@ -1,6 +1,7 @@
 <template>
   <div class="blog-card">
     <img class="display" :src="event.data.eventUrl" alt="" />
+
     <div class="info">
       <h2 class="event-title">{{ event.data.eventName }}</h2>
       <div class="details">
@@ -68,6 +69,7 @@ export default {
 
 .info {
   padding: 20px;
+  padding-bottom: 0px;
 }
 
 .blog-card:hover {
@@ -86,6 +88,7 @@ export default {
   font-family: "Cabin";
   margin-left: 12px;
   padding-top: 8px;
+  text-align: left;
 }
 
 .image {
@@ -114,11 +117,11 @@ export default {
   height: auto;
   padding-left: 48px;
   padding-right: 48px;
+  margin-top: 20px;
   white-space: normal;
 }
 
 .ant-button .orange:hover {
-  /* color: black; */
   background-color: #ff3700;
   border-color: #ff3700;
   transition: 0.3s ease;
