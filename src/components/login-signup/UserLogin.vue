@@ -45,7 +45,6 @@
             class="sign-in"
             size="large"
             type="primary"
-            danger
             >Login</a-button
           >
         </div>
@@ -248,5 +247,8 @@ export default {
 .sign-in {
   width: 60%;
   margin-bottom: -5px;
+  border-color: #ff734c;
+  background-color: #ff734c;
+  border-radius: 5px;
 }
 </style>>

@@ -39,7 +39,6 @@
             class="signUp"
             size="large"
             type="primary"
-            danger
             >Sign Up</a-button
           >
         </div>
@@ -255,6 +254,9 @@ export default {
 .signUp {
   width: 60%;
   margin-bottom: -5px;
+  border-color: #ff734c;
+  background-color: #ff734c;
+  border-radius: 5px;
 }
 </style>
 
