@@ -133,6 +133,7 @@ export default {
         firstName: "",
         lastName: "",
         interests: [],
+        profilePicture: "",
         skills: [],
         hoursVolunteered: 0,
         userExp: 0,
@@ -140,8 +141,9 @@ export default {
         userAppliedEvents: [],
         userAcceptedEvents: [],
         userAttendedEvents: [],
+        userNotification: [],
         userBadges: {},
-        userRewards: {},
+        userRewards: {}
       };
       this.$store.state.details = val;
       await setDoc(doc(db, "users", oid), val);
