@@ -1,10 +1,8 @@
 <template>
-  <a-layout class="a-layout">
     <a-layout-content class="a-content"
       ><router-view></router-view
     ></a-layout-content>
     <a-layout-footer class="a-footer"><TheFooter /></a-layout-footer>
-  </a-layout>
 </template>
   
 <script>
@@ -24,6 +22,7 @@ export default {
   padding: 0px 0px 0px 0px;
   height: 25%;
   width: 100%;
+  margin-top: 5%;
 }
 
 .a-layout {
