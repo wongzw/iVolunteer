@@ -39,7 +39,8 @@
             class="signUp"
             size="large"
             type="primary"
-            >Sign Up</a-button
+            danger
+            >Get Started</a-button
           >
         </div>
       </a-form-item>
@@ -254,9 +255,6 @@ export default {
 .signUp {
   width: 60%;
   margin-bottom: -5px;
-  border-color: #ff734c;
-  background-color: #ff734c;
-  border-radius: 5px;
 }
 </style>
 

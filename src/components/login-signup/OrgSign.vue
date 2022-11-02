@@ -43,6 +43,7 @@
             class="register"
             size="large"
             type="primary"
+            danger
             >Get Started
           </a-button>
         </div>
@@ -247,9 +248,6 @@ export default {
 .register {
   width: 60%;
   margin-bottom: -5px;
-  border-color: #ff734c;
-  background-color: #ff734c;
-  border-radius: 5px;
 }
 
 input:required:focus {
