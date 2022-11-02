@@ -159,6 +159,30 @@ export default {
         return hh * 50;
       }
     },
+    methods: {
+      hasCompleted() {
+        let currentDate = new Date();
+        let endDate = new Date(this.eventEndDate.split("-").reverse());
+        return new Date().getTime() > endDate.getTime();
+      },
+      eventHour() {
+        let timeStart = this.event["timeStart"].split(":").map(Number);
+        let timeEnd = this.event["timeEnd"].split(":").map(Number);
+        let hh = 0;
+        hh += timeEnd[0] - timeStart[0];
+        if (hh == 0) {
+          return 1;
+        } else {
+          return hh;
+        }
+      },
+      proceedToEdit() {
+        let arr = this.$route.path.split("/");
+        var currentRouteName = arr[arr.length - 1];
+        var route = "/organisation/event/edit/" + currentRouteName;
+        this.$router.replace({ path: route });
+      },
+    },
     displayTime() {
       const zeroPad = (num, places) => String(num).padStart(places, "0");
       let timeStart = this.event["timeStart"].split(":").map(Number);

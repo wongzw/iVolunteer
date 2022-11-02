@@ -45,6 +45,10 @@ export default {
   width: 100%;
 }
 
+.router-view {
+  width: 100%;
+}
+
 .flexbox {
   display: flex;
 }
