@@ -1,11 +1,19 @@
 <template>
   <h1 class="header-text">Events For You</h1>
   <div class="blog-cards">
-    <VolEventCard :event="event" v-for="(event, index) in interestCards" :key="index"/>
+    <VolEventCard
+      :event="event"
+      v-for="(event, index) in interestCards"
+      :key="index"
+    />
   </div>
   <h1 class="header-text">All Events</h1>
   <div class="blog-cards">
-    <VolEventCard :event="event" v-for="(event, index) in allCards" :key="index"/>
+    <VolEventCard
+      :event="event"
+      v-for="(event, index) in allCards"
+      :key="index"
+    />
   </div>
 </template>
 
@@ -21,7 +29,7 @@ export default {
   data() {
     return {
       interestCards: [],
-      allCards: []
+      allCards: [],
     };
   },
   components: {
@@ -33,30 +41,41 @@ export default {
   },
   methods: {
     async queryInterests() {
-      const userInterests = this.$store.state.details["interests"]
-      const q = query(collection(db, "events"), where('eventCauses', 'array-contains-any', userInterests))
-      const eventSnapshot = await getDocs(q)
+      const userInterests = this.$store.state.details["interests"];
+      const q = query(
+        collection(db, "events"),
+        where("eventCauses", "array-contains-any", userInterests)
+      );
+      const eventSnapshot = await getDocs(q);
       eventSnapshot.forEach((doc) => {
         const eventDate = doc.data()["dateStart"];
         const eventDateParts = eventDate.split("-");
-        const eventDateObject = new Date(+eventDateParts[2], eventDateParts[1] - 1, +eventDateParts[0]);
+        const eventDateObject = new Date(
+          +eventDateParts[2],
+          eventDateParts[1] - 1,
+          +eventDateParts[0]
+        );
         const today = new Date();
         if (eventDateObject > today) {
-          this.interestCards.push({ id: doc.id, data: doc.data()})
+          this.interestCards.push({ id: doc.id, data: doc.data() });
         }
-      })
+      });
     },
     async queryEvents() {
-      const eventSnapshot = await getDocs(collection(db, "events"))
+      const eventSnapshot = await getDocs(collection(db, "events"));
       eventSnapshot.forEach((doc) => {
         const eventDate = doc.data()["dateStart"];
         const eventDateParts = eventDate.split("-");
-        const eventDateObject = new Date(+eventDateParts[2], eventDateParts[1] - 1, +eventDateParts[0]);
+        const eventDateObject = new Date(
+          +eventDateParts[2],
+          eventDateParts[1] - 1,
+          +eventDateParts[0]
+        );
         const today = new Date();
         if (eventDateObject > today) {
-          this.allCards.push({ id: doc.id, data: doc.data()})
+          this.allCards.push({ id: doc.id, data: doc.data() });
         }
-      })
+      });
     },
   },
 };
@@ -79,5 +98,4 @@ export default {
 .header-text:last-of-type {
   margin-top: 0;
 }
-
 </style>
