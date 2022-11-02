@@ -1,9 +1,16 @@
 <template>
   <div id="userEvents">
     <div class="box">
+      <a-row>
       <div id="box-title">Current Events</div>
+      <div class="ant-button">
+        <a-button type="primary" size="medium" class="orange" @click="reroute_event">
+          Create Event </a-button>
+      </div>
+      </a-row>
+      <a-row>
       <div id="box details">
-        <UserEventCards
+        <OrgEventCards
           :event="event"
           v-for="(event, index) in EventCards"
           :key="index"
@@ -20,30 +27,34 @@
           </h2>
         </div>
       </div>
+    </a-row>
     </div>
   </div>
 </template>
     
 <script>
-import UserEventCards from '../../volunteer/profile/UserEventCards.vue'
+import OrgEventCards from './OrgEventCards.vue'
 import { collection, query, where } from "firebase/firestore";
 import { doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase.js";
 
 export default {
-  name: "CurrentUserEvents",
+  name: "CurrOrgEvents",
   data() {
     return {
       EventCards: [],
     };
   },
   components: {
-    UserEventCards,
+    OrgEventCards,
   },
   mounted() {
     this.queryDb();
   },
   methods: {
+    reroute_event() {
+      this.$router.push({path: '/event/creation'});
+    },
     async queryDb() {
       // user snapshot data
       const orgId = this.$store.state.id;
@@ -110,5 +121,16 @@ export default {
   justify-content: center;
   display: flex;
   text-align: center;
+}
+
+.ant-button .orange {
+  margin: 20px 0px 10px 0px;
+  background-color: #ff734c;
+  border-color: #ff734c;
+  border-radius: 5px;
+  width: auto;
+  height: auto;
+  white-space: normal;
+  float: right;
 }
 </style>
