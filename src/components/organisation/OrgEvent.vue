@@ -21,8 +21,7 @@
                 htmlType="submit"
                 size="large"
                 type="primary"
-                danger
-                @click="clickVolunteer()"
+                @click="proceedToEdit()"
                 v-if="!hasVolunteered"
                 >Edit Details
               </a-button>
@@ -33,7 +32,6 @@
                 htmlType="submit"
                 size="large"
                 type="primary"
-                danger
                 disabled
                 v-if="hasVolunteered"
                 >Already Registered
@@ -159,30 +157,6 @@ export default {
         return hh * 50;
       }
     },
-    methods: {
-      hasCompleted() {
-        let currentDate = new Date();
-        let endDate = new Date(this.eventEndDate.split("-").reverse());
-        return new Date().getTime() > endDate.getTime();
-      },
-      eventHour() {
-        let timeStart = this.event["timeStart"].split(":").map(Number);
-        let timeEnd = this.event["timeEnd"].split(":").map(Number);
-        let hh = 0;
-        hh += timeEnd[0] - timeStart[0];
-        if (hh == 0) {
-          return 1;
-        } else {
-          return hh;
-        }
-      },
-      proceedToEdit() {
-        let arr = this.$route.path.split("/");
-        var currentRouteName = arr[arr.length - 1];
-        var route = "/organisation/event/edit/" + currentRouteName;
-        this.$router.replace({ path: route });
-      },
-    },
     displayTime() {
       const zeroPad = (num, places) => String(num).padStart(places, "0");
       let timeStart = this.event["timeStart"].split(":").map(Number);
@@ -269,6 +243,12 @@ export default {
       } else {
         return hh;
       }
+    },
+    proceedToEdit() {
+      let arr = this.$route.path.split("/");
+      var currentRouteName = arr[arr.length - 1];
+      var route = "/organisation/event/edit/" + currentRouteName;
+      this.$router.replace({ path: route });
     },
   },
 };
@@ -357,14 +337,19 @@ h1 {
   width: 50%;
   margin-top: 10%;
   background-color: #ff5b2e;
+  border-color: #ff5b2e;
+  border-radius: 5px;
 }
 
-.submitButton:disabled {
-  background-color: lightgray;
-  border-color: darkgray;
-  transition: 0.3s ease;
+.submitButton:hover {
+  background-color: #ff3700;
+  border-color: #ff3700;
 }
 
+.submitButton:focus {
+  background-color: #ff5b2e;
+  border-color: #ff5b2e;
+}
 #causeContainer {
   width: 100%;
   display: flex;

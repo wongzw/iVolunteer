@@ -57,7 +57,6 @@
             class="signUp"
             size="large"
             type="primary"
-            danger
             >Continue to Dashboard</a-button
           >
         </div>
@@ -159,6 +158,19 @@ export default {
 .signUp {
   width: 60%;
   margin-bottom: -5px;
+  background-color: #ff5b2e;
+  border-color: #ff5b2e;
+  border-radius: 5px;
+}
+
+.signUp:hover {
+  background-color: #ff3700;
+  border-color: #ff3700;
+}
+
+.signUp:focus {
+  background-color: #ff5b2e;
+  border-color: #ff5b2e;
 }
 </style>
   
