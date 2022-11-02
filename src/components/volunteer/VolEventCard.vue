@@ -97,8 +97,9 @@ export default {
   border-radius: 8px 8px 0 0;
   z-index: 0.5;
   width: 100%;
-  min-height: 200px;
+  height: 200px;
   object-fit: cover;
+  overflow: hidden;
 }
 
 .details:last-child {
