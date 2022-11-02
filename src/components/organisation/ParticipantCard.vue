@@ -47,7 +47,6 @@
         @click="rejectHandler"
         size="large"
         type="primary"
-        danger
         v-if="this.status != 'accepted'"
         >Reject
       </a-button>
@@ -58,7 +57,6 @@
         size="large"
         type="primary"
         disabled
-        danger
         v-if="this.status == 'accepted'"
         >Volunteer Accepted
       </a-button>

@@ -32,7 +32,6 @@
                 htmlType="submit"
                 size="large"
                 type="primary"
-                danger
                 disabled
                 v-if="hasVolunteered"
                 >Already Registered
