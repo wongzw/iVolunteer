@@ -109,6 +109,7 @@
             class="signUp"
             size="large"
             type="primary"
+            @click="reroute_main"
             danger
             >Confirm</a-button
           >
@@ -150,6 +151,9 @@ export default {
   },
 
   methods: {
+    reroute_main() {
+      this.$router.push({path: '/organisation/profile'});
+    },
     eventCreateNotification() {
       notification.open({
         message: "Success",

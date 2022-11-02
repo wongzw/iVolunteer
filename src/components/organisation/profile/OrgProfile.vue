@@ -1,13 +1,9 @@
 <template>
-  <a-layout class="background">
-    <a-col span="9">
-      <img src="" alt="companyImg" />
-    </a-col>
-
-    <a-row gutter="{[24,16]}">
-      <OrgDetails />
+    <a-layout class="background">
+    <a-row type="flex">
+      <a-col :flex="4"> <img src="" alt="companyImg" /> </a-col>
+      <a-col :flex="0.5"> <OrgDetails /></a-col>
     </a-row>
-
     <a-row>
       <CurrOrgEvents />
     </a-row>
@@ -29,7 +25,7 @@ export default {
 
 <style scoped>
 .background {
-  min-height: 100vh;
+  min-height: 30vh;
   background-color: #fef8f3;
 }
 </style>
