@@ -229,7 +229,7 @@
         } else {
           return hh;
         }
-      }
+      },
       proceedToEdit() {
         let arr = this.$route.path.split("/");
         var currentRouteName = arr[arr.length - 1];
