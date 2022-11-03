@@ -9,7 +9,7 @@
   </div>
 
   <div class="participant-cards" v-if="eventClose">
-    <h1>Event Closed: (Confirm Attendance Status)</h1>
+    <h1>Event Closed: <strong>(Confirm Attendance Status)</strong></h1>
     <div class="participant-box">
     <ParticipantCard
       v-for="participant in acceptedParticipants" :participant="participant" :eventId="eventId" :eventClose="eventClose" :eventHour="eventHour" :eventBadge="this.event['badgeAwarded']" @incrementVol="updateAccepted($event)"
