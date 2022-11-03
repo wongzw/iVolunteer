@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import UserNotification from "../../components/volunteer/UserNotification.vue";
+import UserNotification from "../../components/volunteer/notifications/UserNotification.vue";
 
 export default {
   name: "UserNotifications",
