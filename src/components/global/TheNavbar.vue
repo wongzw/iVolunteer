@@ -13,7 +13,18 @@
         <li v-if="this.$store.state.userType == 'Volunteer'">
           <router-link to="/volunteer/rewards">Redemption</router-link>
         </li>
-        <li><router-link to="/">Support</router-link></li>
+        <li v-if="this.$store.state.userType == 'Volunteer'">
+          <a
+            href="mailto:bt3103.2022@gmail.com?&subject=Volunteer Support Request&body=Support Request Detail:"
+            >Support
+          </a>
+        </li>
+        <li v-if="this.$store.state.userType == 'Organisations'">
+          <a
+            href="mailto:bt3103.2022@gmail.com?&subject=Organisation Support Request&body=Support Request Detail:"
+            >Support
+          </a>
+        </li>
         <li><router-link to="/">Notifications</router-link></li>
         <!-- <li><a href="/Support">Support</a></li>
             <li><a href="/Notifications">Notifications</a></li> -->
