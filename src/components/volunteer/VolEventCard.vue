@@ -51,13 +51,25 @@ export default {
 .event-title {
   font-family: "Mulish";
   font-weight: 700;
-  font-size: 24px;
+  font-size: 1.5vw;
   color: #020957;
   text-align: left;
   max-width: 310px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+@media screen and (min-width: 1700px) {
+  .event-title {
+    max-width: 340px;
+  }
+}
+
+@media screen and (min-width: 1900px) {
+  .event-title {
+    max-width: 390px;
+  }
 }
 
 .blog-card {
