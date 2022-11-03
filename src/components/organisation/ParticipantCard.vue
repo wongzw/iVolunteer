@@ -18,7 +18,6 @@
           size="large"
           type="primary"
           @click="viewProfile"
-          danger
           >View Profile
         </a-button>
       </div>
@@ -48,7 +47,6 @@
         @click="rejectHandler"
         size="large"
         type="primary"
-        danger
         v-if="this.status != 'accepted'"
         >Reject
       </a-button>
@@ -59,7 +57,6 @@
         size="large"
         type="primary"
         disabled
-        danger
         v-if="this.status == 'accepted'"
         >Volunteer Accepted
       </a-button>
@@ -71,7 +68,6 @@
         htmlType="submit"
         size="large"
         type="primary"
-        danger
         @click="attendHandler"
         v-if="this.confirmStatus == 'unconfirmed'"
         >Attended
@@ -81,7 +77,6 @@
         htmlType="submit"
         size="large"
         type="primary"
-        danger
         @click="noShowHandler"
         v-if="this.confirmStatus == 'unconfirmed'"
         >No Show
@@ -93,7 +88,6 @@
         size="large"
         type="primary"
         disabled
-        danger
         v-if="this.confirmStatus == 'noshow'"
         >No Show
       </a-button>
@@ -104,7 +98,6 @@
         size="large"
         type="primary"
         disabled
-        danger
         v-if="this.confirmStatus == 'attend'"
         >Attended
       </a-button>
@@ -250,7 +243,20 @@ export default {
 .profileView {
   margin-top: -15%;
   width: 100%;
+  background-color: #ff3700;
+  border-color: #ff3700;
 }
+
+.profileView:hover {
+  background-color: #ff3700;
+  border-color: #ff3700;
+}
+
+.profileView:focus {
+  background-color: #ff3700;
+  border-color: #ff3700;
+}
+
 .profileImg {
   margin-right: 15%;
   width: 70%;
@@ -294,6 +300,18 @@ export default {
   margin-right: 5%;
   width: 120%;
   background-color: #ff5b2e;
+  border-color: #ff5b2e;
+  border-radius: 5px;
+}
+
+.confirmButton:hover {
+  background-color: #ff3700;
+  border-color: #ff3700;
+}
+
+.confirmButton:focus {
+  background-color: #ff5b2e;
+  border-color: #ff5b2e;
 }
 
 .confirmButton:disabled {

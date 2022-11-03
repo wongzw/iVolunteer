@@ -25,6 +25,7 @@ import OnboardShell from "@/views/onboarding/OnboardShell.vue";
 import VolunteerShell from "@/views/volunteers/VolunteerShell.vue";
 import OrganisationShell from "@/views/organisations/OrganisationShell.vue";
 import store from "@/store";
+import { toPathKey } from "ant-design-vue/lib/vc-cascader/utils/commonUtil";
 
 const routes = [
   {
@@ -65,6 +66,7 @@ const routes = [
     component: OnboardShell,
     meta: {
       requiresAuth: true,
+      onboard: true
     },
     children: [
       {
@@ -189,8 +191,10 @@ router.beforeEach((to, from, next) => {
     if (!auth) {
       next("/login");
     } else {
-      if (userType == "Volunteer" && to.meta.isOrg) {
-        next("/volunteer/dashboard");
+      if (to.meta.onboard) {
+        next();
+      } else if (userType == "Volunteer" && to.meta.isOrg) {
+        next("/volunteer/dashboard")
       } else if (userType == "Organisation" && !to.meta.isOrg) {
         next("/organisation/dashboard");
       } else {

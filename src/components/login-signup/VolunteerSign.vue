@@ -38,9 +38,8 @@
             htmlType="submit"
             class="signUp"
             size="large"
-            type="primary"
-            danger
-            >Sign Up</a-button
+            type="primary" 
+            >Get Started</a-button
           >
         </div>
       </a-form-item>
@@ -255,6 +254,19 @@ export default {
 .signUp {
   width: 60%;
   margin-bottom: -5px;
+  background-color: #ff5b2e;
+  border-color: #ff5b2e;
+  border-radius: 5px;
+}
+
+.signUp:hover {
+  background-color: #ff3700;
+  border-color: #ff3700;
+}
+
+.signUp:focus {
+  background-color: #ff5b2e;
+  border-color: #ff5b2e;
 }
 </style>
 
