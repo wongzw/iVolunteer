@@ -80,7 +80,7 @@
                   class="orange"
                   @click="reroute_event(notification.eventId)"
                 >
-                  View Event</a-button
+                  View Event Details</a-button
                 >
               </div></a-col
             >
