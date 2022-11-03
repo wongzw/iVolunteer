@@ -19,11 +19,6 @@
 export default {
     name: 'expBar',
     props: ['userExp'],
-    data() { 
-        return {
-            userLevel: this.$store.state.details['userLevel'],
-        }
-    },
     computed: {
         totalPercent() {
             let percent = (this.userExp) / 1000;
@@ -32,6 +27,9 @@ export default {
         },
         expRemaining() {
             return 1000 - this.userExp;
+        },
+        userLevel() {
+            return Math.floor(this.$store.state.details["userExp"] / 1000)
         }
     },
 }
