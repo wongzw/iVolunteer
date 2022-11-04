@@ -13,7 +13,7 @@
             type="primary"
             size="large"
             class="orange"
-            @click="reroute_profile"
+            @click="reroute_event('/organisation/profile')"
           >
             View Profile
           </a-button>
@@ -24,6 +24,14 @@
     <div id="orgEvents">
       <div class="orgEventHeader">
         <h1 id="box-title"><b>Current Events</b></h1>
+        <a-button
+          type="primary"
+          size="large"
+          class="orange"
+          @click="reroute_event('/event/creation')"
+        >
+          Create Event
+        </a-button>
       </div>
       <div class="blog-cards">
         <OrgEventCard
@@ -38,10 +46,8 @@
           <h2>
             <b>
               No Current Events Found 😔 <br />
-              <a href="/volunteer/dashboard" style="color: #ff5b2e">
-                Sign up
-              </a>
-              for one today!
+              <a href="/event/creation" style="color: #ff5b2e"> Create </a>
+              one today!
             </b>
           </h2>
         </div>
@@ -71,8 +77,8 @@ export default {
     this.queryEvents();
   },
   methods: {
-    reroute_profile() {
-      this.$router.push({ path: "/organisation/profile" });
+    reroute_event(route) {
+      this.$router.push({ path: route });
     },
 
     async queryEvents() {
@@ -133,6 +139,11 @@ img {
   overflow: auto;
 }
 
+.orgEventHeader {
+  display: flex;
+  align-items: center;
+}
+
 #box-title {
   margin-top: 4px;
   margin-bottom: 3vh;
@@ -156,16 +167,29 @@ img {
   color: #020957;
 }
 
-.ant-button .orange {
+.orange {
   background-color: #ff734c;
   border-color: #ff734c;
   border-radius: 5px;
-  margin-top: 5vh;
   height: auto;
-  width: 100%;
 }
 
-.ant-button .orange:hover {
+.ant-button .orange {
+  width: 100%;
+  margin-top: 5vh;
+}
+
+.orgEventHeader .orange {
+  background-color: #ff734c;
+  border-color: #ff734c;
+  border-radius: 5px;
+  margin-left: 30px;
+  margin-bottom: 25px;
+  margin-top: 0px;
+}
+
+.ant-button .orange:hover,
+.orgEventHeader .orange:hover {
   /* color: black; */
   background-color: #ff3700;
   border-color: #ff3700;
