@@ -13,8 +13,8 @@
             alt="tickIcon"
           />
           {{ item }}
-        </li>   
-        <div class="ant-button">
+        </li>  
+        <div class="ant-button" v-if="userBadges.length > 5">
           <a-button
             type="primary"
             size="small"
@@ -27,7 +27,6 @@
           </a-button>
         </div>   
         <br />
-
       </div>
 
       <div v-if="userBadges.length == 0"> 
@@ -41,7 +40,6 @@
         </div>
       </div> 
        
-
 
       <div class="a-modal">
         <a-modal
