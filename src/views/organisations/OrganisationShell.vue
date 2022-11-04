@@ -2,7 +2,7 @@
   <TheNavbar v-if="rendered" />
   <div class="block"></div>
   <div class="flexbox">
-    <div class="router-view">
+    <div class="router-view" v-if="rendered">
       <router-view></router-view>
     </div>
   </div>
