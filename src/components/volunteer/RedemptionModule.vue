@@ -290,6 +290,7 @@ export default {
   border-radius: 8px;
   height: auto;
   min-height: 60vh;
+  overflow: auto;
 }
 
 .rewardClaimed {

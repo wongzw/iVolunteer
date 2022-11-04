@@ -12,12 +12,16 @@
         <div class="notificationDetails">
           <div class="notificationheader">
             <h3>
-              <b
-                >Event -
-                {{ this.event_details[notification.eventId][0].eventName }}:
+              <b>
+                {{ this.event_details[notification.eventId][0].eventName }}
+                :
                 {{ this.template_message[notification.notifType][0] }}</b
               >
             </h3>
+          </div>
+
+          <div class="notificationDate">
+            <p>{{ notification.date }}</p>
           </div>
 
           <div class="notificationMessage">
@@ -35,7 +39,7 @@
               ><div class="details">
                 <h3 class="eventDetails">
                   <div style="margin-right: 10px">
-                    <strong>Date - </strong>
+                    <strong>Date -</strong>
                   </div>
                   {{ this.event_details[notification.eventId][0].dateStart }}
                 </h3>
@@ -45,9 +49,8 @@
               ><div class="details">
                 <h3 class="eventDetails">
                   <div style="margin-right: 10px">
-                    <strong>Time - </strong>
+                    <strong>Start Time -</strong>
                   </div>
-
                   {{ this.event_details[notification.eventId][0].timeStart }}
                 </h3>
               </div></a-col
@@ -56,7 +59,7 @@
               ><div class="details">
                 <h3 class="eventDetails">
                   <div style="margin-right: 10px">
-                    <strong>Location - </strong>
+                    <strong>Location -</strong>
                   </div>
                   {{ this.event_details[notification.eventId][0].location }}
                 </h3>
@@ -107,7 +110,8 @@ export default {
   },
   methods: {
     async getNotifications() {
-      this.user_notifications = this.$store.state.details["userNotification"];
+      this.user_notifications =
+        this.$store.state.details["userNotification"].reverse();
       for (var notification of this.user_notifications) {
         var event_id = notification.eventId;
         if (!this.event_details[event_id]) {
@@ -133,7 +137,8 @@ export default {
 
 <style scoped>
 .header h1,
-.rewardName h3 {
+.notificationheader h3,
+.notificationheader h3 {
   color: #020957;
   text-align: left;
   margin-bottom: 10px;
@@ -160,6 +165,10 @@ export default {
 
 .notificationMessage {
   padding-bottom: 10px;
+}
+
+.notificationDate p {
+  margin-bottom: 5px;
 }
 
 .notificationheader {
