@@ -146,10 +146,14 @@ img {
 }
 
 .header-text {
-  color: #020957;
   text-align: left;
   margin-top: 5vh;
   display: inline-block;
+}
+
+.header-text h1,
+.header-text h2 {
+  color: #020957;
 }
 
 .ant-button .orange {
