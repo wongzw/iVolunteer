@@ -2,7 +2,7 @@
   <TheNavbar v-if="rendered" />
   <div class="block"></div>
   <div class="flexbox">
-    <div class="router-view">
+    <div class="router-view" v-if="rendered">
       <router-view></router-view>
     </div>
   </div>
@@ -14,7 +14,7 @@
   <script>
 import TheFooter from "@/components/global/TheFooter.vue";
 import TheNavbar from "@/components/global/TheNavbar.vue";
-import TheSidebar from "@/components/volunteer/TheSidebar.vue";
+// import TheSidebar from "@/components/volunteer/TheSidebar.vue";
 import { db } from "../../firebase.js";
 import { getDoc, doc } from "firebase/firestore";
 
@@ -45,15 +45,24 @@ export default {
   width: 100%;
 }
 
+.navbar {
+  height: 68px;
+  min-height: 50px;
+}
+
 .router-view {
   width: 100%;
 }
 
 .flexbox {
   display: flex;
+  height: auto;
 }
 
 .the-footer {
   bottom: 0;
+  height: 25vh;
+  min-height: 150px;
 }
+
 </style>

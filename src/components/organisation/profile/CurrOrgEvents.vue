@@ -2,15 +2,16 @@
   <div id="userEvents">
     <div class="box">
       <a-row>
-      <div id="box-title">Current Events</div>
-      <div class="ant-button">
-        <a-button type="primary" size="medium" class="orange" @click="reroute_event">
-          Create Event </a-button>
+      <div id="box-title">
+        Current Events
+
+          <a-button type="primary" size="medium" class="ant-button-orange" @click="reroute_event">
+            Create Event </a-button>
       </div>
       </a-row>
       <a-row>
       <div id="box details">
-        <OrgEventCards
+        <OrgCurrEventCards
           :event="event"
           v-for="(event, index) in EventCards"
           :key="index"
@@ -22,7 +23,10 @@
           <h2>
             <b>
               No Current Events Found 😔 <br />
-              Post one today!
+              <a href="/event/creation" style="color: #ff5b2e">
+                Create
+              </a>
+              one today!
             </b>
           </h2>
         </div>
@@ -33,7 +37,7 @@
 </template>
     
 <script>
-import OrgEventCards from './OrgEventCards.vue'
+import OrgCurrEventCards from './OrgCurrEventCards.vue'
 import { collection, query, where } from "firebase/firestore";
 import { doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase.js";
@@ -46,7 +50,7 @@ export default {
     };
   },
   components: {
-    OrgEventCards,
+    OrgCurrEventCards,
   },
   mounted() {
     this.queryDb();
@@ -109,6 +113,7 @@ export default {
   height: auto;
   border-radius: 5px;
   padding: 24px;
+  margin-bottom:4vh;
 }
 .box {
   text-align: left;
@@ -117,20 +122,24 @@ export default {
   margin-bottom: 20px;
 }
 
+#box\ details{
+  width: 100%;
+}
+
 .noEvents {
   justify-content: center;
   display: flex;
   text-align: center;
 }
 
-.ant-button .orange {
-  margin: 20px 0px 10px 0px;
+.ant-button-orange {
+  /* margin: 20px 0px 10px 0px; */
   background-color: #ff734c;
   border-color: #ff734c;
   border-radius: 5px;
   width: auto;
   height: auto;
-  white-space: normal;
-  float: right;
+  display:inline-flex;
+  margin-left: 2vh;
 }
 </style>
