@@ -66,7 +66,7 @@ const routes = [
     component: OnboardShell,
     meta: {
       requiresAuth: true,
-      onboard: true
+      onboard: true,
     },
     children: [
       {
@@ -191,15 +191,10 @@ router.beforeEach((to, from, next) => {
     if (!auth) {
       next("/login");
     } else {
-<<<<<<< HEAD
       if (to.meta.onboard) {
         next();
       } else if (userType == "Volunteer" && to.meta.isOrg) {
-        next("/volunteer/dashboard")
-=======
-      if (userType == "Volunteer" && to.meta.isOrg) {
         next("/volunteer/dashboard");
->>>>>>> dccd1f3 (Update Nav Bar)
       } else if (userType == "Organisation" && !to.meta.isOrg) {
         next("/organisation/dashboard");
       } else {
