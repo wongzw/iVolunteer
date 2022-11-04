@@ -1,7 +1,8 @@
 <template>
     <div>
       <body>
-        <OrgCurrentEvents/>
+        <!-- <OrgCurrentEvents/> -->
+        hi test
       </body>
     </div>
   </template>
@@ -12,7 +13,7 @@
   export default {
     name: "OrgCurrentEvents",
     components: {
-      OrgCurrentEvents, 
+      // OrgCurrentEvents, 
     },
   };
   </script>
