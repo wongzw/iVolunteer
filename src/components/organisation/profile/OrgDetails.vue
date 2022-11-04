@@ -14,6 +14,7 @@
             type="primary"
             size="medium"
             class="orange"
+            style="width: 70"
             @click="edit_details"
           >
             Change Password
@@ -246,7 +247,6 @@ export default {
   background-color: #ff734c;
   border-color: #ff734c;
   border-radius: 5px;
-  width: 25%;
   height: auto;
   white-space: normal;
 }

@@ -2,10 +2,11 @@
   <div id="userEvents">
     <div class="box">
       <a-row>
-      <div id="box-title">Current Events</div>
-      <div class="ant-button">
-        <a-button type="primary" size="medium" class="orange" @click="reroute_event">
-          Create Event </a-button>
+      <div id="box-title">
+        Current Events
+
+          <a-button type="primary" size="medium" class="ant-button-orange" @click="reroute_event">
+            Create Event </a-button>
       </div>
       </a-row>
       <a-row>
@@ -22,7 +23,10 @@
           <h2>
             <b>
               No Current Events Found 😔 <br />
-              Create one today!
+              <a href="/event/creation" style="color: #ff5b2e">
+                Create
+              </a>
+              one today!
             </b>
           </h2>
         </div>
@@ -128,14 +132,14 @@ export default {
   text-align: center;
 }
 
-.ant-button .orange {
-  margin: 20px 0px 10px 0px;
+.ant-button-orange {
+  /* margin: 20px 0px 10px 0px; */
   background-color: #ff734c;
   border-color: #ff734c;
   border-radius: 5px;
   width: auto;
   height: auto;
-  white-space: normal;
-  float: right;
+  display:inline-flex;
+  margin-left: 2vh;
 }
 </style>
