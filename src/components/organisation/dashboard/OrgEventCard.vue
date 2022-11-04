@@ -74,12 +74,13 @@ export default {
 
 <style scoped>
 .org-card {
-  background-color: #fef8f3;
-  min-height: 129px;
+  background-color: #FEF8F3;
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(60, 78, 100, 0.1);
+  margin-top: 5vh;
   margin-bottom: 32px;
   padding: 21px 32px 24px;
+  width: 100%;
 }
 
 .image {
