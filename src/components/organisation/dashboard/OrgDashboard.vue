@@ -124,11 +124,13 @@ img {
 #orgEvents {
   margin-top: 36px;
   margin-right: 36px;
+  margin-bottom: 36px;
   background-color: #ffefe2;
   width: 100%;
-  height: auto;
+  height: 60vh;
   border-radius: 5px;
   padding: 24px;
+  overflow: auto;
 }
 
 #box-title {
