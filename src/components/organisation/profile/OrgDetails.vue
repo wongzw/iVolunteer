@@ -4,8 +4,8 @@
       <div id="box-title">Company Profile</div>
 
       <div id="box details">
-        <label class="fontUser">Name</label> &nbsp; {{ name }} <br />
-        <label class="fontUser">Email</label> &nbsp; {{ email }} <br />
+        <label class="fontUser"> Name</label> &nbsp; {{ name }} <br />
+        <label class="fontUser"> Email</label> &nbsp; {{ email }} <br />
       </div>
 
       <div class="box button">
@@ -152,7 +152,6 @@ export default {
     confirmCancel() {
       this.canEdit = false;
       this.confirmDetails = false;
-      location.reload();
     },
     confirm() {
       this.confirmDetails = true;
@@ -210,7 +209,7 @@ export default {
   margin-left: 40px;
   margin-right: 36px;
   background-color: #ffefe2;
-  width: 400px;
+  width: 100%;
   height: 217px;
   border-radius: 5px;
   padding: 24px;
@@ -219,6 +218,7 @@ export default {
   text-align: left;
   margin-left: 15px;
   margin-bottom: 20px;
+  width: 100%;
 }
 
 #box-title {
@@ -246,7 +246,7 @@ export default {
   background-color: #ff734c;
   border-color: #ff734c;
   border-radius: 5px;
-  width: 90%;
+  width: 25%;
   height: auto;
   white-space: normal;
 }

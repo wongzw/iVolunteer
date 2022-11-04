@@ -9,11 +9,11 @@
           <img
             class="image"
             style="padding-bottom: 7px"
-            src="../../assets/profileIcon.svg"
+            src="@/assets/profileIcon.svg"
             alt="profileIcon"
           />
           <h2 class="event-host" style="margin-right: 10px">
-            {{ event.data.participants.length }} Sign-ups
+            {{ event.data.participants.size }} Sign-ups
           </h2>
         </div>
       </div>
@@ -23,24 +23,24 @@
           <div class="details">
             <img
               class="image"
-              src="../../assets/calendarIcon.svg"
+              src="@/assets/calendarIcon.svg"
               alt="calendar"
             />
-            <h2 class="event-host">{{ event.data.eventDate }}</h2>
+            <h2 class="event-host">{{ event.data.dateStart }}</h2>
           </div>
 
           <div class="details">
-            <img class="image" src="../../assets/clockIcon.svg" alt="clock" />
-            <h2 class="event-host">{{ event.data.eventTime }}</h2>
+            <img class="image" src="@/assets/clockIcon.svg" alt="clock" />
+            <h2 class="event-host">{{ event.data.timeStart }}</h2>
           </div>
 
           <div class="details">
             <img
               style="width: 30px"
-              src="../../assets/locationIcon.svg"
+              src="@/assets/locationIcon.svg"
               alt="location"
             />
-            <h2 class="event-host">{{ event.data.eventLocation }}</h2>
+            <h2 class="event-host">{{ event.data.location }}</h2>
           </div>
         </div>
 

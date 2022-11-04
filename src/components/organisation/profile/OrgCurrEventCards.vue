@@ -21,7 +21,7 @@
             </div>
         <div class="info details">
             <img class="image" src="@/assets/paxCount.svg" alt="location" />
-            <h2 class="event-host">{{ event.data.participants.length  }}</h2>
+            <h2 class="event-host">{{ event.data.participants.length }}</h2>
         </div>
         <div class="ant-button">
             <a-button
@@ -40,7 +40,7 @@
 
 <script>
 export default {
-    name: "OrgEventCards",
+    name: "OrgCurrEventCards",
     props: ["event"],
     methods: {
         reroute_event() {

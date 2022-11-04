@@ -10,7 +10,7 @@
   import OrgDashboardEvent from './OrgDashboardEvent.vue'
   
   export default {
-    name: "OrgCurrentEvents",
+    name: "OrgDashboardEvent",
     components: {
       OrgDashboardEvent, 
     },

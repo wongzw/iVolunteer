@@ -10,7 +10,7 @@
       </a-row>
       <a-row>
       <div id="box details">
-        <OrgEventCards
+        <OrgCurrEventCards
           :event="event"
           v-for="(event, index) in EventCards"
           :key="index"
@@ -22,7 +22,7 @@
           <h2>
             <b>
               No Current Events Found 😔 <br />
-              Post one today!
+              Create one today!
             </b>
           </h2>
         </div>
@@ -33,7 +33,7 @@
 </template>
     
 <script>
-import OrgEventCards from './OrgEventCards.vue'
+import OrgCurrEventCards from './OrgCurrEventCards.vue'
 import { collection, query, where } from "firebase/firestore";
 import { doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase.js";
@@ -46,7 +46,7 @@ export default {
     };
   },
   components: {
-    OrgEventCards,
+    OrgCurrEventCards,
   },
   mounted() {
     this.queryDb();
@@ -109,12 +109,17 @@ export default {
   height: auto;
   border-radius: 5px;
   padding: 24px;
+  margin-bottom:4vh;
 }
 .box {
   text-align: left;
   margin-left: 15px;
   height: auto;
   margin-bottom: 20px;
+}
+
+#box\ details{
+  width: 100%;
 }
 
 .noEvents {
