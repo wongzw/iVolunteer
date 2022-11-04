@@ -1,19 +1,31 @@
 <template>
   <div class="participant-cards" v-if="!eventClose">
-    <h1>Current Participants: <strong>({{ numAccepted }} volunteers accepted)</strong></h1>
+    <h1>
+      Current Participants:
+      <strong>({{ numAccepted }} volunteers accepted)</strong>
+    </h1>
     <div class="participant-box">
-    <ParticipantCard
-      v-for="participant in participants" :participant="participant" :eventId="eventId" @incrementVol="updateAccepted($event)"
-    />
+      <ParticipantCard
+        v-for="participant in participants"
+        :participant="participant"
+        :eventId="eventId"
+        @incrementVol="updateAccepted($event)"
+      />
     </div>
   </div>
 
   <div class="participant-cards" v-if="eventClose">
     <h1>Event Closed: <strong>(Confirm Attendance Status)</strong></h1>
     <div class="participant-box">
-    <ParticipantCard
-      v-for="participant in acceptedParticipants" :participant="participant" :eventId="eventId" :eventClose="eventClose" :eventHour="eventHour" :eventBadge="this.event['badgeAwarded']" @incrementVol="updateAccepted($event)"
-    />
+      <ParticipantCard
+        v-for="participant in acceptedParticipants"
+        :participant="participant"
+        :eventId="eventId"
+        :eventClose="eventClose"
+        :eventHour="eventHour"
+        :eventBadge="this.event['badgeAwarded']"
+        @incrementVol="updateAccepted($event)"
+      />
     </div>
   </div>
 </template>
@@ -44,13 +56,13 @@ export default {
         this.acceptedParticipants.push([key, participantMap[key]]);
       }
     }
-    console.log(this.participants)
+    console.log(this.participants);
   },
   methods: {
     updateAccepted(x) {
       this.numAccepted += 1;
     },
-  }
+  },
 };
 </script>
 
@@ -69,7 +81,7 @@ h1 {
   color: #020957;
 }
 .participant-box {
-    flex-direction: column;
+  flex-direction: column;
 }
 
 strong {

@@ -1,0 +1,6 @@
+{
+  "Register": ["Register Header", "Register Message"],
+  "Confirm": ["Confirm Header", "Confirm Message"],
+  "Accept": ["Accept Header", "Accept Message"],
+  "Attendance": ["Attendance Header", "Attendance Message"]
+}

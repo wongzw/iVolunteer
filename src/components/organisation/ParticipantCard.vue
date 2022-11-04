@@ -164,8 +164,14 @@ export default {
     async updateAcceptUser() {
       let participantId = this.participant[0];
       const participantDocRef = doc(db, "users", participantId);
+      const newNotification = {
+        date: new Date().toJSON().slice(0, 10).replace(/-/g, "/"),
+        eventId: this.eventId,
+        notifType: "Accept",
+      };
       await updateDoc(participantDocRef, {
         userAcceptedEvents: arrayUnion(this.eventId),
+        userNotification: arrayUnion(newNotification),
       });
     },
     async updateAttendEvent() {
