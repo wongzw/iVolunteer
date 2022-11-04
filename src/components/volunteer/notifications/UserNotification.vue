@@ -18,16 +18,6 @@
                 {{ this.template_message[notification.notifType][0] }}</b
               >
             </h3>
-            <!-- <div class="ant-button" style="padding-left: 20px">
-              <a-button
-                type="primary"
-                size="large"
-                class="delete"
-                @click="reroute_event(notification.eventId)"
-              >
-                <div style="color: black"><DeleteOutlined /></div
-              ></a-button>
-            </div> -->
           </div>
 
           <div class="notificationMessage">
@@ -229,13 +219,4 @@ export default {
   border-color: #ff3700;
   transition: 0.3s ease;
 }
-
-/* .ant-button .delete {
-  background: none;
-  border: none;
-  width: auto;
-  height: auto;
-  box-shadow: none;
-  padding: 0;
-} */
 </style>
