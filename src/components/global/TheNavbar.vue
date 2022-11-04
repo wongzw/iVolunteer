@@ -25,7 +25,9 @@
             >Support
           </a>
         </li>
-        <li><router-link to="/">Notifications</router-link></li>
+        <li v-if="this.$store.state.userType == 'Volunteer'">
+          <router-link to="/volunteer/notifications">Notifications</router-link>
+        </li>
         <!-- <li><a href="/Support">Support</a></li>
             <li><a href="/Notifications">Notifications</a></li> -->
         <li class="services">
