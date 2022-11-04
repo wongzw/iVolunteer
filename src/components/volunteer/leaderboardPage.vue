@@ -31,7 +31,10 @@ export default {
           name: "Level",
           dataIndex: "Level",
           key: "Level",
-          sorter: (a, b) => a.Level - b.Level,
+          sorter: {
+            compare: (a, b) => a.Level - b.Level,
+            multiple: 2,
+          },
           sortOrder: "descend",
         },
         {
@@ -39,7 +42,10 @@ export default {
           name: "Experience",
           dataIndex: "Experience",
           key: "Experience",
-          sorter: (a, b) => a.Experience - b.Experience,
+          sorter: {
+            compare: (a, b) => a.Experience - b.Experience,
+            multiple: 1,
+          },
           sortOrder: "descend",
         },
       ],
@@ -58,7 +64,7 @@ export default {
         let userId = doc["id"];
         const userDataPop = {
           User: data["firstName"],
-          Level: data["userLevel"],
+          Level: Math.floor(data["userExp"] / 1000),
           Experience: data["userExp"],
         };
         this.userData.push(userDataPop);
