@@ -330,7 +330,7 @@ export default {
 
 .ant-button .orange:disabled {
   background-color: lightgray;
-  border-color: darkgray;
+  border-color: lightgray;
   transition: 0.3s ease;
 }
 
