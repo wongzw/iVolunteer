@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import LandingView from "@/views/LandingView.vue";
-import TheNotifications from "@/views/TheNotifications.vue";
+import VolunteerNotification from "@/views/volunteers/VolunteerNotification.vue";
 import LoginView from "@/views/LoginView.vue";
 import VolunteerRegister from "@/views/register/VolunteerRegister.vue";
 import OrgRegister from "@/views/register/OrgRegister.vue";
@@ -115,6 +115,11 @@ const routes = [
         name: "VolunteerLeaderboard",
         component: LeaderboardView,
       },
+      {
+        path: "notifications",
+        name: "VolunteerNotifications",
+        component: VolunteerNotification,
+      },
     ],
   },
   // Organisations
@@ -151,11 +156,6 @@ const routes = [
   },
 
   {
-    path: "/notifications",
-    name: "TheNotifications",
-    component: TheNotifications,
-  },
-  {
     path: "/support",
     name: "TheSupport",
     component: TheSupport,
@@ -171,8 +171,6 @@ const routes = [
     name: "EventCreationView",
     component: EventCreation,
   },
-  
-  
 ];
 
 const router = createRouter({
@@ -193,12 +191,17 @@ router.beforeEach((to, from, next) => {
     if (!auth) {
       next("/login");
     } else {
+<<<<<<< HEAD
       if (to.meta.onboard) {
         next();
       } else if (userType == "Volunteer" && to.meta.isOrg) {
         next("/volunteer/dashboard")
+=======
+      if (userType == "Volunteer" && to.meta.isOrg) {
+        next("/volunteer/dashboard");
+>>>>>>> dccd1f3 (Update Nav Bar)
       } else if (userType == "Organisation" && !to.meta.isOrg) {
-        next("/organisation/dashboard")
+        next("/organisation/dashboard");
       } else {
         next();
       }
