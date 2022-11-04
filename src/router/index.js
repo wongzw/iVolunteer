@@ -187,7 +187,7 @@ router.beforeEach((to, from, next) => {
     if (userType == "Volunteer") {
       next("/volunteer/dashboard");
     } else {
-      next("/organisation");
+      next("/organisation/dashboard");
     }
   } else if (to.meta.requiresAuth) {
     if (!auth) {
