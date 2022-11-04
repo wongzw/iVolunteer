@@ -43,7 +43,6 @@
             class="register"
             size="large"
             type="primary"
-            danger
             >Get Started
           </a-button>
         </div>
@@ -248,6 +247,19 @@ export default {
 .register {
   width: 60%;
   margin-bottom: -5px;
+  background-color: #ff5b2e;
+  border-color: #ff5b2e;
+  border-radius: 5px;
+}
+
+.register:hover {
+  background-color: #ff3700;
+  border-color: #ff3700;
+}
+
+.register:focus {
+  background-color: #ff5b2e;
+  border-color: #ff5b2e;
 }
 
 input:required:focus {
@@ -255,4 +267,4 @@ input:required:focus {
   outline: none;
 }
 </style>
->
+

@@ -38,9 +38,8 @@
             htmlType="submit"
             class="signUp"
             size="large"
-            type="primary"
-            danger
-            >Sign Up</a-button
+            type="primary" 
+            >Get Started</a-button
           >
         </div>
       </a-form-item>
@@ -133,6 +132,7 @@ export default {
         firstName: "",
         lastName: "",
         interests: [],
+        profilePicture: "",
         skills: [],
         hoursVolunteered: 0,
         userExp: 0,
@@ -140,8 +140,9 @@ export default {
         userAppliedEvents: [],
         userAcceptedEvents: [],
         userAttendedEvents: [],
+        userNotification: [],
         userBadges: {},
-        userRewards: {},
+        userRewards: {}
       };
       this.$store.state.details = val;
       await setDoc(doc(db, "users", oid), val);
@@ -253,6 +254,19 @@ export default {
 .signUp {
   width: 60%;
   margin-bottom: -5px;
+  background-color: #ff5b2e;
+  border-color: #ff5b2e;
+  border-radius: 5px;
+}
+
+.signUp:hover {
+  background-color: #ff3700;
+  border-color: #ff3700;
+}
+
+.signUp:focus {
+  background-color: #ff5b2e;
+  border-color: #ff5b2e;
 }
 </style>
 
