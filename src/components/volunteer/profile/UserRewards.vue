@@ -88,10 +88,10 @@ export default {
         var reward_id = user_rewards[rewardLevel]["id"];
         var reward_code = user_rewards[rewardLevel]["redemptionCode"];
         if (reward_id != "") {
-          const docRef = doc(db, "level", reward_id);
+          const docRef = doc(db, "rewards", reward_id);
           const docSnap = await getDoc(docRef);
           const reward_details = docSnap.data();
-          const reward_level = reward_details["level"];
+          const reward_level = reward_details["tier"];
 
           if (reward_details != {}) {
             var reward_displayed = [
