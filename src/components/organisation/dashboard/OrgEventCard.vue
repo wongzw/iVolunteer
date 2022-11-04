@@ -9,11 +9,11 @@
           <img
             class="image"
             style="padding-bottom: 7px"
-            src="../../assets/profileIcon.svg"
+            src="@/assets/profileIcon.svg"
             alt="profileIcon"
           />
           <h2 class="event-host" style="margin-right: 10px">
-            {{ event.data.participants.length }} Sign-ups
+            {{ event.data.participants.size }} Sign-ups
           </h2>
         </div>
       </div>
@@ -23,24 +23,24 @@
           <div class="details">
             <img
               class="image"
-              src="../../assets/calendarIcon.svg"
+              src="@/assets/calendarIcon.svg"
               alt="calendar"
             />
-            <h2 class="event-host">{{ event.data.eventDate }}</h2>
+            <h2 class="event-host">{{ event.data.dateStart }}</h2>
           </div>
 
           <div class="details">
-            <img class="image" src="../../assets/clockIcon.svg" alt="clock" />
-            <h2 class="event-host">{{ event.data.eventTime }}</h2>
+            <img class="image" src="@/assets/clockIcon.svg" alt="clock" />
+            <h2 class="event-host">{{ event.data.timeStart }}</h2>
           </div>
 
           <div class="details">
             <img
               style="width: 30px"
-              src="../../assets/locationIcon.svg"
+              src="@/assets/locationIcon.svg"
               alt="location"
             />
-            <h2 class="event-host">{{ event.data.eventLocation }}</h2>
+            <h2 class="event-host">{{ event.data.location }}</h2>
           </div>
         </div>
 
@@ -74,12 +74,12 @@ export default {
 
 <style scoped>
 .org-card {
-  background-color: #fef8f3;
-  min-height: 129px;
+  background-color: #FEF8F3;
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(60, 78, 100, 0.1);
-  margin-bottom: 32px;
   padding: 21px 32px 24px;
+  width: 100%;
+  margin-bottom: 2vh;
 }
 
 .image {

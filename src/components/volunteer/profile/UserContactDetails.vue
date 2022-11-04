@@ -277,7 +277,7 @@ export default {
 #contactDetails {
   margin-top: 36px;
   background-color: #ffefe2;
-  height: 28vh;
+  height: 30vh;
   border-radius: 5px;
   padding: 24px;
 }

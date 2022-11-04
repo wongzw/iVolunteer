@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import OrgEventCard from "@/components/organisation/OrgEventCard.vue";
 import VolEventCard from "./VolEventCard.vue";
 import { collection, query, where } from "firebase/firestore";
 import { doc, getDocs } from "firebase/firestore";
