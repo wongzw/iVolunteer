@@ -13,7 +13,14 @@
             alt="profileIcon"
           />
           <h2 class="event-host" style="margin-right: 10px">
-            {{ event.data.participants.size }} Sign-ups
+            <b style="color: #ff5b2e">
+              {{
+                event.data.participants.length == 0
+                  ? event.data.participants.length
+                  : 0
+              }}
+            </b>
+            Sign-ups
           </h2>
         </div>
       </div>
@@ -21,11 +28,7 @@
       <div class="second-row">
         <div class="first">
           <div class="details">
-            <img
-              class="image"
-              src="@/assets/calendarIcon.svg"
-              alt="calendar"
-            />
+            <img class="image" src="@/assets/calendarIcon.svg" alt="calendar" />
             <h2 class="event-host">{{ event.data.dateStart }}</h2>
           </div>
 
@@ -36,7 +39,7 @@
 
           <div class="details">
             <img
-              style="width: 30px"
+              style="width: 29px"
               src="@/assets/locationIcon.svg"
               alt="location"
             />
@@ -74,7 +77,7 @@ export default {
 
 <style scoped>
 .org-card {
-  background-color: #FEF8F3;
+  background-color: #fef8f3;
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(60, 78, 100, 0.1);
   padding: 21px 32px 24px;
