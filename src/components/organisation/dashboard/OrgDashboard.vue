@@ -2,7 +2,7 @@
     <div class="box">
       <div class="header">
           <img src="@/assets/companyLogoTemp.png" alt="companyImg" /> 
-          <h1 class="header-text">
+          <h2 class="header-text">
               <b> Welcome, {{companyName}}! <br/>
               Here are your volunteering events :) </b>
               <div class="ant-button">
@@ -15,7 +15,7 @@
                   View Profile
                 </a-button>
               </div>
-          </h1>
+          </h2>
       </div>
 
       <div class="content">
@@ -84,12 +84,11 @@ export default {
   margin: 10vh;
   padding: 10vh;
   background-color:#FFE9D6;
-  height: auto;
 }
 
 img{
-  max-width: 25%;
-  max-height: 25%;
+  max-width: 20%;
+  max-height: 20%;
   margin-right: 5%;
   margin-top: 5vh;
 }
@@ -110,7 +109,8 @@ img{
   width: 50%;
 }
 .blog-cards {
-  margin-top: 32px;
+  margin-top: 0.5vh;
+  margin-bottom: 0.5vh;
   display: flex;
   flex-wrap: wrap;
 }

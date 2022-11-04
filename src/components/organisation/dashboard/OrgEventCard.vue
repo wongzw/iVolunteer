@@ -77,10 +77,9 @@ export default {
   background-color: #FEF8F3;
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(60, 78, 100, 0.1);
-  margin-top: 5vh;
-  margin-bottom: 32px;
   padding: 21px 32px 24px;
   width: 100%;
+  margin-bottom: 2vh;
 }
 
 .image {
