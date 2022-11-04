@@ -66,8 +66,9 @@ export default {
   props: ["event"],
   methods: {
     reroute_event() {
-      const route = "/event/" + this.event.id;
-      this.$router.push({ path: route });
+      const route = "event/" + this.event.id;
+      console.log(route);
+      this.$router.push(route);
     },
   },
 };
