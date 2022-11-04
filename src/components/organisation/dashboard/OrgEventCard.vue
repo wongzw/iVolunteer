@@ -1,62 +1,63 @@
 <template>
-  <body>
-    <div class="org-card">
-      <div class="first-row">
-        <div class="first">
-          <h2 class="event-title">{{ event.data.eventName }}</h2>
-        </div>
-        <div class="second">
-          <img
-            class="image"
-            style="padding-bottom: 7px"
-            src="@/assets/profileIcon.svg"
-            alt="profileIcon"
-          />
-          <h2 class="event-host" style="margin-right: 10px">
-            {{ event.data.participants.size }} Sign-ups
-          </h2>
-        </div>
+  <div class="org-card">
+    <div class="first-row">
+      <div class="first">
+        <h2 class="event-title">{{ event.data.eventName }}</h2>
       </div>
-
-      <div class="second-row">
-        <div class="first">
-          <div class="details">
-            <img
-              class="image"
-              src="@/assets/calendarIcon.svg"
-              alt="calendar"
-            />
-            <h2 class="event-host">{{ event.data.dateStart }}</h2>
-          </div>
-
-          <div class="details">
-            <img class="image" src="@/assets/clockIcon.svg" alt="clock" />
-            <h2 class="event-host">{{ event.data.timeStart }}</h2>
-          </div>
-
-          <div class="details">
-            <img
-              style="width: 30px"
-              src="@/assets/locationIcon.svg"
-              alt="location"
-            />
-            <h2 class="event-host">{{ event.data.location }}</h2>
-          </div>
-        </div>
-
-        <div class="ant-button">
-          <a-button
-            type="primary"
-            size="large"
-            class="orange"
-            @click="reroute_event"
-          >
-            View Event</a-button
-          >
-        </div>
+      <div class="second">
+        <img
+          class="image"
+          style="padding-bottom: 7px"
+          src="@/assets/profileIcon.svg"
+          alt="profileIcon"
+        />
+        <h2 class="event-host" style="margin-right: 10px">
+          <b style="color: #ff5b2e">
+            {{
+              event.data.participants.length == 0
+                ? event.data.participants.length
+                : 0
+            }}
+          </b>
+          Sign-ups
+        </h2>
       </div>
     </div>
-  </body>
+
+    <div class="second-row">
+      <div class="first">
+        <div class="details">
+          <img class="image" src="@/assets/calendarIcon.svg" alt="calendar" />
+          <h2 class="event-host">{{ event.data.dateStart }}</h2>
+        </div>
+
+        <div class="details">
+          <img class="image" src="@/assets/clockIcon.svg" alt="clock" />
+          <h2 class="event-host">{{ event.data.timeStart }}</h2>
+        </div>
+
+        <div class="details">
+          <img
+            style="width: 29px"
+            src="@/assets/locationIcon.svg"
+            alt="location"
+          />
+          <h2 class="event-host">{{ event.data.location }}</h2>
+        </div>
+      </div>
+
+      <div class="ant-button">
+        <a-button
+          type="primary"
+          size="large"
+          class="orange"
+          @click="reroute_event"
+        >
+          View Event</a-button
+        >
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -65,8 +66,9 @@ export default {
   props: ["event"],
   methods: {
     reroute_event() {
-      const route = "/event/" + this.event.id;
-      this.$router.push({ path: route });
+      const route = "event/" + this.event.id;
+      console.log(route);
+      this.$router.push(route);
     },
   },
 };
@@ -74,12 +76,13 @@ export default {
 
 <style scoped>
 .org-card {
-  background-color: #FEF8F3;
+  background-color: #fef8f3;
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(60, 78, 100, 0.1);
   padding: 21px 32px 24px;
   width: 100%;
   margin-bottom: 2vh;
+  border-radius: 5px;
 }
 
 .image {

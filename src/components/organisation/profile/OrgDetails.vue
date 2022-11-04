@@ -207,7 +207,6 @@ export default {
 <style scoped>
 #contactDetails {
   margin-top: 36px;
-  margin-left: 40px;
   margin-right: 36px;
   background-color: #ffefe2;
   width: 100%;
