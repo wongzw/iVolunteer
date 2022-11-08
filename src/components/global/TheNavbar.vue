@@ -144,7 +144,7 @@ li {
 
 .handshake {
   position: absolute;
-  margin-top: 8px;
+  margin-top: 13px;
   margin-left: 8px;
 }
 
