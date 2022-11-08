@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import LandingView from "@/views/LandingView.vue";
-import TheNotifications from "@/views/TheNotifications.vue";
+import VolunteerNotification from "@/views/volunteers/VolunteerNotification.vue";
 import LoginView from "@/views/LoginView.vue";
 import VolunteerRegister from "@/views/register/VolunteerRegister.vue";
 import OrgRegister from "@/views/register/OrgRegister.vue";
@@ -25,6 +25,7 @@ import OnboardShell from "@/views/onboarding/OnboardShell.vue";
 import VolunteerShell from "@/views/volunteers/VolunteerShell.vue";
 import OrganisationShell from "@/views/organisations/OrganisationShell.vue";
 import store from "@/store";
+import { toPathKey } from "ant-design-vue/lib/vc-cascader/utils/commonUtil";
 
 const routes = [
   {
@@ -65,6 +66,7 @@ const routes = [
     component: OnboardShell,
     meta: {
       requiresAuth: true,
+      onboard: true,
     },
     children: [
       {
@@ -113,6 +115,11 @@ const routes = [
         name: "VolunteerLeaderboard",
         component: LeaderboardView,
       },
+      {
+        path: "notifications",
+        name: "VolunteerNotifications",
+        component: VolunteerNotification,
+      },
     ],
   },
   // Organisations
@@ -149,11 +156,6 @@ const routes = [
   },
 
   {
-    path: "/notifications",
-    name: "TheNotifications",
-    component: TheNotifications,
-  },
-  {
     path: "/support",
     name: "TheSupport",
     component: TheSupport,
@@ -169,8 +171,6 @@ const routes = [
     name: "EventCreationView",
     component: EventCreation,
   },
-  
-  
 ];
 
 const router = createRouter({
@@ -185,16 +185,19 @@ router.beforeEach((to, from, next) => {
     if (userType == "Volunteer") {
       next("/volunteer/dashboard");
     } else {
-      next("/organisation");
+      next("/organisation/dashboard");
     }
   } else if (to.meta.requiresAuth) {
     if (!auth) {
       next("/login");
     } else {
-      if (userType == "Volunteer" && to.meta.isOrg) {
-        next("/volunteer/dashboard")
+
+      if (to.meta.onboard) {
+        next();
+      } else if (userType == "Volunteer" && to.meta.isOrg) {
+        next("/volunteer/dashboard");
       } else if (userType == "Organisation" && !to.meta.isOrg) {
-        next("/organisation/dashboard")
+        next("/organisation/dashboard");
       } else {
         next();
       }

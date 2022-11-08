@@ -21,7 +21,6 @@
                 htmlType="submit"
                 size="large"
                 type="primary"
-                danger
                 @click="clickVolunteer()"
                 v-if="!hasVolunteered"
                 >Volunteer Now
@@ -33,16 +32,12 @@
                 htmlType="submit"
                 size="large"
                 type="primary"
-                danger
                 disabled
                 v-if="hasVolunteered"
                 >Already Registered
               </a-button>
 
-              <a-modal
-                v-model:visible="visible"
-                title="Event Confirmation"
-              >
+              <a-modal v-model:visible="visible" title="Event Confirmation">
                 <template #footer> </template>
                 <div class="modal">
                   <h1 id="modalHeader">
@@ -55,7 +50,8 @@
                       {{ this.event["orgName"] }}</b
                     >
                   </p>
-                  <p>on</p><br><br>
+                  <p>on</p>
+                  <br /><br />
                   <p>
                     <b>{{ fullDate }}</b>
                   </p>
@@ -65,19 +61,17 @@
                   <p>
                     <b>at {{ displayLocation }}</b>
                   </p>
-                  <br><br><br>
-                  <p><strong>By clicking confirm,</strong> </p>
-                  <span id="spanModal"> 
+                  <br /><br /><br />
+                  <p><strong>By clicking confirm,</strong></p>
+                  <span id="spanModal">
                     <p>I agree with the</p>
                     <p style="color: orange">Terms & Conditions</p>
                   </span>
 
                   <a-button
                     id="confirmButton"
-                    htmlType="submit"
                     size="large"
                     type="primary"
-                    danger
                     @click="confirmVolunteer"
                     >Confirm
                   </a-button>
@@ -200,9 +194,9 @@ export default {
         "December",
       ];
       let startDate = this.eventStartDate.split("-");
-      startDate[1] = monthNames[startDate[1]-1];
+      startDate[1] = monthNames[startDate[1] - 1];
       let endDate = this.eventEndDate.split("-");
-      endDate[1] = monthNames[endDate[1]-1];
+      endDate[1] = monthNames[endDate[1] - 1];
       startDate = startDate.join(" ");
       endDate = endDate.join(" ");
       if (startDate == endDate) {
@@ -230,16 +224,26 @@ export default {
       } else {
         timeStart[2] = "am";
       }
-      let timeEnd = this.event["timeEnd"].split(':').map(Number)
+      let timeEnd = this.event["timeEnd"].split(":").map(Number);
       if (timeEnd[0] >= 12) {
-        timeEnd[2] = 'pm'
+        timeEnd[2] = "pm";
       } else {
         timeEnd[2] = "am";
       }
       timeStart[0] = timeStart[0] % 13;
       timeEnd[0] = timeEnd[0] % 13;
-      timeStart = String(timeStart[0]) + "." + String(zeroPad(timeStart[1], 2)) + " " + String(timeStart[2])
-      timeEnd = String(timeEnd[0]) + "." + String(zeroPad(timeEnd[1], 2)) + " " + String(timeEnd[2])  
+      timeStart =
+        String(timeStart[0]) +
+        "." +
+        String(zeroPad(timeStart[1], 2)) +
+        " " +
+        String(timeStart[2]);
+      timeEnd =
+        String(timeEnd[0]) +
+        "." +
+        String(zeroPad(timeEnd[1], 2)) +
+        " " +
+        String(timeEnd[2]);
       return `${timeStart} to ${timeEnd}`;
     },
     displayLocation() {
@@ -272,7 +276,7 @@ export default {
     //Update event store
     var docRef = doc(db, "events", this.currentRouteName);
     const docSnap = await getDoc(docRef);
-    this.docSnap = docSnap
+    this.docSnap = docSnap;
     if (docSnap.exists()) {
       this.eventLoaded = true;
       this.event = docSnap.data();
@@ -292,15 +296,18 @@ export default {
     },
     async updateEvent() {
       let participantMap = this.event["participants"];
-      console.log(participantMap)
+      console.log(participantMap);
       participantMap[this.$store.state.id] = {
         applicationStatus: "pending",
         attendanceStatus: "unconfirmed",
-        fullName: this.$store.state.details["firstName"] + " " + this.$store.state.details["lastName"],
-        interests: this.$store.state.details["interests"]
+        fullName:
+          this.$store.state.details["firstName"] +
+          " " +
+          this.$store.state.details["lastName"],
+        interests: this.$store.state.details["interests"],
       };
       this.event["participants"] = participantMap;
-      console.log(participantMap)
+      console.log(participantMap);
       const eventRef = doc(db, "events", this.currentRouteName);
       await setDoc(eventRef, this.event);
     },
@@ -405,7 +412,26 @@ h1 {
   width: 50%;
   margin-top: 10%;
   background-color: #ff5b2e;
+  border-color: #ff5b2e;
+  border-radius: 5px;
 }
+
+.submitButton:hover {
+  background-color: #ff3700;
+  border-color: #ff3700;
+}
+
+.submitButton:focus {
+  background-color: #ff5b2e;
+  border-color: #ff5b2e;
+}
+
+.submitButton:disabled {
+  background-color: lightgray;
+  border-color: darkgray;
+  transition: 0.3s ease;
+}
+
 #causeContainer {
   width: 100%;
   display: flex;
@@ -453,6 +479,15 @@ h1 {
   width: 50%;
   margin-top: 10%;
   background-color: #ff5b2e;
+  border-color: #ff5b2e;
+  border-radius: 5px;
+  white-space: normal;
+}
+
+#confirmButton:hover {
+  background-color: #ff3700;
+  border-color: #ff3700;
+  transition: 0.3s ease;
 }
 
 #volunteerButton {

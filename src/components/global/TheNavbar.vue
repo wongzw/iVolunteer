@@ -7,40 +7,74 @@
     </a>
     <!-- NAVIGATION MENU -->
     <ul class="nav-links">
-      <!-- NAVIGATION MENUS -->
       <div class="menu">
-        <li><router-link to="/Login">Home</router-link></li>
-        <li v-if="this.$store.state.userType == 'Volunteer'">
-          <router-link to="/volunteer/rewards">Redemption</router-link>
-        </li>
-        <li><router-link to="/">Support</router-link></li>
-        <li><router-link to="/">Notifications</router-link></li>
-        <!-- <li><a href="/Support">Support</a></li>
-            <li><a href="/Notifications">Notifications</a></li> -->
-        <li class="services">
-          <img
-            alt="down_arrow"
-            src="@/assets/down_arrow.png"
-            width="21"
-            height="13"
-          />
-          <!-- DROPDOWN MENU -->
-          <ul class="dropdown">
-            <li v-if="this.$store.state.userType == 'Volunteer'">
-              <router-link to="/volunteer/profile">Profile </router-link>
-            </li>
-            <li v-if="this.$store.state.userType == 'Organisations'">
-              <router-link to="/organisation/profile">Profile </router-link>
-            </li>
-            <li>
-              <router-link to="/"
-                ><button id="signOutButton" @click="signOut">
-                  Sign out
-                </button></router-link
-              >
-            </li>
-          </ul>
-        </li>
+        <!-- VOLUNTEER NAV OPTIONS -->
+        <div
+          v-if="this.$store.state.userType == 'Volunteer'"
+          style="display: flex"
+        >
+          <li><router-link to="/Login">Home</router-link></li>
+          <li>
+            <router-link to="/volunteer/rewards">Redemption</router-link>
+          </li>
+          <li>
+            <a
+              href="mailto:bt3103.2022@gmail.com?&subject=Volunteer Support Request&body=Support Request Detail:"
+              >Support
+            </a>
+          </li>
+          <li>
+            <router-link to="/volunteer/notifications"
+              >Notifications</router-link
+            >
+          </li>
+
+          <li class="services">
+            <img
+              alt="down_arrow"
+              src="@/assets/down_arrow.png"
+              width="21"
+              height="13"
+            />
+            <!-- DROPDOWN MENU -->
+            <ul class="dropdown">
+              <li>
+                <router-link to="/volunteer/profile"> Profile </router-link>
+              </li>
+
+              <li>
+                <router-link to="/"
+                  ><button id="signOutButton" @click="signOut">
+                    Sign out
+                  </button></router-link
+                >
+              </li>
+            </ul>
+          </li>
+        </div>
+        <!-- ORGANISATION NAV OPTIONS -->
+        <div
+          v-if="this.$store.state.userType == 'Organisation'"
+          style="display: flex"
+        >
+          <li><router-link to="/Login">Home</router-link></li>
+          <li>
+            <a
+              href="mailto:bt3103.2022@gmail.com?&subject=Organisation Support Request&body=Support Request Detail:"
+              >Support
+            </a>
+          </li>
+          <li>
+            <router-link to="/organisation/profile"> Profile </router-link>
+          </li>
+          <li>
+            <router-link to="/"
+              ><button id="signOutButton" @click="signOut">
+                Sign out
+              </button></router-link
+            >
+          </li>
+        </div>
       </div>
     </ul>
   </nav>
@@ -96,6 +130,10 @@ li {
   color: #020957;
 }
 
+.nav-links a:hover {
+  color: #ff5b2e;
+}
+
 /* LOGO */
 .logo {
   font-size: 32px;
@@ -143,6 +181,7 @@ li {
   border-radius: 8px;
   top: 35px;
   right: 0px;
+  align-content: left;
 }
 
 .dropdown li + li {

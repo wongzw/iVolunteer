@@ -1,0 +1,8 @@
+{
+  "smtp-address": "smtp.gmail.com",
+  "smtp-name": "iVolunteer",
+  "smtp-username": "bt3103.2022@gmail.com",
+  "smtp-password": "bt3103passw0rd",
+  "smtp-port-tls": 587,
+  "smtp-port-ssl": 465
+}

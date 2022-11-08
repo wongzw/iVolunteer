@@ -2,38 +2,46 @@
   <div id="userEvents">
     <div class="box">
       <a-row>
-      <div id="box-title">Current Events</div>
-      <div class="ant-button">
-        <a-button type="primary" size="medium" class="orange" @click="reroute_event">
-          Create Event </a-button>
-      </div>
+        <div id="box-title">
+          Current Events
+
+          <a-button
+            type="primary"
+            size="medium"
+            class="ant-button-orange"
+            @click="reroute_event"
+          >
+            Create Event
+          </a-button>
+        </div>
       </a-row>
       <a-row>
-      <div id="box details">
-        <OrgEventCards
-          :event="event"
-          v-for="(event, index) in EventCards"
-          :key="index"
-        />
-      </div>
-
-      <div v-if="this.EventCards.length == 0">
-        <div class="noEvents">
-          <h2>
-            <b>
-              No Current Events Found 😔 <br />
-              Post one today!
-            </b>
-          </h2>
+        <div id="box details">
+          <OrgEventCard
+            :event="event"
+            v-for="(event, index) in EventCards"
+            :key="index"
+          />
         </div>
-      </div>
-    </a-row>
+
+        <div v-if="this.EventCards.length == 0">
+          <div class="noEvents">
+            <h2>
+              <b>
+                No Current Events Found 😔 <br />
+                <a href="/event/creation" style="color: #ff5b2e"> Create </a>
+                one today!
+              </b>
+            </h2>
+          </div>
+        </div>
+      </a-row>
     </div>
   </div>
 </template>
     
 <script>
-import OrgEventCards from './OrgEventCards.vue'
+import OrgEventCard from "../dashboard/OrgEventCard.vue";
 import { collection, query, where } from "firebase/firestore";
 import { doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase.js";
@@ -46,14 +54,14 @@ export default {
     };
   },
   components: {
-    OrgEventCards,
+    OrgEventCard,
   },
   mounted() {
     this.queryDb();
   },
   methods: {
     reroute_event() {
-      this.$router.push({path: '/event/creation'});
+      this.$router.push({ path: "/event/creation" });
     },
     async queryDb() {
       // user snapshot data
@@ -109,6 +117,7 @@ export default {
   height: auto;
   border-radius: 5px;
   padding: 24px;
+  margin-bottom: 4vh;
 }
 .box {
   text-align: left;
@@ -117,20 +126,31 @@ export default {
   margin-bottom: 20px;
 }
 
+#box\ details {
+  width: 100%;
+}
+
 .noEvents {
   justify-content: center;
   display: flex;
   text-align: center;
 }
 
-.ant-button .orange {
-  margin: 20px 0px 10px 0px;
+.ant-button-orange {
+  /* margin: 20px 0px 10px 0px; */
   background-color: #ff734c;
   border-color: #ff734c;
   border-radius: 5px;
   width: auto;
   height: auto;
-  white-space: normal;
-  float: right;
+  display: inline-flex;
+  margin-left: 2vh;
+}
+
+.ant-button-orange:hover {
+  /* color: black; */
+  background-color: #ff3700;
+  border-color: #ff3700;
+  transition: 0.3s ease;
 }
 </style>

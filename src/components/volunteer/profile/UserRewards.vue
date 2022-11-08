@@ -88,10 +88,10 @@ export default {
         var reward_id = user_rewards[rewardLevel]["id"];
         var reward_code = user_rewards[rewardLevel]["redemptionCode"];
         if (reward_id != "") {
-          const docRef = doc(db, "level", reward_id);
+          const docRef = doc(db, "rewards", reward_id);
           const docSnap = await getDoc(docRef);
           const reward_details = docSnap.data();
-          const reward_level = reward_details["level"];
+          const reward_level = reward_details["tier"];
 
           if (reward_details != {}) {
             var reward_displayed = [
@@ -125,7 +125,7 @@ export default {
   margin-top: 36px;
   margin-right: 40px;
   background-color: #ffefe2;
-  height: 28vh;
+  height: 30vh;
   border-radius: 5px;
   padding: 24px;
 }

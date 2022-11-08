@@ -15,6 +15,7 @@
         v-for="(value, key) in this.rewards"
         :key="key"
         :tab="'Tier ' + key"
+        :disabled="this.userRewardTier < key"
       >
         <div class="rewardClaimed" v-if="this.claimedRewardTiers[key] == true">
           <div class="rewardClaimed">
@@ -37,7 +38,7 @@
           <div class="rewardContent">
             <div class="rewardName">
               <h3>
-                <b>{{ reward.name }}</b>
+                <b>{{ reward.merchant }} - {{ reward.name }}</b>
               </h3>
             </div>
 
@@ -49,14 +50,16 @@
                 @click="claimConfirm(reward)"
                 :disabled="
                   reward.availableQty == 0 ||
-                  this.rewardTier > key ||
+                  this.userRewardTier < key ||
                   this.rewardTier == 0
                 "
               >
-                <span v-if="reward.availableQty == 0" style="color: darkgray"
-                  >Fully Redeemed</span
+                <span v-if="reward.availableQty == 0">Fully Redeemed</span>
+                <span v-if="this.userRewardTier < key">Ineligible</span>
+                <span v-else
+                  >Redeem Reward -
+                  {{ reward.redemptionCode.length }} Remaining</span
                 >
-                <span v-else>Redeem Reward</span>
               </a-button>
             </div>
           </div>
@@ -90,8 +93,10 @@
         </div>
       </template>
       <div class="modalContent">
-        <h2>Tier {{ this.rewardConfirm.level }} Reward</h2>
-        <h3>{{ this.rewardConfirm.name }}</h3>
+        <h2>Tier {{ this.rewardConfirm.tier }} Reward</h2>
+        <h3>
+          {{ this.rewardConfirm.name }} from {{ this.rewardConfirm.merchant }}
+        </h3>
         <div class="termsnconbox">
           <a-checkbox
             class="a-checkbox"
@@ -146,11 +151,13 @@ export default {
       });
     };
 
-    const rewardGranted = () => {
+    const rewardGranted = (assigned_code, reward_tier) => {
       notification.open({
-        message: "Reward Claimed!",
+        message: "Tier " + reward_tier + " Reward Claimed!",
         description:
-          "You have successfully claimed your reward! Keep up the good work!",
+          "Your Reward Code is " +
+          assigned_code +
+          " and can also be found in your profile. Keep up the good work!",
         duration: 3,
         icon: () => h(SmileOutlined, { style: "color: #020957" }),
       });
@@ -194,7 +201,7 @@ export default {
     claimReward(reward) {
       // Pop Data from FS
       console.log(reward);
-      var reward_level = reward["level"];
+      var reward_level = reward["tier"];
       this.rewardsConfirmModal = false;
       this.rewardConfirmChecked = false;
       this.rewardConfirm = {};
@@ -211,7 +218,7 @@ export default {
         this.updateDb(this.$store.state.id, reward);
       } else {
         this.rewardLevel();
-        this.tierClaimed();
+        this.tierClaimed(assigned_code, reward_level);
         location.reload();
       }
 
@@ -221,14 +228,14 @@ export default {
     async updateDb(uid, award) {
       const volRef = doc(db, "users", uid);
       await updateDoc(volRef, this.$store.state.details);
-      const levelRef = doc(db, "level", award.id);
+      const levelRef = doc(db, "rewards", award.id);
       await updateDoc(levelRef, award);
       this.rewardGranted();
       this.rewardLevel();
     },
 
     async queryDB() {
-      const rewardsRef = collection(db, "level");
+      const rewardsRef = collection(db, "rewards");
       const rewardDocSnap = await getDocs(rewardsRef);
       this.computeRewards(rewardDocSnap);
     },
@@ -237,7 +244,7 @@ export default {
       rewardDocSnap.forEach((doc) => {
         let data = doc.data();
         let reward_id = data["rewardID"];
-        let reward_level = data["level"];
+        let reward_level = data["tier"];
         if (!this.rewards[reward_level]) {
           this.rewards[reward_level] = [];
         }
@@ -246,13 +253,17 @@ export default {
       });
     },
     rewardLevel() {
+      const userExp = this.$store.state.details["userExp"];
+      const userLevel = Math.floor(userExp / 5000);
+      this.userRewardTier = userLevel;
+      for (let i = 1; i <= userLevel; i++) {
+        this.claimedRewardTiers[i] = false;
+      }
       const userRewards = this.$store.state.details["userRewards"];
-      for (const userReward of Object.keys(userRewards)) {
-        var rewardClaimed = userRewards[userReward]["id"];
-        if (rewardClaimed == "") {
-          this.claimedRewardTiers[userReward] = false;
-        } else {
-          this.claimedRewardTiers[userReward] = true;
+      for (const userRewardLevel of Object.keys(userRewards)) {
+        var rewardClaimed = userRewards[userRewardLevel]["id"];
+        if (rewardClaimed != "") {
+          this.claimedRewardTiers[userRewardLevel] = true;
         }
       }
     },
@@ -290,6 +301,7 @@ export default {
   border-radius: 8px;
   height: auto;
   min-height: 60vh;
+  overflow: auto;
 }
 
 .rewardClaimed {
@@ -329,7 +341,7 @@ export default {
 
 .ant-button .orange:disabled {
   background-color: lightgray;
-  border-color: darkgray;
+  border-color: lightgray;
   transition: 0.3s ease;
 }
 
