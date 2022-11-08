@@ -116,5 +116,7 @@ export default {
 }
 .antDP {
   margin-right: 18px;
+  display: flex;
+  align-items: center;
 }
 </style>
