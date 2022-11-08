@@ -1,5 +1,8 @@
 <template>
     <div class="box" v-if="this.eventLoaded">
+      <a-button type="primary" id="x" @click="go_back" danger>
+        X
+      </a-button>
       <a-form
         id="eventEdit"
         class="event-edit-layout"
@@ -227,6 +230,12 @@
         var moment2 = moment(time2, '"HH:mm:ss"')
         return [moment1, moment2]
       },
+      go_back() {
+        let arr = this.$route.path.split("/");
+        var currentRouteName = arr[arr.length - 1];
+        var route = "/organisation/event/" + currentRouteName
+        this.$router.replace({ path: route });
+      }
     },
     
   };
@@ -278,6 +287,16 @@
   #ant-button {
     margin-top: 10px;
     margin-bottom: 10px;
+  }
+
+  #x {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 10%;
+    height: 5%;
+    font-weight: bold;
+    font-size: large;
   }
   </style>
   

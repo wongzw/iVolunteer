@@ -1,5 +1,8 @@
 <template>
   <div class="box">
+    <a-button type="primary" id="x" @click="reroute_main" danger>
+      X
+    </a-button>
     <a-form
       id="eventCreation"
       class="event-creation-layout"
@@ -8,8 +11,7 @@
       @submit.prevent="createEvent"
     >
       <h1 id="eventCreationHeader">Create Event</h1>
-
-      <a-form-item>
+      <a-form-item required="true">
         <label class="eventCreation">Event Name</label><br />
         <a-input
           style="width: 60%; margin-bottom: 10px"
@@ -124,7 +126,7 @@ import { collection, addDoc, doc, getDoc, updateDoc, arrayUnion } from "firebase
 import { getStorage, uploadBytes, ref, getDownloadURL } from "firebase/storage";
 import { db } from "../../firebase.js";
 import { notification } from "ant-design-vue";
-import { SmileOutlined } from "@ant-design/icons-vue";
+import { SmileOutlined, ExclamationCircleOutlined, CloseOutlined } from "@ant-design/icons-vue";
 import { h } from "vue";
 import { bool } from "vue-types";
 
@@ -164,6 +166,14 @@ export default {
         icon: () => h(SmileOutlined, { style: "color: #020957" }),
       });
     },
+    // eventFailedNotification() {
+    //   notification.open({
+    //     message: "Failed to create event",
+    //     description: "Did you fill in all fields?",
+    //     duration: 3,
+    //     icon: () => h(ExclamationCircleOutlined, { style: "color: #020957" }),
+    //   })
+    // },
     async createDb() {
       const storage = getStorage();
       const storageRef = ref(storage, "Event photos/" + this.file.name);
@@ -204,19 +214,20 @@ export default {
               console.log("Document successfully written!");
             })
             .catch((error) => {
+              // this.eventFailedNotification();
               console.error("Error writing document: ", error);
             });
         });
       });
     },
     createEvent() {
-      this.createDb();
-      this.reroute_main();
+      this.createDb()
+      this.reroute_main()
     },
     previewFile(event) {
       this.file = event.target.files[0];
       console.log(this.file);
-    },
+    }
   },
   async mounted() {
     var docRef = doc(db, "organisation", this.$store.state.id);
@@ -277,5 +288,15 @@ export default {
 #ant-button {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+#x {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 10%;
+  height: 5%;
+  font-weight: bold;
+  font-size: large;
 }
 </style>
