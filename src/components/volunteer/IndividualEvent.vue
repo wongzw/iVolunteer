@@ -305,6 +305,7 @@ export default {
           " " +
           this.$store.state.details["lastName"],
         interests: this.$store.state.details["interests"],
+        photoUrl: this.$store.state.details["photoUrl"]
       };
       this.event["participants"] = participantMap;
       console.log(participantMap);
