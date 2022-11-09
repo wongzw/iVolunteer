@@ -2,7 +2,7 @@
   <div id="sidebar">
     <div class="container">
       <div class="antDP">
-        <a-avatar :size="67">
+        <a-avatar :src="this.display" :size="67">
           <template #icon><UserOutlined /></template>
         </a-avatar>
       </div>
@@ -50,7 +50,8 @@ export default {
   name: "TheSidebar",
   data() {
     return {
-      name: this.$store.state.details["firstName"] + " " + this.$store.state.details["lastName"]
+      name: this.$store.state.details["firstName"] + " " + this.$store.state.details["lastName"],
+      display: this.$store.state.details["photoUrl"]
     };
   },
   computed: {
