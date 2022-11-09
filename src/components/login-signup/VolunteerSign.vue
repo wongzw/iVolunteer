@@ -132,7 +132,7 @@ export default {
         firstName: "",
         lastName: "",
         interests: [],
-        profilePicture: "",
+        photoUrl: "",
         skills: [],
         hoursVolunteered: 0,
         userExp: 0,

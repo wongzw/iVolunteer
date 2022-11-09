@@ -148,6 +148,7 @@ export default {
     async createDb(oid) {
       const val = {
         orgName: "",
+        photoUrl: "",
         orgType: [],
         events: [],
         badges: [],
