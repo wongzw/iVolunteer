@@ -232,8 +232,6 @@ export default {
       });
     },
     createEvent() {
-      console.log(this.eventDate)
-      console.log(this.eventTime)
       if (Number(this.noOfOpenings) == 0 || this.eventType.length == 0 || this.file == null ||
         this.eventCauses.length == 0 || this.badgeAwarded.length==0 || this.eventDate == null || this.eventTime == null) {
         this.formValidError("Please fill in all fields!");
