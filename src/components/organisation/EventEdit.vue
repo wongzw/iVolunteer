@@ -17,6 +17,7 @@
           <a-input
             style="width: 60%; margin-bottom: 10px"
             class="input"
+            required
             type="text"
             v-model:value="eventName"
             placeholder="Enter your event name"
@@ -38,6 +39,7 @@
           <a-textarea
             style="width: 60%; margin-bottom: 10px"
             v-model:value="eventDescription"
+            required
             maxlength="1000"
             placeholder="Enter the description of your event (Max char: 1000)"
             :rows="6"
@@ -66,6 +68,7 @@
           <a-input
             style="width: 25%; margin-bottom: 10px; margin-left: 20%; float: left"
             class="input"
+            required
             type="text"
             v-model:value="location"
             placeholder="Location"
@@ -122,7 +125,7 @@
   import { getStorage, uploadBytes, ref, getDownloadURL } from "firebase/storage";
   import { db } from "../../firebase.js";
   import { notification } from "ant-design-vue";
-  import { SmileOutlined } from "@ant-design/icons-vue";
+  import { SmileOutlined, ExclamationCircleOutlined } from "@ant-design/icons-vue";
   import { h } from "vue";
   import { bool } from "vue-types";
   import NoPageFound from "@/views/NoPageFound.vue";
@@ -178,6 +181,20 @@
         eventClosed: false
       };
     },
+    setup() {
+      const formValidError = (msg) => {
+        notification.open({
+          message: "Error",
+          description: msg,
+          duration: 3,
+          icon: () => h(ExclamationCircleOutlined, { style: "color: #ff3700" }),
+        });
+      };
+
+      return {
+        formValidError,
+      };
+    },
   
     methods: {
       eventCreateNotification() {
@@ -218,7 +235,12 @@
           });
       },
       editEvent() {
-        this.updateDb();
+        if (Number(this.noOfOpenings) == 0 || this.eventType.length == 0 || this.eventCauses.length == 0 ||
+          this.badgeAwarded.length==0 || this.eventDate == null || this.eventTime == null) {
+          this.formValidError("Please fill in all fields!");
+        } else {
+          this.updateDb();
+        }
       },
       makeDateMoment(date1, date2) {
         var moment1 = moment(date1, 'DD-MM-YYYY')

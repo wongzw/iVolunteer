@@ -11,11 +11,12 @@
       @submit.prevent="createEvent"
     >
       <h1 id="eventCreationHeader">Create Event</h1>
-      <a-form-item required="true">
+      <a-form-item>
         <label class="eventCreation">Event Name</label><br />
         <a-input
           style="width: 60%; margin-bottom: 10px"
           class="input"
+          required
           type="text"
           v-model:value="eventName"
           placeholder="Enter your event name"
@@ -41,6 +42,7 @@
         <label class="eventCreation">Event Description</label><br />
         <a-textarea
           style="width: 60%; margin-bottom: 10px"
+          required
           v-model:value="eventDescription"
           maxlength="1000"
           placeholder="Enter the description of your event (Max char: 1000)"
@@ -55,6 +57,7 @@
         >
           <a-range-picker
             v-model:value="eventDate"
+            required
             style="width: 100%; margin-bottom: 10px"
           />
         </a-space>
@@ -62,6 +65,7 @@
         <a-space style="width: 60%; margin-bottom: 10px" direction="vertical">
           <a-time-range-picker
             v-model:value="eventTime"
+            required
             style="width: 100%; margin-bottom: 10px"
           /> </a-space
         ><br />
@@ -70,6 +74,7 @@
         <a-input
           style="width: 25%; margin-bottom: 10px; margin-left: 20%; float: left"
           class="input"
+          required
           type="text"
           v-model:value="location"
           placeholder="Location"
@@ -82,6 +87,7 @@
             float: right;
           "
           class="input"
+          required
           type="number"
           v-model:value="noOfOpenings"
           placeholder="Enter a number"
@@ -126,7 +132,7 @@ import { collection, addDoc, doc, getDoc, updateDoc, arrayUnion } from "firebase
 import { getStorage, uploadBytes, ref, getDownloadURL } from "firebase/storage";
 import { db } from "../../firebase.js";
 import { notification } from "ant-design-vue";
-import { SmileOutlined, ExclamationCircleOutlined, CloseOutlined } from "@ant-design/icons-vue";
+import { SmileOutlined, ExclamationCircleOutlined } from "@ant-design/icons-vue";
 import { h } from "vue";
 import { bool } from "vue-types";
 
@@ -153,7 +159,20 @@ export default {
       eventClosed: false
     };
   },
+  setup() {
+    const formValidError = (msg) => {
+      notification.open({
+        message: "Error",
+        description: msg,
+        duration: 3,
+        icon: () => h(ExclamationCircleOutlined, { style: "color: #ff3700" }),
+      });
+    };
 
+    return {
+      formValidError,
+    };
+  },
   methods: {
     reroute_main() {
       this.$router.push({path: '/organisation/profile'});
@@ -166,14 +185,6 @@ export default {
         icon: () => h(SmileOutlined, { style: "color: #020957" }),
       });
     },
-    // eventFailedNotification() {
-    //   notification.open({
-    //     message: "Failed to create event",
-    //     description: "Did you fill in all fields?",
-    //     duration: 3,
-    //     icon: () => h(ExclamationCircleOutlined, { style: "color: #020957" }),
-    //   })
-    // },
     async createDb() {
       const storage = getStorage();
       const storageRef = ref(storage, "Event photos/" + this.file.name);
@@ -221,13 +232,18 @@ export default {
       });
     },
     createEvent() {
-      this.createDb()
-      this.reroute_main()
+      if (Number(this.noOfOpenings) == 0 || this.eventType.length == 0 || this.file == null ||
+        this.eventCauses.length == 0 || this.badgeAwarded.length==0 || this.eventDate == null || this.eventTime == null) {
+        this.formValidError("Please fill in all fields!");
+      } else {
+        this.createDb()
+        this.reroute_main()
+      }
     },
     previewFile(event) {
       this.file = event.target.files[0];
       console.log(this.file);
-    }
+    },
   },
   async mounted() {
     var docRef = doc(db, "organisation", this.$store.state.id);
@@ -238,6 +254,7 @@ export default {
       this.rendered = true;
     }
   },
+
 };
 </script>
 
