@@ -246,9 +246,10 @@
     background-color: white;
     align-items: center;
     border-radius: 2px;
-    margin-top: 2%;
-    margin-left: 35%;
-    margin-right: 35%;
+    margin-top: 3%;
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-bottom: 3%;
     padding-top: 30px;
     padding-bottom: 30px;
     filter: drop-shadow(1px 1px 1px black);
@@ -274,7 +275,7 @@
   .eventEditRight {
     color: #020957;
     float: right;
-    margin-right: 23%;
+    margin-right: 33.5%;
     font-weight: bold;
     margin-bottom: 10px;
   }
