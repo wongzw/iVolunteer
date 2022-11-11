@@ -92,7 +92,6 @@ export default {
         this.formValidError("Please field in all fields!");
       } else {
         this.updateDb(this.$store.state.id);
-        this.$router.push({ path: "/organisation/profile", replace: true });
       }
     },
     async updateDb(oid) {
@@ -109,6 +108,7 @@ export default {
           });
         })
       })
+      this.$router.push({ path: "/organisation/profile", replace: true });
     },
     previewFile(profile) {
       this.file = profile.target.files[0];

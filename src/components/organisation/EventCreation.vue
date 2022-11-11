@@ -243,7 +243,8 @@ export default {
                 updateDoc(orgDocRef, {
                   events: arrayUnion(docRef.id)
                 });
-              })             
+              })
+              this.reroute_main()             
               console.log("Document successfully written!");
             })
             .catch((error) => {
@@ -259,7 +260,6 @@ export default {
         this.formValidError("Please fill in all fields!");
       } else {
         this.createDb()
-        this.reroute_main()
       }
     },
     previewFile(event) {
