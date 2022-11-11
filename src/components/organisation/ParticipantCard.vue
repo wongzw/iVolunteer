@@ -251,6 +251,8 @@ export default {
 <style scoped>
 .profile {
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .profileView {
   margin-top: -15%;
@@ -271,7 +273,7 @@ export default {
 
 .profileImg {
   margin-right: 15%;
-  width: 70%;
+  width: 807%;
 }
 .text {
   color: #020957;
@@ -288,9 +290,9 @@ export default {
 }
 
 .interest {
-  margin-left: 20%;
+  margin-left: 10%;
   width: 50%;
-  margin-right: 20%;
+
 }
 
 .confirm {
