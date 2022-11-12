@@ -5,7 +5,7 @@
     sub-title="Sorry, the page you visited does not exist."
   >
     <template #extra>
-      <a-button type="primary" @click="this.$router.push('/')" class="orange"
+      <a-button type="primary" @click="this.$router.push('/login')" class="orange"
         >Back Home</a-button
       >
     </template>

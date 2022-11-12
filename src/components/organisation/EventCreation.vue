@@ -29,7 +29,7 @@
         <label class="eventCreationLeft">Event Type</label><br /><br />
         <a-select
           v-model:value="eventType"
-          mode="multiple"
+          mode="tags"
           placeholder="Select all that apply"
           style="width: 60%; height: 35px; margin-bottom: 10px"
           :token-separators="[',']"
@@ -38,6 +38,11 @@
           <a-select-option value="Fund Raising">Fund Raising</a-select-option>
           <a-select-option value="Recycling">Recycling</a-select-option>
           <a-select-option value="Clean-up">Clean-up</a-select-option>
+          <a-select-option value="Conference">Conference</a-select-option>
+          <a-select-option value="Webinar">Webinar</a-select-option>
+          <a-select-option value="Education">Education</a-select-option>
+          <a-select-option value="Performance">Performance</a-select-option>
+          <a-select-option value="Sports">Sports</a-select-option>
         </a-select>
         <label class="eventCreation">Event Description</label><br />
         <a-textarea
@@ -97,19 +102,36 @@
         ><br /><br />
         <a-select
           v-model:value="eventCauses"
-          mode="tags"
+          mode="multiple"
           style="width: 60%; height: 35px; margin-bottom: 10px"
           :token-separators="[',']"
           placeholder="Press tab to add another event cause"
-        ></a-select>
+        >
+          <a-select-option value="Agriculture">Agriculture</a-select-option>
+          <a-select-option value="Children and Youth">Children and Youth</a-select-option>
+          <a-select-option value="Elderly">Elderly</a-select-option>
+          <a-select-option value="Wildlife Protection">Wildlife Protection</a-select-option>
+          <a-select-option value="Women Empowerment">Women Empowerment</a-select-option>
+          <a-select-option value="Clean-up">Clean-up</a-select-option>
+          <a-select-option value="Climate change">Climate change</a-select-option>
+          <a-select-option value="Low-income families">Low-income families</a-select-option>
+        </a-select>
         <label class="eventCreation">Preferred Volunteers (badges)</label><br />
         <a-select
           v-model:value="badgeAwarded"
-          mode="tags"
+          mode="multiple"
           style="width: 60%; height: 35px; margin-bottom: 30px"
           :token-separators="[',']"
           placeholder="Press tab to add another badge"
-        ></a-select>
+        >
+          <a-select-option value="Diligent">Diligent</a-select-option>
+          <a-select-option value="Detail-oriented">Detail-oriented</a-select-option>
+          <a-select-option value="Good with children">Good with children</a-select-option>
+          <a-select-option value="Experienced Animal caretaker">Experienced Animal caretaker</a-select-option>
+          <a-select-option value="Experienced Driver">Experienced Driver</a-select-option>
+          <a-select-option value="Natural Leader">Natural Leader</a-select-option>
+          <a-select-option value="Brilliant Teacher">Brilliant Teacher</a-select-option>
+        </a-select>
 
         <div id="ant-button">
           <a-button
@@ -221,7 +243,8 @@ export default {
                 updateDoc(orgDocRef, {
                   events: arrayUnion(docRef.id)
                 });
-              })             
+              })
+              this.reroute_main()             
               console.log("Document successfully written!");
             })
             .catch((error) => {
@@ -237,7 +260,6 @@ export default {
         this.formValidError("Please fill in all fields!");
       } else {
         this.createDb()
-        this.reroute_main()
       }
     },
     previewFile(event) {
