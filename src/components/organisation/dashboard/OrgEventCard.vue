@@ -14,9 +14,7 @@
         <h2 class="event-host" style="margin-right: 10px">
           <b style="color: #ff5b2e">
             {{
-              event.data.participants.length == 0
-                ? event.data.participants.length
-                : 0
+              displayVacancy
             }}
           </b>
           Sign-ups
@@ -71,6 +69,12 @@ export default {
       this.$router.push(route);
     },
   },
+  computed: {
+    displayVacancy() {
+      let counter = 0;
+      return Object.keys(this.event["data"]["participants"]).length
+    }
+  }
 };
 </script>
 
