@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <div class="header">
-      <img src="@/assets/companyLogoTemp.png" alt="companyImg" />
+      <img :src="this.display" alt="companyImg" />
       <div class="header-text">
         <h1>
           <b> Welcome, {{ companyName }}!</b>
@@ -70,6 +70,7 @@ export default {
   data() {
     return {
       companyName: this.$store.state.details["orgName"],
+      display: this.$store.state.details["photoUrl"],
       allCards: [],
     };
   },
