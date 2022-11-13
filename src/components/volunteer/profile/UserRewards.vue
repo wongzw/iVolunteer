@@ -6,7 +6,7 @@
 
     <div v-if="Object.keys(this.reward_dict).length == 0">
       <div class="noEvents">
-        <h2>
+        <h2 style="color: #020957">
           <br />
           <b> No Rewards Found 😔 </b>
         </h2>
