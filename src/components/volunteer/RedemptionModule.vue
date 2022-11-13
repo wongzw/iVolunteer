@@ -55,7 +55,7 @@
                 "
               >
                 <span v-if="reward.availableQty == 0">Fully Redeemed</span>
-                <span v-if="this.userRewardTier < key">Ineligible</span>
+                <span v-else-if="this.userRewardTier < key">Ineligible</span>
                 <span v-else
                   >Redeem Reward -
                   {{ reward.redemptionCode.length }} Remaining</span
@@ -207,7 +207,7 @@ export default {
       this.rewardConfirm = {};
 
       // Assign to user
-      if (this.$store.state.details["userRewards"][reward_level]["id"] == "") {
+      if (!this.$store.state.details["userRewards"][reward_level]) {
         var assigned_code = reward["redemptionCode"].pop();
         reward["availableQty"] -= 1;
         this.$store.commit("updateRewards", {
