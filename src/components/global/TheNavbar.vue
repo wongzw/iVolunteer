@@ -145,6 +145,10 @@ li {
   color: #ff5b2e;
 }
 
+li .router-link-active {
+  color: #ff5b2e;
+}
+
 /* LOGO */
 .logo {
   font-size: 32px;
