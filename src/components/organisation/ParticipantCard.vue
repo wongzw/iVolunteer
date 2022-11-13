@@ -158,7 +158,7 @@ export default {
       const newNotification = {
         date: new Date().toJSON().slice(0, 10).replace(/-/g, "/"),
         eventId: this.eventId,
-        notifType: "Reject",
+        notifType: this.status,
       };
       await updateDoc(participantDocRef, {
         userNotification: arrayUnion(newNotification),
@@ -179,7 +179,7 @@ export default {
       const newNotification = {
         date: new Date().toJSON().slice(0, 10).replace(/-/g, "/"),
         eventId: this.eventId,
-        notifType: "Accept",
+        notifType: this.status,
       };
       await updateDoc(participantDocRef, {
         userAcceptedEvents: arrayUnion(this.eventId),
@@ -194,6 +194,17 @@ export default {
       eventDocRefData["participants"][participantId]["attendanceStatus"] =
         this.confirmStatus;
       await setDoc(doc(db, "events", this.eventId), eventDocRefData);
+
+      // Update Notification
+      const participantDocRef = doc(db, "users", participantId);
+      const newNotification = {
+        date: new Date().toJSON().slice(0, 10).replace(/-/g, "/"),
+        eventId: this.eventId,
+        notifType: this.confirmStatus,
+      };
+      await updateDoc(participantDocRef, {
+        userNotification: arrayUnion(newNotification),
+      });
     },
     async updateUser() {
       let participantId = this.participant[0];

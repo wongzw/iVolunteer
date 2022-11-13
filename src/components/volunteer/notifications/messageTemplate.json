@@ -1,14 +1,22 @@
 {
   "Register": [
     "Registration Successful",
-    "Organisation has received your application and will get back soon."
+    " has received your application and will get back soon. Remember to mark the date in your calendar"
   ],
-  "Confirm": ["Confirm Header", "Confirm Message"],
-  "Reject": [
-    "Registration Unsuccessful",
-    "Organisation has deemed your skills are unsuitable for this event. Do look out for future events!"
+  "rejected": [
+    "Application Unsuccessful",
+    " has deemed your skills are unsuitable for this event. Do look out for future events!"
   ],
-  "Accept": ["Accept Header", "Accept Message"],
-  "Attendance": ["Attendance Header", "Attendance Message"],
-  "NoShow": ["No Show Header", "No Show Message"]
+  "accepted": [
+    "Application Accepted",
+    " has deemed your skills are suitable for this event. Looking forwards to seeing you at the event!"
+  ],
+  "attend": [
+    "Attendance Recorded",
+    " thanks you for volunteering! Your exp and badges have been awarded. We look forwards to you volunteering again"
+  ],
+  "noshow": [
+    "No Show Recorded",
+    " has recorded that you failed to attend the event. Do note that no show rates will affect future application acceptance. Contact organisers if a mistake was made"
+  ]
 }

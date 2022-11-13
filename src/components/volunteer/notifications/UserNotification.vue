@@ -41,6 +41,7 @@
 
           <div class="notificationMessage">
             <h3>
+              <b> {{ this.event_details[notification.eventId][0].orgName }}</b>
               {{ this.template_message[notification.notifType][1] }}
             </h3>
           </div>
