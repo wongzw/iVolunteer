@@ -114,9 +114,9 @@
                 <span
                   ><img src="@/assets/star.svg" />
                   <b>{{ displayExpGain }} exp</b></span
-                ><br />
+                ><br /><br />
                 <p v-for="badge in badgeType" :key="badge">
-                  {{ badge }} upon successful completion
+                  <b>{{ badge }}</b> upon successful completion
                 </p>
               </div>
             </div>
