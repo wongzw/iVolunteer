@@ -294,7 +294,7 @@ export default {
 
       // Update Notifications
       const newNotification = {
-        date: new Date().toJSON().slice(0, 10).replace(/-/g, "/"),
+        date: new Date().toJSON().replace(/-/g, "/"),
         eventId: eventId,
         notifType: "Register",
       };
@@ -315,7 +315,7 @@ export default {
           " " +
           this.$store.state.details["lastName"],
         interests: this.$store.state.details["interests"],
-        photoUrl: this.$store.state.details["photoUrl"]
+        photoUrl: this.$store.state.details["photoUrl"],
       };
       this.event["participants"] = participantMap;
       console.log(participantMap);
