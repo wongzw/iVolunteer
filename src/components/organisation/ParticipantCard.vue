@@ -157,6 +157,8 @@ export default {
       const eventDocRef = doc(db, "events", this.eventId);
       const docSnap = await getDoc(eventDocRef);
       let eventDocRefData = docSnap.data();
+      delete eventDocRefData["participants"][participantId];
+      await setDoc(doc(db, "events", this.eventId), eventDocRefData);
     },
     async updateRejectUser() {
       let participantId = this.participant[0];
