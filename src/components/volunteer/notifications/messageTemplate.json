@@ -1,6 +1,14 @@
 {
-  "Register": ["Register Header", "Register Message"],
+  "Register": [
+    "Registration Successful",
+    "Organisation has received your application and will get back soon."
+  ],
   "Confirm": ["Confirm Header", "Confirm Message"],
+  "Reject": [
+    "Registration Unsuccessful",
+    "Organisation has deemed your skills are unsuitable for this event. Do look out for future events!"
+  ],
   "Accept": ["Accept Header", "Accept Message"],
-  "Attendance": ["Attendance Header", "Attendance Message"]
+  "Attendance": ["Attendance Header", "Attendance Message"],
+  "NoShow": ["No Show Header", "No Show Message"]
 }

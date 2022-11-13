@@ -32,7 +32,11 @@
           </div>
 
           <div class="notificationDate">
-            <p>{{ notification.date }}</p>
+            <p>
+              Created: {{ notification.date.slice(-2) }} /
+              {{ notification.date.substring(5, 7) }} /
+              {{ notification.date.substring(0, 4) }}
+            </p>
           </div>
 
           <div class="notificationMessage">
@@ -101,13 +105,9 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase.js";
 import { notification } from "ant-design-vue";
 import messageTemplate from "./messageTemplate.json";
-// import { DeleteOutlined } from "@ant-design/icons-vue";
 
 export default {
   name: "UserNotification",
-  // components: {
-  //   DeleteOutlined,
-  // },
   data() {
     return {
       user_notifications: [],
@@ -121,8 +121,7 @@ export default {
   },
   methods: {
     async getNotifications() {
-      this.user_notifications =
-        this.$store.state.details["userNotification"].reverse();
+      this.user_notifications = this.$store.state.details["userNotification"];
       for (var notification of this.user_notifications) {
         var event_id = notification.eventId;
         if (!this.event_details[event_id]) {
@@ -135,8 +134,8 @@ export default {
           continue;
         }
       }
+      this.user_notifications.reverse();
       this.data_retrived = true;
-      console.log(this.event_details);
     },
     reroute_event(event_id) {
       const route = "/event/" + event_id;
