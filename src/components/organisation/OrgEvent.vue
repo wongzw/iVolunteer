@@ -45,9 +45,9 @@
                 <p id="textBox">
                   <b>by {{ this.event["orgName"] }}</b>
                 </p>
-                <p id="textBox">
-                  Description: {{ this.event["eventDescription"] }}
-                </p>
+                <h3 id="textBox">
+                  {{ this.event["eventDescription"] }}
+                </h3>
               </div>
               <div id="details">
                 <div class="icon">
@@ -72,7 +72,7 @@
               <div>
                 <span
                   ><img src="@/assets/star.svg" />
-                  {{ displayExpGain }} exp</span
+                  <b>{{ displayExpGain }} exp</b></span
                 ><br />
                 <p v-for="badge in badgeType" :key="badge">
                   {{ badge }} upon successful completion
@@ -276,7 +276,7 @@ h1 {
   margin-right: 10px;
 }
 #img {
-  max-width: 100%;
+  width: 40vw;
   height: auto;
 }
 #bottomLeft {
@@ -288,14 +288,14 @@ h1 {
 #bottomRight {
   flex-direction: column;
   align-items: left;
-  border: solid #cdd0ec;
-  width: 500px;
+  border: solid #ff5b2e;
+  width: auto;
   border-radius: 10px;
   padding-top: 5%;
   padding-bottom: 5%;
   padding-left: 5%;
-  padding-right: 5;
-  margin-top: 10%;
+  padding-right: 5%;
+  margin-top: 5%;
 }
 .icon {
   display: flex;
@@ -325,8 +325,8 @@ h1 {
 }
 
 #textBox {
-  font-size: 15px;
-  font-weight: bold;
+  color: #020957;
+  text-align: justify;
 }
 
 .iconImg {
