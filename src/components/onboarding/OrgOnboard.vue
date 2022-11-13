@@ -17,13 +17,18 @@
         <a-input
           class="input"
           required
-          style="width: 60%; margin-bottom: 10px"
+          style="width: 80%; margin-bottom: 30px"
           v-model:value="orgName"
           placeholder="Enter your Organisation Name"
         ></a-input>
         <label class="fontLogin">Organisation Profile Photo</label><br />
         <div class="fontLogin">
-          <input type="file" name="file" @change="previewFile" />
+          <input
+            type="file"
+            name="file"
+            style="width: 80%; margin-bottom: 30px"
+            @change="previewFile"
+          />
         </div>
         <br />
         <label class="fontLogin">Organisation Type</label><br />
@@ -31,7 +36,7 @@
           required
           v-model:value="orgType"
           mode="tags"
-          style="width: 60%; height: 50%; margin-bottom: 40px"
+          style="width: 80%; height: 50%; margin-bottom: 80px"
           :token-separators="[',']"
           placeholder="Press tab to add another interest"
           ><a-select-option value="Elderly" label="elderly"></a-select-option>
@@ -97,7 +102,7 @@ export default {
     async updateDb(oid) {
       const storage = getStorage();
       const storageRef = ref(storage, "Organisation photos/" + this.file.name);
-      uploadBytes(storageRef, this.file).then( (snapshot) => {
+      uploadBytes(storageRef, this.file).then((snapshot) => {
         getDownloadURL(snapshot.ref).then((downloadURL) => {
           this.photoUrl = downloadURL;
           const orgRef = doc(db, "organisation", oid);
@@ -106,8 +111,8 @@ export default {
             orgType: this.orgType,
             photoUrl: this.photoUrl,
           });
-        })
-      })
+        });
+      });
       this.$router.push({ path: "/organisation/profile", replace: true });
     },
     previewFile(profile) {
@@ -115,7 +120,7 @@ export default {
       console.log(this.file);
     },
   },
-}
+};
 </script>
   
   <style scoped>
@@ -124,8 +129,8 @@ export default {
   align-items: center;
   border-radius: 2px;
   margin-top: 2%;
-  margin-left: 35%;
-  margin-right: 35%;
+  margin-left: 20%;
+  margin-right: 20%;
   padding-top: 30px;
   padding-bottom: 30px;
   box-shadow: 0px 4px 10px rgba(60, 78, 100, 0.1);
@@ -144,11 +149,13 @@ export default {
 
 .fontLogin {
   color: #020957;
-  margin-left: 20%;
+  margin-left: 10%;
   display: flex;
   align-items: flex-start;
   font-weight: bold;
   margin-bottom: -10px;
+  margin-top: 10px;
+  font-size: 15px;
 }
 
 #loginHeader {
