@@ -170,8 +170,12 @@ export default {
       } else {
         timeEnd[2] = "am";
       }
-      timeStart[0] = timeStart[0] % 13;
-      timeEnd[0] = timeEnd[0] % 13;
+      if (timeStart[0] > 12) {
+        timeStart[0] = timeStart[0] - 12;
+      }
+      if (timeEnd[0] > 12) {
+        timeEnd[0] = timeEnd[0] - 12;
+      }
       timeStart =
         String(timeStart[0]) +
         "." +

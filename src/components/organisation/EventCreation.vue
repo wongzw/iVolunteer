@@ -70,6 +70,7 @@
           <a-time-range-picker
             v-model:value="eventTime"
             required
+            format='HH:mm'
             style="width: 100%; margin-bottom: 10px"
           /> </a-space
         ><br />
@@ -221,8 +222,8 @@ export default {
             eventDescription: this.eventDescription,
             dateStart: this.eventDate[0].format("DD-MM-YYYY"),
             dateEnd: this.eventDate[1].format("DD-MM-YYYY"),
-            timeStart: this.eventTime[0].format("HH:mm:ss"),
-            timeEnd: this.eventTime[1].format("HH:mm:ss"),
+            timeStart: this.eventTime[0].format("HH:mm"),
+            timeEnd: this.eventTime[1].format("HH:mm"),
             duration: Number(
               (this.eventDate[1].diff(this.eventDate[0], "days") + 1) *
                 this.eventTime[1].diff(this.eventTime[0], "hours")
