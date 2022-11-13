@@ -38,9 +38,9 @@
             />
             <!-- DROPDOWN MENU -->
             <ul class="dropdown">
-              <li>
+              <!-- <li>
                 <router-link to="/volunteer/profile"> Profile </router-link>
-              </li>
+              </li> -->
 
               <li>
                 <router-link to="/"
@@ -67,12 +67,23 @@
           <li>
             <router-link to="/organisation/profile"> Profile </router-link>
           </li>
-          <li>
-            <router-link to="/"
-              ><button id="signOutButton" @click="signOut">
-                Sign out
-              </button></router-link
-            >
+          <li class="services">
+            <img
+              alt="down_arrow"
+              src="@/assets/down_arrow.png"
+              width="21"
+              height="13"
+            />
+            <!-- DROPDOWN MENU -->
+            <ul class="dropdown">
+              <li>
+                <router-link to="/"
+                  ><button id="signOutButton" @click="signOut">
+                    Sign out
+                  </button></router-link
+                >
+              </li>
+            </ul>
           </li>
         </div>
       </div>

@@ -88,5 +88,6 @@ export default {
   background-color: #ffefe2;
   padding: 20px;
   margin-top: 10px;
+  border-radius: 5px;
 }
 </style>
