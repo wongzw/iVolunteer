@@ -33,9 +33,10 @@
 
           <div class="notificationDate">
             <p>
-              Created: {{ notification.date.slice(-2) }} /
+              Created: {{ notification.date.substring(8, 10) }} /
               {{ notification.date.substring(5, 7) }} /
               {{ notification.date.substring(0, 4) }}
+              {{ notification.date.substring(11, 19) }}
             </p>
           </div>
 

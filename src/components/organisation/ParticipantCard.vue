@@ -144,7 +144,7 @@ export default {
     this.status = this.participant[1]["applicationStatus"];
     this.confirmStatus = this.participant[1]["attendanceStatus"];
     this.render = true;
-    this.display = this.participant[1]["photoUrl"]
+    this.display = this.participant[1]["photoUrl"];
   },
   computed: {
     displayName() {
@@ -164,7 +164,7 @@ export default {
       let participantId = this.participant[0];
       const participantDocRef = doc(db, "users", participantId);
       const newNotification = {
-        date: new Date().toJSON().slice(0, 10).replace(/-/g, "/"),
+        date: new Date().toJSON().replace(/-/g, "/"),
         eventId: this.eventId,
         notifType: this.status,
       };
@@ -185,7 +185,7 @@ export default {
       let participantId = this.participant[0];
       const participantDocRef = doc(db, "users", participantId);
       const newNotification = {
-        date: new Date().toJSON().slice(0, 10).replace(/-/g, "/"),
+        date: new Date().toJSON().replace(/-/g, "/"),
         eventId: this.eventId,
         notifType: this.status,
       };
@@ -206,7 +206,7 @@ export default {
       // Update Notification
       const participantDocRef = doc(db, "users", participantId);
       const newNotification = {
-        date: new Date().toJSON().slice(0, 10).replace(/-/g, "/"),
+        date: new Date().toJSON().replace(/-/g, "/"),
         eventId: this.eventId,
         notifType: this.confirmStatus,
       };
@@ -318,7 +318,6 @@ export default {
 .interest {
   margin-left: 10%;
   width: 50%;
-
 }
 
 .confirm {

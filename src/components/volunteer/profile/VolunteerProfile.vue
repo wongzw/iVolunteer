@@ -16,6 +16,7 @@ import CurrentUserEvents from "./CurrentUserEvents.vue";
 import UserAchievements from "./UserAchievements.vue";
 import UserContactDetails from "./UserContactDetails.vue";
 import UserRewards from "./UserRewards.vue";
+import VolProfileEventCard from "./VolProfileEventCard.vue";
 
 export default {
   name: "UserDashboard",
