@@ -454,7 +454,7 @@ h1 {
 
 .causeBox {
   background-color: #ffe3dc;
-  color: orange;
+  color: #ff5b2e;
   width: 32%;
   height: 50%;
   font-weight: bold;
