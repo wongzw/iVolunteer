@@ -90,4 +90,8 @@ export default {
   margin-top: 10px;
   border-radius: 5px;
 }
+
+.a-table {
+  border-radius: 5px;
+}
 </style>
