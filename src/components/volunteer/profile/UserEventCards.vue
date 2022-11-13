@@ -1,57 +1,55 @@
 <template>
-    <div class="eventCards">
-        <a-card class = "indivEvent" type="inner">
-            <div class="title">
-                <h2 class="event-title">{{ event.data.eventName }}</h2>
+  <div class="eventCards">
+    <a-card class="indivEvent" type="inner">
+      <div class="title">
+        <h2 class="event-title">
+          <b>{{ event.data.eventName }}</b>
+        </h2>
 
-                <div class="info">
-                    <div class="info details">
-                        <img class="image" src="@/assets/calendarIcon.svg" alt="calendar" />
-                        <h2 class="event-host">{{ event.data.dateStart }}</h2>
-                    </div>
-                    <div class="info details">
-                        <img class="image" src="@/assets/clockIcon.svg" alt="clock" />
-                        <h2 class="event-host">{{ event.data.timeStart }}</h2>
-                    </div>
-                    <div class="info details">
-                        <img class="image" src="@/assets/locationIcon.svg" alt="location" />
-                        <h2 class="event-host">{{ event.data.location }}</h2>
-                    </div>
-                </div>
-            </div>
-        <div class="ant-button">
-            <a-button
-                type="primary"
-                size="medium"
-                class="orange"
-                @click="reroute_event"
-            >
-                View Event</a-button
-            >
-            </div>
-        </a-card>
-    </div>
-
+        <div class="info">
+          <div class="info details">
+            <img class="image" src="@/assets/calendarIcon.svg" alt="calendar" />
+            <h2 class="event-host">{{ event.data.dateStart }}</h2>
+          </div>
+          <div class="info details">
+            <img class="image" src="@/assets/clockIcon.svg" alt="clock" />
+            <h2 class="event-host">{{ event.data.timeStart }}</h2>
+          </div>
+          <div class="info details">
+            <img class="image" src="@/assets/locationIcon.svg" alt="location" />
+            <h2 class="event-host">{{ event.data.location }}</h2>
+          </div>
+        </div>
+      </div>
+      <div class="ant-button">
+        <a-button
+          type="primary"
+          size="medium"
+          class="orange"
+          @click="reroute_event"
+        >
+          View Event</a-button
+        >
+      </div>
+    </a-card>
+  </div>
 </template>
 
 <script>
 export default {
-    name: "UserEventCards",
-    props: ["event"],
-    methods: {
-        reroute_event() {
-            const route = "/event/" + this.event.id;
-            this.$router.push({ path: route });
-        },
+  name: "UserEventCards",
+  props: ["event"],
+  methods: {
+    reroute_event() {
+      const route = "/event/" + this.event.id;
+      this.$router.push({ path: route });
     },
-}
+  },
+};
 </script>
 
 <style scoped>
 .event-title {
-  font-family: "Mulish";
-  font-weight: 700;
-  font-size: 16px;
   color: #020957;
   margin-top: 2vh;
   margin-left: 2vh;
@@ -75,12 +73,12 @@ export default {
   width: 24px;
 }
 
-.indivEvent{
-    margin-top: 4vh;
-    height: auto;
+.indivEvent {
+  margin-top: 4vh;
+  height: auto;
 }
-.ant-button{
-    float: right;
+.ant-button {
+  float: right;
 }
 .ant-button .orange {
   background-color: #ff734c;
