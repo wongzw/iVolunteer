@@ -109,7 +109,7 @@
             class="signUp"
             size="large"
             type="primary"
-            @click="reroute_main"
+            @click="createEvent"
             danger
             >Confirm</a-button
           >
@@ -120,7 +120,7 @@
 </template>
 
 <script>
-import { collection, addDoc, doc, getDoc } from "firebase/firestore";
+import { collection, addDoc, doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { getStorage, uploadBytes, ref, getDownloadURL } from "firebase/storage";
 import { db } from "../../firebase.js";
 import { notification } from "ant-design-vue";
@@ -193,8 +193,14 @@ export default {
             orgName: this.$store.state.details.orgName,
             eventClosed:this.eventClosed
           })
-            .then(() => {
+            .then(docRef => {
               this.eventCreateNotification();
+              const orgDocRef = doc(db, "organisation", this.$store.state.id)
+              const orgDocSnap = getDoc(orgDocRef).then(orgDocSnap => {
+                updateDoc(orgDocRef, {
+                  events: arrayUnion(docRef.id)
+                });
+              })             
               console.log("Document successfully written!");
             })
             .catch((error) => {
@@ -205,6 +211,7 @@ export default {
     },
     createEvent() {
       this.createDb();
+      this.reroute_main();
     },
     previewFile(event) {
       this.file = event.target.files[0];

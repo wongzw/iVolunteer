@@ -19,7 +19,7 @@
             >Support
           </a>
         </li>
-        <li v-if="this.$store.state.userType == 'Organisations'">
+        <li v-if="this.$store.state.userType == 'Organisation'">
           <a
             href="mailto:bt3103.2022@gmail.com?&subject=Organisation Support Request&body=Support Request Detail:"
             >Support
@@ -40,10 +40,11 @@
           <!-- DROPDOWN MENU -->
           <ul class="dropdown">
             <li v-if="this.$store.state.userType == 'Volunteer'">
-              <router-link to="/volunteer/profile">Profile </router-link>
+              <router-link to="/volunteer/profile"> Profile </router-link>
             </li>
             <li v-if="this.$store.state.userType == 'Organisation'">
-              <router-link to="/organisation/profile">Profile </router-link>
+              <router-link to="/organisation/profile"> Profile </router-link>
+
             </li>
             <li>
               <router-link to="/"
@@ -156,6 +157,7 @@ li {
   border-radius: 8px;
   top: 35px;
   right: 0px;
+  align-content: left;
 }
 
 .dropdown li + li {

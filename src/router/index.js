@@ -185,13 +185,16 @@ router.beforeEach((to, from, next) => {
     if (userType == "Volunteer") {
       next("/volunteer/dashboard");
     } else {
-      next("/organisation");
+      next("/organisation/dashboard");
     }
   } else if (to.meta.requiresAuth) {
     if (!auth) {
       next("/login");
     } else {
-      if (userType == "Volunteer" && to.meta.isOrg) {
+
+      if (to.meta.onboard) {
+        next();
+      } else if (userType == "Volunteer" && to.meta.isOrg) {
         next("/volunteer/dashboard");
       } else if (userType == "Organisation" && !to.meta.isOrg) {
         next("/organisation/dashboard");

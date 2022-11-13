@@ -1,22 +1,26 @@
 <template>
   <div class="blog-card">
     <img class="display" :src="event.data.eventUrl" alt="" />
-
-    <div class="info">
-      <h2 class="event-title">{{ event.data.eventName }}</h2>
-      <div class="details">
-        <img class="image" src="../../assets/calendarIcon.svg" alt="calendar" />
-        <h2 class="event-host">{{ event.data.dateStart }}</h2>
-      </div>
-      <div class="details">
-        <img class="image" src="../../assets/clockIcon.svg" alt="clock" />
-        <h2 class="event-host">{{ event.data.timeStart }}</h2>
-      </div>
-      <div class="details">
-        <img class="image" src="../../assets/locationIcon.svg" alt="location" />
-        <h2 class="event-host">{{ event.data.location }}</h2>
+    <div class="container">
+      <div class="info">
+        <div class="title-card">
+          <h2 class="event-title">{{ event.data.eventName }}</h2>
+        </div>
+        <div class="details">
+          <img class="image" src="../../assets/calendarIcon.svg" alt="calendar" />
+          <h2 class="event-host">{{ event.data.dateStart }}</h2>
+        </div>
+        <div class="details">
+          <img class="image" src="../../assets/clockIcon.svg" alt="clock" />
+          <h2 class="event-host">{{ event.data.timeStart }}</h2>
+        </div>
+        <div class="details">
+          <img class="image" src="../../assets/locationIcon.svg" alt="location" />
+          <h2 class="event-host">{{ event.data.location }}</h2>
+        </div>
       </div>
     </div>
+    
     <div class="ant-button">
       <a-button
         type="primary"
@@ -47,9 +51,25 @@ export default {
 .event-title {
   font-family: "Mulish";
   font-weight: 700;
-  font-size: 24px;
+  font-size: 1.5vw;
   color: #020957;
   text-align: left;
+  max-width: 310px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@media screen and (min-width: 1700px) {
+  .event-title {
+    max-width: 340px;
+  }
+}
+
+@media screen and (min-width: 1900px) {
+  .event-title {
+    max-width: 390px;
+  }
 }
 
 .blog-card {
@@ -57,7 +77,7 @@ export default {
   border-radius: 8px;
   background-color: #ffe9d6;
   min-height: 420px;
-  min-width: 300px;
+  min-width: 30%;
   transition: 0.5s ease all;
   margin-right: 32px;
   margin-bottom: 32px;
@@ -80,6 +100,7 @@ export default {
 
 .details {
   display: flex;
+  height: 45px;
 }
 
 .event-host {
@@ -100,13 +121,17 @@ export default {
   border-radius: 8px 8px 0 0;
   z-index: 0.5;
   width: 100%;
-  height: 200px;
+  height: 250px;
   object-fit: cover;
   overflow: hidden;
 }
 
 .details:last-child {
   margin-bottom: 24px;
+}
+
+.ant-button {
+  margin-bottom: 0;
 }
 
 .ant-button .orange {

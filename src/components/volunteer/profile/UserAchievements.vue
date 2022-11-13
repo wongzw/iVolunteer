@@ -1,7 +1,9 @@
 <template>
   <div id="userAchievements">
     <div class="box">
-      <div id="box-title">Achievements</div>
+      <div id="box-title">
+        Achievements
+      </div>
 
       <div id="box details">
         <li v-for="item in userBadges.slice(0, 5)" v-bind:key="item">
@@ -11,15 +13,33 @@
             alt="tickIcon"
           />
           {{ item }}
-        </li>
+        </li>  
+        <div class="ant-button" v-if="userBadges.length > 5">
+          <a-button
+            type="primary"
+            size="small"
+            class="light-orange"
+            :disabled="
+            userBadges.length < 5"
+            @click="showAll"
+          >
+            Show All
+          </a-button>
+        </div>   
         <br />
       </div>
 
-      <div class="box more" v-if="userBadges.length > 5">
-        <div class="showingAll">
-          <a style="color: #5a4ff3" @click="showAll"> Show All </a>
+      <div v-if="userBadges.length == 0"> 
+        <div class="noAchievements">
+          <h3>
+          <b>
+            No Badges yet 😔 <br />
+            <a href="/volunteer/dashboard" style="color: #ff5b2e"> Volunteer </a> for an event! 
+          </b>
+        </h3>
         </div>
-      </div>
+      </div> 
+       
 
       <div class="a-modal">
         <a-modal
@@ -88,7 +108,7 @@ export default {
   background-color: #ffefe2;
   border-radius: 5px;
   padding: 24px;
-  height: 28vh;
+  height: 30vh;
 }
 .box {
   text-align: left;
@@ -114,6 +134,23 @@ export default {
   border-radius: 5px;
   height: auto;
   margin-top: 2vh;
+}
+
+.ant-button .light-orange {
+  color:#020957;
+  font-size:small;
+  background-color: #ffefe2;
+  border-color: #020957;
+  border-radius: 5px;
+  height: auto;
+  margin-left: 75%;
+  /* margin-top: 10vh; */
+}
+
+.noAchievements {
+  justify-content: center;
+  display: flex;
+  text-align: center;
 }
 
 </style>
