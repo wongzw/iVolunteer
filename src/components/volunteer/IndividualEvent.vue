@@ -362,8 +362,9 @@ h1 {
   margin-right: 10px;
 }
 #img {
-  width: 40vw;
+  width: 35vw;
   height: auto;
+  margin-top: 10px;
 }
 #bottomLeft {
   flex-direction: column;
@@ -446,8 +447,8 @@ h1 {
   width: 100%;
   display: flex;
   gap: 5% 2%;
-  justify-content: center;
-  align-items: center;
+  justify-content: left;
+  align-items: left;
   flex-wrap: wrap;
 }
 
