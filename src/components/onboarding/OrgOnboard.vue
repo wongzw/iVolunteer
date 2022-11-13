@@ -21,6 +21,11 @@
           v-model:value="orgName"
           placeholder="Enter your Organisation Name"
         ></a-input>
+        <label class="fontLogin">Organisation Profile Photo</label><br />
+        <div class="fontLogin">
+          <input type="file" name="file" @change="previewFile" />
+        </div>
+        <br />
         <label class="fontLogin">Organisation Type</label><br />
         <a-select
           required
@@ -51,6 +56,10 @@
 /* eslint-disable */
 import { db } from "../../firebase.js";
 import { doc, updateDoc } from "firebase/firestore";
+import { getStorage, uploadBytes, ref, getDownloadURL } from "firebase/storage";
+import { ExclamationCircleOutlined } from "@ant-design/icons-vue";
+import { notification } from "ant-design-vue";
+import { h } from "vue";
 
 export default {
   name: "OrgOnboard",
@@ -58,6 +67,7 @@ export default {
     return {
       orgName: "",
       orgType: [],
+      photoUrl: "",
     };
   },
 
@@ -78,22 +88,34 @@ export default {
 
   methods: {
     updateData() {
-      if (this.orgType.length == 0) {
-        this.formValidError("Please enter organisation type");
+      if (this.orgType.length == 0 || this.file == null) {
+        this.formValidError("Please field in all fields!");
       } else {
         this.updateDb(this.$store.state.id);
-        this.$router.push({ path: "/organisation/profile", replace: true });
       }
     },
     async updateDb(oid) {
-      const orgRef = doc(db, "organisation", oid);
-      await updateDoc(orgRef, {
-        orgName: this.orgName,
-        orgType: this.orgType,
-      });
+      const storage = getStorage();
+      const storageRef = ref(storage, "Organisation photos/" + this.file.name);
+      uploadBytes(storageRef, this.file).then( (snapshot) => {
+        getDownloadURL(snapshot.ref).then((downloadURL) => {
+          this.photoUrl = downloadURL;
+          const orgRef = doc(db, "organisation", oid);
+          updateDoc(orgRef, {
+            orgName: this.orgName,
+            orgType: this.orgType,
+            photoUrl: this.photoUrl,
+          });
+        })
+      })
+      this.$router.push({ path: "/organisation/profile", replace: true });
+    },
+    previewFile(profile) {
+      this.file = profile.target.files[0];
+      console.log(this.file);
     },
   },
-};
+}
 </script>
   
   <style scoped>
@@ -106,7 +128,7 @@ export default {
   margin-right: 35%;
   padding-top: 30px;
   padding-bottom: 30px;
-  filter: drop-shadow(1px 1px 1px black);
+  box-shadow: 0px 4px 10px rgba(60, 78, 100, 0.1);
 }
 
 #box2 {

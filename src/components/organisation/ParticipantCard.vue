@@ -9,7 +9,11 @@
     v-if="this.status != 'rejected' && this.render == true"
   >
     <div class="profile">
-      <img class="profileImg" src="@/assets/Volunteer.svg" />
+      <div class="profileImg">
+        <a-avatar :src="this.display" :size="67">
+          <template #icon><UserOutlined /></template>
+        </a-avatar>
+      </div>
       <div>
         <p class="text">{{ displayName }}</p>
         <a-button
@@ -129,6 +133,7 @@ export default {
       visible: false,
       toggleProfile: false,
       confirmStatus: "",
+      display: "",
     };
   },
   components: {
@@ -139,6 +144,7 @@ export default {
     this.status = this.participant[1]["applicationStatus"];
     this.confirmStatus = this.participant[1]["attendanceStatus"];
     this.render = true;
+    this.display = this.participant[1]["photoUrl"]
   },
   computed: {
     displayName() {
@@ -245,6 +251,8 @@ export default {
 <style scoped>
 .profile {
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .profileView {
   margin-top: -15%;
@@ -265,7 +273,7 @@ export default {
 
 .profileImg {
   margin-right: 15%;
-  width: 70%;
+  width: 807%;
 }
 .text {
   color: #020957;
@@ -282,9 +290,9 @@ export default {
 }
 
 .interest {
-  margin-left: 20%;
+  margin-left: 10%;
   width: 50%;
-  margin-right: 20%;
+
 }
 
 .confirm {

@@ -1,6 +1,10 @@
 <template>
   <div class="modal" v-if="this.rendered">
-    <img style="margin-bottom: 5%" src="@/assets/Volunteer.svg" />
+    <div class="display">
+        <a-avatar :src="this.participantDetails.photoUrl" :size="78">
+          <template #icon><UserOutlined /></template>
+        </a-avatar>
+      </div>
     <h2>{{ displayFullName }}</h2>
 
     <div class="details">
@@ -76,6 +80,10 @@ h2 {
 
 .details {
   margin-top: 5%;
+}
+
+.display {
+  margin-bottom: 5%;
 }
 
 p {

@@ -1,5 +1,8 @@
 <template>
   <div class="box">
+    <a-button type="primary" id="x" @click="reroute_main" danger>
+      X
+    </a-button>
     <a-form
       id="eventCreation"
       class="event-creation-layout"
@@ -8,12 +11,12 @@
       @submit.prevent="createEvent"
     >
       <h1 id="eventCreationHeader">Create Event</h1>
-
       <a-form-item>
         <label class="eventCreation">Event Name</label><br />
         <a-input
           style="width: 60%; margin-bottom: 10px"
           class="input"
+          required
           type="text"
           v-model:value="eventName"
           placeholder="Enter your event name"
@@ -26,7 +29,7 @@
         <label class="eventCreationLeft">Event Type</label><br /><br />
         <a-select
           v-model:value="eventType"
-          mode="multiple"
+          mode="tags"
           placeholder="Select all that apply"
           style="width: 60%; height: 35px; margin-bottom: 10px"
           :token-separators="[',']"
@@ -35,10 +38,16 @@
           <a-select-option value="Fund Raising">Fund Raising</a-select-option>
           <a-select-option value="Recycling">Recycling</a-select-option>
           <a-select-option value="Clean-up">Clean-up</a-select-option>
+          <a-select-option value="Conference">Conference</a-select-option>
+          <a-select-option value="Webinar">Webinar</a-select-option>
+          <a-select-option value="Education">Education</a-select-option>
+          <a-select-option value="Performance">Performance</a-select-option>
+          <a-select-option value="Sports">Sports</a-select-option>
         </a-select>
         <label class="eventCreation">Event Description</label><br />
         <a-textarea
           style="width: 60%; margin-bottom: 10px"
+          required
           v-model:value="eventDescription"
           maxlength="1000"
           placeholder="Enter the description of your event (Max char: 1000)"
@@ -53,6 +62,7 @@
         >
           <a-range-picker
             v-model:value="eventDate"
+            required
             style="width: 100%; margin-bottom: 10px"
           />
         </a-space>
@@ -60,6 +70,7 @@
         <a-space style="width: 60%; margin-bottom: 10px" direction="vertical">
           <a-time-range-picker
             v-model:value="eventTime"
+            required
             style="width: 100%; margin-bottom: 10px"
           /> </a-space
         ><br />
@@ -68,6 +79,7 @@
         <a-input
           style="width: 25%; margin-bottom: 10px; margin-left: 20%; float: left"
           class="input"
+          required
           type="text"
           v-model:value="location"
           placeholder="Location"
@@ -80,6 +92,7 @@
             float: right;
           "
           class="input"
+          required
           type="number"
           v-model:value="noOfOpenings"
           placeholder="Enter a number"
@@ -89,19 +102,36 @@
         ><br /><br />
         <a-select
           v-model:value="eventCauses"
-          mode="tags"
+          mode="multiple"
           style="width: 60%; height: 35px; margin-bottom: 10px"
           :token-separators="[',']"
           placeholder="Press tab to add another event cause"
-        ></a-select>
+        >
+          <a-select-option value="Agriculture">Agriculture</a-select-option>
+          <a-select-option value="Children and Youth">Children and Youth</a-select-option>
+          <a-select-option value="Elderly">Elderly</a-select-option>
+          <a-select-option value="Wildlife Protection">Wildlife Protection</a-select-option>
+          <a-select-option value="Women Empowerment">Women Empowerment</a-select-option>
+          <a-select-option value="Clean-up">Clean-up</a-select-option>
+          <a-select-option value="Climate change">Climate change</a-select-option>
+          <a-select-option value="Low-income families">Low-income families</a-select-option>
+        </a-select>
         <label class="eventCreation">Preferred Volunteers (badges)</label><br />
         <a-select
           v-model:value="badgeAwarded"
-          mode="tags"
+          mode="multiple"
           style="width: 60%; height: 35px; margin-bottom: 30px"
           :token-separators="[',']"
           placeholder="Press tab to add another badge"
-        ></a-select>
+        >
+          <a-select-option value="Diligent">Diligent</a-select-option>
+          <a-select-option value="Detail-oriented">Detail-oriented</a-select-option>
+          <a-select-option value="Good with children">Good with children</a-select-option>
+          <a-select-option value="Experienced Animal caretaker">Experienced Animal caretaker</a-select-option>
+          <a-select-option value="Experienced Driver">Experienced Driver</a-select-option>
+          <a-select-option value="Natural Leader">Natural Leader</a-select-option>
+          <a-select-option value="Brilliant Teacher">Brilliant Teacher</a-select-option>
+        </a-select>
 
         <div id="ant-button">
           <a-button
@@ -124,7 +154,7 @@ import { collection, addDoc, doc, getDoc, updateDoc, arrayUnion } from "firebase
 import { getStorage, uploadBytes, ref, getDownloadURL } from "firebase/storage";
 import { db } from "../../firebase.js";
 import { notification } from "ant-design-vue";
-import { SmileOutlined } from "@ant-design/icons-vue";
+import { SmileOutlined, ExclamationCircleOutlined } from "@ant-design/icons-vue";
 import { h } from "vue";
 import { bool } from "vue-types";
 
@@ -151,7 +181,20 @@ export default {
       eventClosed: false
     };
   },
+  setup() {
+    const formValidError = (msg) => {
+      notification.open({
+        message: "Error",
+        description: msg,
+        duration: 3,
+        icon: () => h(ExclamationCircleOutlined, { style: "color: #ff3700" }),
+      });
+    };
 
+    return {
+      formValidError,
+    };
+  },
   methods: {
     reroute_main() {
       this.$router.push({path: '/organisation/profile'});
@@ -200,18 +243,24 @@ export default {
                 updateDoc(orgDocRef, {
                   events: arrayUnion(docRef.id)
                 });
-              })             
+              })
+              this.reroute_main()             
               console.log("Document successfully written!");
             })
             .catch((error) => {
+              // this.eventFailedNotification();
               console.error("Error writing document: ", error);
             });
         });
       });
     },
     createEvent() {
-      this.createDb();
-      this.reroute_main();
+      if (Number(this.noOfOpenings) == 0 || this.eventType.length == 0 || this.file == null ||
+        this.eventCauses.length == 0 || this.badgeAwarded.length==0 || this.eventDate == null || this.eventTime == null) {
+        this.formValidError("Please fill in all fields!");
+      } else {
+        this.createDb()
+      }
     },
     previewFile(event) {
       this.file = event.target.files[0];
@@ -227,6 +276,7 @@ export default {
       this.rendered = true;
     }
   },
+
 };
 </script>
 
@@ -236,12 +286,13 @@ export default {
   align-items: center;
   border-radius: 2px;
   margin-top: 3%;
-  margin-left: 35%;
-  margin-right: 35%;
+  margin-left: 25%;
+  margin-right: 25%;
   margin-bottom: 3%;
   padding-top: 30px;
   padding-bottom: 30px;
   filter: drop-shadow(1px 1px 1px black);
+  box-shadow: 0px 4px 10px rgba(60, 78, 100, 0.1);
 }
 
 .eventCreation {
@@ -264,7 +315,7 @@ export default {
 .eventCreationRight {
   color: #020957;
   float: right;
-  margin-right: 23%;
+  margin-right: 33.5%;
   font-weight: bold;
   margin-bottom: 10px;
 }
@@ -277,5 +328,15 @@ export default {
 #ant-button {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+#x {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 10%;
+  height: 5%;
+  font-weight: bold;
+  font-size: large;
 }
 </style>
