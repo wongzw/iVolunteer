@@ -13,29 +13,28 @@
                     {{ type }}
                   </div>
                 </div>
+                <a-button
+                  class="submitButton"
+                  id="volunteerButton"
+                  htmlType="submit"
+                  size="large"
+                  type="primary"
+                  @click="proceedToEdit()"
+                  v-if="!hasVolunteered"
+                  >Edit Details
+                </a-button>
+
+                <a-button
+                  class="submitButton"
+                  id="volunteerButton"
+                  htmlType="submit"
+                  size="large"
+                  type="primary"
+                  disabled
+                  v-if="hasVolunteered"
+                  >Already Registered
+                </a-button>
               </div>
-
-              <a-button
-                class="submitButton"
-                id="volunteerButton"
-                htmlType="submit"
-                size="large"
-                type="primary"
-                @click="proceedToEdit()"
-                v-if="!hasVolunteered"
-                >Edit Details
-              </a-button>
-
-              <a-button
-                class="submitButton"
-                id="volunteerButton"
-                htmlType="submit"
-                size="large"
-                type="primary"
-                disabled
-                v-if="hasVolunteered"
-                >Already Registered
-              </a-button>
             </div>
           </div>
           <div class="description" style="width: 60%; margin-right: 10%">
@@ -73,9 +72,9 @@
                 <span
                   ><img src="@/assets/star.svg" />
                   <b>{{ displayExpGain }} exp</b></span
-                ><br />
+                ><br /><br />
                 <p v-for="badge in badgeType" :key="badge">
-                  {{ badge }} upon successful completion
+                  <b>{{ badge }}</b> upon successful completion
                 </p>
               </div>
             </div>
@@ -276,14 +275,17 @@ h1 {
   margin-right: 10px;
 }
 #img {
-  width: 40vw;
+  width: 35vw;
   height: auto;
+  margin-top: 10px;
+  margin-right: 10%;
 }
 #bottomLeft {
   flex-direction: column;
   align-items: left;
   padding-top: 5%;
   justify-content: space-between;
+  margin-right: 10%;
 }
 #bottomRight {
   flex-direction: column;
@@ -334,7 +336,8 @@ h1 {
 }
 
 .submitButton {
-  width: 50%;
+  align-content: left;
+  width: 100%;
   margin-top: 10%;
   background-color: #ff5b2e;
   border-color: #ff5b2e;
@@ -361,7 +364,7 @@ h1 {
 
 .causeBox {
   background-color: #ffe3dc;
-  color: orange;
+  color: #ff5b2e;
   width: 32%;
   height: 50%;
   font-weight: bold;
@@ -380,9 +383,5 @@ h1 {
   width: 50%;
   margin-top: 10%;
   background-color: #ff5b2e;
-}
-
-#volunteerButton {
-  margin-left: 25%;
 }
 </style>
