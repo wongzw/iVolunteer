@@ -323,7 +323,7 @@ h1 {
   display: flex;
   flex-direction: column;
   text-align: left;
-  width: 80%;
+  width: 100%;
 }
 
 #eventDetails {
@@ -361,8 +361,8 @@ h1 {
   width: 100%;
   display: flex;
   gap: 5% 2%;
-  justify-content: center;
-  align-items: center;
+  justify-content: left;
+  align-items: left;
   flex-wrap: wrap;
 }
 
