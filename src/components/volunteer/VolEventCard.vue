@@ -55,9 +55,22 @@ export default {
   color: #020957;
   text-align: left;
   max-width: 310px;
+  width: auto;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+@media screen and (min-width: 200px) {
+  .event-title {
+    max-width: 200px;
+  }
+}
+
+@media screen and (min-width: 1500px) {
+  .event-title {
+    max-width: 300px;
+  }
 }
 
 @media screen and (min-width: 1700px) {
