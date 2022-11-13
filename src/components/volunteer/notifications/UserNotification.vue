@@ -3,10 +3,21 @@
     <h1><b>Notification Centre</b></h1>
   </div>
   <div class="notificationTable">
+    <div v-if="this.user_notifications.length == 0" class="notificationCard">
+      <h2>
+        <b>
+          Inbox Zero!
+          <a href="/volunteer/dashboard" style="color: #ff5b2e">
+            Sign up for a new event today!
+          </a>
+        </b>
+      </h2>
+    </div>
     <div
       class="notificationCard"
       v-for="notification in this.user_notifications"
       :key="notification"
+      v-else
     >
       <div class="notificationContent" v-if="this.data_retrived">
         <div class="notificationDetails">
