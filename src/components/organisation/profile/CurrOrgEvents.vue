@@ -98,13 +98,12 @@ export default {
 
             // parse string & make into datetime object
             const [day, month, year] = str.split("-");
-            const date = new Date(year, month, day);
-
+            const date = new Date(year, month - 1, day);
             // get today's date
             const today = new Date(); // returns time
 
             // only show the events that have yet to end; compare time
-            if (date.getTime() >= today) {
+            if (date >= today) {
               this.EventCards.Current.push({ id: doc.id, data: doc.data() });
             } else {
               this.EventCards.Past.push({ id: doc.id, data: doc.data() });
