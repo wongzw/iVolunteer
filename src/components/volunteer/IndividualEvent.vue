@@ -13,29 +13,28 @@
                     {{ type }}
                   </div>
                 </div>
+                <a-button
+                  class="submitButton"
+                  id="volunteerButton"
+                  htmlType="submit"
+                  size="large"
+                  type="primary"
+                  @click="clickVolunteer()"
+                  v-if="!hasVolunteered"
+                  >Volunteer Now
+                </a-button>
+
+                <a-button
+                  class="submitButton"
+                  id="volunteerButton"
+                  htmlType="submit"
+                  size="large"
+                  type="primary"
+                  disabled
+                  v-if="hasVolunteered"
+                  >Already Registered
+                </a-button>
               </div>
-
-              <a-button
-                class="submitButton"
-                id="volunteerButton"
-                htmlType="submit"
-                size="large"
-                type="primary"
-                @click="clickVolunteer()"
-                v-if="!hasVolunteered"
-                >Volunteer Now
-              </a-button>
-
-              <a-button
-                class="submitButton"
-                id="volunteerButton"
-                htmlType="submit"
-                size="large"
-                type="primary"
-                disabled
-                v-if="hasVolunteered"
-                >Already Registered
-              </a-button>
 
               <a-modal v-model:visible="visible" title="Event Confirmation">
                 <template #footer> </template>
@@ -365,12 +364,14 @@ h1 {
   width: 35vw;
   height: auto;
   margin-top: 10px;
+  margin-right: 10%;
 }
 #bottomLeft {
   flex-direction: column;
   align-items: left;
   padding-top: 5%;
   justify-content: space-between;
+  margin-right: 10%;
 }
 #bottomRight {
   flex-direction: column;
@@ -420,7 +421,8 @@ h1 {
 }
 
 .submitButton {
-  width: 50%;
+  align-content: left;
+  width: 100%;
   margin-top: 10%;
   background-color: #ff5b2e;
   border-color: #ff5b2e;
@@ -499,9 +501,5 @@ h1 {
   background-color: #ff3700;
   border-color: #ff3700;
   transition: 0.3s ease;
-}
-
-#volunteerButton {
-  margin-left: 25%;
 }
 </style>
