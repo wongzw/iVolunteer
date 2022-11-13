@@ -158,6 +158,18 @@ export default {
       const docSnap = await getDoc(eventDocRef);
       let eventDocRefData = docSnap.data();
     },
+    async updateRejectUser() {
+      let participantId = this.participant[0];
+      const participantDocRef = doc(db, "users", participantId);
+      const newNotification = {
+        date: new Date().toJSON().slice(0, 10).replace(/-/g, "/"),
+        eventId: this.eventId,
+        notifType: this.status,
+      };
+      await updateDoc(participantDocRef, {
+        userNotification: arrayUnion(newNotification),
+      });
+    },
     async updateAcceptEvent() {
       let participantId = this.participant[0];
       const eventDocRef = doc(db, "events", this.eventId);
@@ -173,7 +185,7 @@ export default {
       const newNotification = {
         date: new Date().toJSON().slice(0, 10).replace(/-/g, "/"),
         eventId: this.eventId,
-        notifType: "Accept",
+        notifType: this.status,
       };
       await updateDoc(participantDocRef, {
         userAcceptedEvents: arrayUnion(this.eventId),
@@ -188,6 +200,17 @@ export default {
       eventDocRefData["participants"][participantId]["attendanceStatus"] =
         this.confirmStatus;
       await setDoc(doc(db, "events", this.eventId), eventDocRefData);
+
+      // Update Notification
+      const participantDocRef = doc(db, "users", participantId);
+      const newNotification = {
+        date: new Date().toJSON().slice(0, 10).replace(/-/g, "/"),
+        eventId: this.eventId,
+        notifType: this.confirmStatus,
+      };
+      await updateDoc(participantDocRef, {
+        userNotification: arrayUnion(newNotification),
+      });
     },
     async updateUser() {
       let participantId = this.participant[0];
@@ -230,6 +253,7 @@ export default {
     rejectHandler() {
       this.status = "rejected";
       this.updateRejectEvent();
+      this.updateRejectUser();
     },
     viewProfile() {
       this.toggleProfile = true;

@@ -131,7 +131,7 @@
 <script>
 import { db } from "../../firebase.js";
 import NoPageFound from "@/views/NoPageFound.vue";
-import { doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, updateDoc, getDoc, arrayUnion } from "firebase/firestore";
 import { notification } from "ant-design-vue";
 import { SmileOutlined, RobotOutlined } from "@ant-design/icons-vue";
 import { h } from "vue";
@@ -291,6 +291,16 @@ export default {
       let appliedEvents = this.$store.state.details["userAppliedEvents"];
       appliedEvents.push(eventId);
       this.$store.state.details["userAppliedEvents"] = appliedEvents;
+
+      // Update Notifications
+      const newNotification = {
+        date: new Date().toJSON().slice(0, 10).replace(/-/g, "/"),
+        eventId: eventId,
+        notifType: "Register",
+      };
+
+      this.$store.state.details["userNotification"].push(newNotification);
+
       const volRef = doc(db, "users", this.$store.state.id);
       await setDoc(volRef, this.$store.state.details);
     },
