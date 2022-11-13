@@ -44,7 +44,7 @@
             class="register"
             size="large"
             type="primary"
-            >Continue to Dashboard
+            >Continue to Profile
           </a-button>
         </div>
       </a-form-item>
