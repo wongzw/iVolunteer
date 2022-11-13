@@ -8,7 +8,6 @@
       class="event-creation-layout"
       ref="eventCreation"
       :form="form"
-      @submit.prevent="createEvent"
     >
       <h1 id="eventCreationHeader">Create Event</h1>
       <a-form-item>
