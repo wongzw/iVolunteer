@@ -98,7 +98,7 @@ export default {
 
             // parse string & make into datetime object
             const [day, month, year] = str.split("-");
-            const date = new Date(year, month, day);
+            const date = new Date(str.split("-").reverse());
 
             // get today's date
             const today = new Date(); // returns time
