@@ -1,5 +1,5 @@
 <template>
-  <div class="participant-cards" v-if="!eventClose">
+  <div class="participant-cards" v-if="!eventPast">
     <h1>
       Current Participants:
       <strong>({{ numAccepted }} volunteers accepted)</strong>
@@ -14,14 +14,14 @@
     </div>
   </div>
 
-  <div class="participant-cards" v-if="eventClose">
+  <div class="participant-cards" v-if="eventPast">
     <h1>Event Closed: <strong>(Confirm Attendance Status)</strong></h1>
     <div class="participant-box">
       <ParticipantCard
         v-for="participant in acceptedParticipants"
         :participant="participant"
         :eventId="eventId"
-        :eventClose="eventClose"
+        :eventPast="eventPast"
         :eventHour="eventHour"
         :eventBadge="this.event['badgeAwarded']"
         @incrementVol="updateAccepted($event)"
@@ -35,7 +35,7 @@ import ParticipantCard from "@/components/organisation/ParticipantCard.vue";
 
 export default {
   name: "ParticipantList",
-  props: ["event", "eventId", "eventClose", "eventHour"],
+  props: ["event", "eventId", "eventPast", "eventHour"],
   components: {
     ParticipantCard,
   },

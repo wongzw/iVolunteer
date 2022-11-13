@@ -62,7 +62,7 @@
             class="signUp"
             size="large"
             type="primary"
-            >Continue to Dashboard</a-button
+            >Continue to Profile</a-button
           >
         </div>
       </a-form-item>

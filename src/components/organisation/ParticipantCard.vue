@@ -34,7 +34,7 @@
       </div>
     </div>
 
-    <div class="confirm" v-if="!eventClose">
+    <div class="confirm" v-if="!eventPast">
       <a-button
         class="confirmButton"
         htmlType="submit"
@@ -66,7 +66,7 @@
       </a-button>
     </div>
 
-    <div class="confirm" v-if="eventClose">
+    <div class="confirm" v-if="eventPast">
       <a-button
         class="confirmButton"
         htmlType="submit"
@@ -123,7 +123,7 @@ import VolunteerProfile from "@/components/organisation/VolunteerProfile.vue";
 
 export default {
   name: "ParticipantCard",
-  props: ["participant", "eventId", "eventClose", "eventHour", "eventBadge"],
+  props: ["participant", "eventId", "eventPast", "eventHour", "eventBadge"],
   emits: ["incrementVol"],
   data() {
     return {

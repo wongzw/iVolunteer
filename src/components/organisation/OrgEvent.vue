@@ -85,7 +85,7 @@
       <ParticipantList
         :event="event"
         :eventId="this.currentRouteName"
-        :eventClose="this.eventClose"
+        :eventPast="this.eventPast"
         :eventHour="this.eventHour()"
         v-if="event"
       />
@@ -114,7 +114,7 @@ export default {
       hasRegistered: false,
       eventStartDate: "",
       eventEndDate: "",
-      eventClose: false,
+      eventPast: false,
     };
   },
 
@@ -222,7 +222,7 @@ export default {
       this.event = docSnap.data();
       this.eventStartDate = this.event["dateStart"];
       this.eventEndDate = this.event["dateEnd"];
-      this.eventClose = this.hasCompleted();
+      this.eventPast = this.hasCompleted();
     } else {
       this.eventNotExist = true;
     }
