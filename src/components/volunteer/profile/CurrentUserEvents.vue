@@ -2,26 +2,38 @@
   <div id="userEvents">
     <div class="box">
       <div id="box-title">Current Events</div>
-      <div id="box details">
-        <UserEventCards
-          :event="event"
-          v-for="(event, index) in EventCards"
-          :key="index"
-        />
-      </div>
-
-      <div v-if="this.EventCards.length == 0">
-        <div class="noEvents">
-          <h2>
-            <b>
-              No Current Events Found 😔 <br />
-              <a href="/volunteer/dashboard" style="color: #ff5b2e">
-                Sign up
-              </a>
-              for one today!
-            </b>
-          </h2>
-        </div>
+      <div id="box details" v-if="this.query">
+        <a-tabs v-model:activeKey="activeKey">
+          <a-tab-pane
+            v-for="(value, key) in EventCards"
+            :key="key"
+            :tab="key + ' Events'"
+          >
+            <div class="eventCards">
+              <UserEventCards
+                :event="event"
+                v-for="(event, index) in EventCards[key]"
+                :key="index"
+              />
+              <div v-if="EventCards[key] == 0">
+                <div class="noEvents">
+                  <h2 style="color: #020957">
+                    <b>
+                      No {{ key }} Events Found <br />
+                      <span v-if="key == 'Current'">
+                        😔
+                        <a href="/volunteer/dashboard" style="color: #ff5b2e">
+                          Sign up
+                        </a>
+                        for one today!
+                      </span>
+                    </b>
+                  </h2>
+                </div>
+              </div>
+            </div>
+          </a-tab-pane>
+        </a-tabs>
       </div>
     </div>
   </div>
@@ -37,7 +49,11 @@ export default {
   name: "CurrentUserEvents",
   data() {
     return {
-      EventCards: [],
+      EventCards: {
+        Current: [],
+        Past: [],
+      },
+      query: false,
     };
   },
   components: {
@@ -73,12 +89,14 @@ export default {
 
             // only show the events that have yet to end; compare time
             if (date.getTime() >= today) {
-              console.log(doc.id, "=>", doc.data());
-              this.EventCards.push({ id: doc.id, data: doc.data() });
+              this.EventCards.Current.push({ id: doc.id, data: doc.data() });
+            } else {
+              this.EventCards.Past.push({ id: doc.id, data: doc.data() });
             }
           }
         });
       });
+      this.query = true;
     },
   },
 };
@@ -109,9 +127,16 @@ export default {
   margin-bottom: 20px;
 }
 
+.eventCards {
+  margin-top: 10px;
+  height: 50vh;
+  overflow: auto;
+}
+
 .noEvents {
   justify-content: center;
   display: flex;
   text-align: center;
+  color: #020957;
 }
 </style>
