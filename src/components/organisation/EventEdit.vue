@@ -139,12 +139,22 @@
           </div>
         </a-form-item>
       </a-form>
+      <div id="delete-button">
+        <a-button
+          class="signUp"
+          size="large"
+          danger
+          block
+          @click="deleteEvent"
+          >Delete Event
+        </a-button>
+      </div>
     </div>
     <NoPageFound v-if="!this.eventLoaded"/>
   </template>
   
   <script>
-  import { collection, addDoc, doc, getDoc, updateDoc } from "firebase/firestore";
+  import { collection, addDoc, doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
   import { getStorage, uploadBytes, ref, getDownloadURL } from "firebase/storage";
   import { db } from "../../firebase.js";
   import { notification } from "ant-design-vue";
@@ -220,10 +230,10 @@
     },
   
     methods: {
-      eventCreateNotification() {
+      eventCreateNotification(msg) {
         notification.open({
           message: "Success",
-          description: "Event successfully updated!",
+          description: msg,
           duration: 3,
           icon: () => h(SmileOutlined, { style: "color: #020957" }),
         });
@@ -247,7 +257,7 @@
           eventCauses: this.eventCauses,
           badgeAwarded: this.badgeAwarded,
         }).then(docRef => {
-            this.eventCreateNotification();
+            this.eventCreateNotification("Event successfully updated!");
             console.log("Event sucessfully updated!");
             let arr = this.$route.path.split("/");
             var currentRouteName = arr[arr.length - 1];
@@ -264,6 +274,13 @@
         } else {
           this.updateDb();
         }
+      },
+      deleteEvent() {
+        const docRef = doc(db, "events", this.id);
+        deleteDoc(docRef).then(() => {
+          this.eventCreateNotification("Event successfully deleted!")
+          this.$router.replace({ path: "/organisation/dashboard" });
+        })
       },
       makeDateMoment(date1, date2) {
         var moment1 = moment(date1, 'DD-MM-YYYY')
@@ -334,6 +351,15 @@
   #ant-button {
     margin-top: 10px;
     margin-bottom: 10px;
+  }
+
+  #delete-button {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 60%;
+    align-items: center;
+    margin-left: 20%;
+    margin-right: 20%;
   }
 
   #x {
