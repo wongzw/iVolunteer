@@ -132,23 +132,6 @@
           <a-select-option value="Brilliant Teacher">Brilliant Teacher</a-select-option>
         </a-select>
 
-        <label class="eventCreation">Preferred Volunteers (badges)</label><br />
-        <a-select
-          v-model:value="requiredBadges"
-          mode="multiple"
-          style="width: 60%; height: 35px; margin-bottom: 30px"
-          :token-separators="[',']"
-          placeholder="Press tab to add another badge"
-        >
-          <a-select-option value="Diligent">Diligent</a-select-option>
-          <a-select-option value="Detail-oriented">Detail-oriented</a-select-option>
-          <a-select-option value="Good with children">Good with children</a-select-option>
-          <a-select-option value="Experienced Animal caretaker">Experienced Animal caretaker</a-select-option>
-          <a-select-option value="Experienced Driver">Experienced Driver</a-select-option>
-          <a-select-option value="Natural Leader">Natural Leader</a-select-option>
-          <a-select-option value="Brilliant Teacher">Brilliant Teacher</a-select-option>
-        </a-select>
-
         <div id="ant-button">
           <a-button
             htmlType="submit"
@@ -191,7 +174,6 @@ export default {
       noOfOpenings: 0,
       eventCauses: [],
       badgeAwarded: [],
-      requiredBadges: [],
       participants: {},
       orgId: "",
       orgName: "",
@@ -248,7 +230,6 @@ export default {
             noOfOpenings: Number(this.noOfOpenings),
             eventCauses: this.eventCauses,
             badgeAwarded: this.badgeAwarded,
-            requiredBadges: this.requiredBadges,
             participants: {},
             orgId: this.$store.state.id,
             orgName: this.$store.state.details.orgName,
