@@ -49,14 +49,29 @@ export default {
   mounted() {
     let participantMap = this.event["participants"];
     console.log(participantMap);
+    let ordered = [];
+
     for (let key in participantMap) {
+      let skillCount = participantMap[key]["interests"].length;
+      ordered.push([key, skillCount]);
+    }
+
+    // sort array
+    ordered.sort((a, b) => b[1] - a[1]);
+    console.log(ordered);
+
+    for (let i=0; i < ordered.length; i++) {
+      console.log(ordered[i][0]);
+      let key = ordered[i][0];
       this.participants.push([key, participantMap[key]]);
       if (participantMap[key]["applicationStatus"] == "accepted") {
         this.numAccepted += 1;
         this.acceptedParticipants.push([key, participantMap[key]]);
       }
     }
+
     console.log(this.participants);
+
   },
   methods: {
     updateAccepted(x) {
