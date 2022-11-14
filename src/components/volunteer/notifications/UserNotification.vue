@@ -23,11 +23,13 @@
         <div class="notificationDetails">
           <div class="notificationheader">
             <h3>
-              <b>
-                {{ this.event_details[notification.eventId][0].eventName }}
+              <b
+                ><span style="color: #ff5b2e">{{
+                  this.template_message[notification.notifType][0]
+                }}</span>
                 :
-                {{ this.template_message[notification.notifType][0] }}</b
-              >
+                {{ this.event_details[notification.eventId][0].eventName }}
+              </b>
             </h3>
           </div>
 

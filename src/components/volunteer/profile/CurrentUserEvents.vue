@@ -52,6 +52,7 @@ export default {
       EventCards: {
         Current: [],
         Past: [],
+        Closed: [],
       },
       query: false,
     };
@@ -76,7 +77,7 @@ export default {
       const eventSnapshot = await getDocs(collection(db, "events"));
       userEvents.forEach((ev) => {
         eventSnapshot.forEach((doc) => {
-          if (doc.id == ev && doc.data()["eventClosed"] == false) {
+          if (doc.id == ev && doc.data()["eventClosed"] === false) {
             // get end date of event
             const str = doc.data().dateEnd;
 
@@ -93,6 +94,8 @@ export default {
             } else {
               this.EventCards.Past.push({ id: doc.id, data: doc.data() });
             }
+          } else if (doc.id == ev) {
+            this.EventCards.Closed.push({ id: doc.id, data: doc.data() });
           }
         });
       });

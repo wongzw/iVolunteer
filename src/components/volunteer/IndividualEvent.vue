@@ -20,7 +20,7 @@
                   size="large"
                   type="primary"
                   @click="clickVolunteer()"
-                  v-if="!hasVolunteered"
+                  v-if="!hasVolunteered & !eventClosed"
                   >Volunteer Now
                 </a-button>
 
@@ -31,8 +31,19 @@
                   size="large"
                   type="primary"
                   disabled
-                  v-if="hasVolunteered"
+                  v-if="hasVolunteered & !eventClosed"
                   >Already Registered
+                </a-button>
+
+                <a-button
+                  class="submitButton"
+                  id="volunteerButton"
+                  htmlType="submit"
+                  size="large"
+                  type="primary"
+                  disabled
+                  v-if="eventClosed"
+                  >Event Deleted
                 </a-button>
               </div>
 
@@ -150,6 +161,7 @@ export default {
       eventEndDate: new Date(),
       docSnap: false,
       visible: false,
+      eventClosed: true,
     };
   },
 
@@ -285,6 +297,7 @@ export default {
       this.event = docSnap.data();
       this.eventStartDate = this.event["dateStart"];
       this.eventEndDate = this.event["dateEnd"];
+      this.eventClosed = this.event["eventClosed"];
     } else {
       this.eventNotExist = true;
     }

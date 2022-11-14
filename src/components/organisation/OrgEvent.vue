@@ -20,7 +20,7 @@
                   size="large"
                   type="primary"
                   @click="proceedToEdit()"
-                  v-if="!hasVolunteered"
+                  v-if="!hasVolunteered & !eventClosed"
                   >Edit Details
                 </a-button>
 
@@ -31,8 +31,8 @@
                   size="large"
                   type="primary"
                   disabled
-                  v-if="hasVolunteered"
-                  >Already Registered
+                  v-if="eventClosed"
+                  >Event Deleted
                 </a-button>
               </div>
             </div>
@@ -86,7 +86,7 @@
         :eventId="this.currentRouteName"
         :eventPast="this.eventPast"
         :eventHour="this.eventHour()"
-        v-if="event"
+        v-if="event && !eventClosed"
       />
     </div>
     <NoPageFound v-if="eventNotExist" />
@@ -114,6 +114,7 @@ export default {
       eventStartDate: "",
       eventEndDate: "",
       eventPast: false,
+      eventClosed: false,
     };
   },
 
@@ -226,6 +227,7 @@ export default {
       this.eventStartDate = this.event["dateStart"];
       this.eventEndDate = this.event["dateEnd"];
       this.eventPast = this.hasCompleted();
+      this.eventClosed = this.event["eventClosed"];
     } else {
       this.eventNotExist = true;
     }
@@ -261,6 +263,7 @@ export default {
 #container {
   width: 110%;
   justify-content: center;
+  margin-bottom: 5%;
 }
 h1 {
   font-weight: bolder;
