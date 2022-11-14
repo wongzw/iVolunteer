@@ -49,6 +49,28 @@
             placeholder="Enter the description of your event (Max char: 1000)"
             :rows="6"
           />
+
+          <a-modal v-model:visible="visible" title="Confirm Deletion">
+                <template #footer> </template>
+                <div class="modal">
+                  <h2 id="modalHeader">
+                    Are you sure you want to delete this event?
+                  </h2>
+                  <p><strong>By clicking confirm, you will be deleting <br/><br/>
+                    <b>{{ this.eventName }} </b
+                      ></strong>
+                    </p>
+            
+                  <a-button
+                    id="confirmButton"
+                    size="large"
+                    type="primary"
+                    @click="deleteEvent"
+                    >Confirm
+                  </a-button>
+                </div>
+              </a-modal>
+
           <label class="eventEdit">Event Details</label><br />
           <label class="eventEdit">Date</label><br />
           <a-space
@@ -139,6 +161,16 @@
           </div>
         </a-form-item>
       </a-form>
+      <div id="delete-button">
+        <a-button
+          class="signUp"
+          size="large"
+          danger
+          block
+          @click="clickDelete"
+          >Delete Event
+        </a-button>
+      </div>
     </div>
     <NoPageFound v-if="!this.eventLoaded"/>
   </template>
@@ -201,7 +233,8 @@
         eventCauses: [],
         badgeAwarded: [],
         participants: {},
-        eventClosed: false
+        eventClosed: false,
+        visible: false
       };
     },
     setup() {
@@ -220,10 +253,10 @@
     },
   
     methods: {
-      eventCreateNotification() {
+      eventCreateNotification(msg) {
         notification.open({
           message: "Success",
-          description: "Event successfully updated!",
+          description: msg,
           duration: 3,
           icon: () => h(SmileOutlined, { style: "color: #020957" }),
         });
@@ -247,7 +280,7 @@
           eventCauses: this.eventCauses,
           badgeAwarded: this.badgeAwarded,
         }).then(docRef => {
-            this.eventCreateNotification();
+            this.eventCreateNotification("Event successfully updated!");
             console.log("Event sucessfully updated!");
             let arr = this.$route.path.split("/");
             var currentRouteName = arr[arr.length - 1];
@@ -265,6 +298,15 @@
           this.updateDb();
         }
       },
+      deleteEvent() {
+        const docRef = doc(db, "events", this.id);
+        updateDoc(docRef, {
+          eventClosed: true,
+        }).then(() => {
+          this.eventCreateNotification("Event successfully deleted!")
+          this.$router.replace({ path: "/organisation/dashboard" });
+        })
+      },
       makeDateMoment(date1, date2) {
         var moment1 = moment(date1, 'DD-MM-YYYY')
         var moment2 = moment(date2, 'DD-MM-YYYY')
@@ -280,7 +322,10 @@
         var currentRouteName = arr[arr.length - 1];
         var route = "/organisation/event/" + currentRouteName
         this.$router.replace({ path: route });
-      }
+      },
+      clickDelete() {
+      this.visible = true;
+    },
     },
     
   };
@@ -297,7 +342,6 @@
     margin-bottom: 3%;
     padding-top: 30px;
     padding-bottom: 30px;
-    filter: drop-shadow(1px 1px 1px black);
     box-shadow: 0px 4px 10px rgba(60, 78, 100, 0.1);
   }
   
@@ -336,6 +380,15 @@
     margin-bottom: 10px;
   }
 
+  #delete-button {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 60%;
+    align-items: center;
+    margin-left: 20%;
+    margin-right: 20%;
+  }
+
   #x {
     position: absolute;
     top: 10px;
@@ -345,5 +398,30 @@
     font-weight: bold;
     font-size: large;
   }
+
+  #modalHeader {
+  margin-bottom: 10%;
+  margin-top: 2%;
+}
+.modal {
+  text-align: center;
+  color: #020957;
+  line-height: 80%;
+}
+
+#spanModal {
+  display: flex;
+  justify-content: center;
+  gap: 1%;
+}
+
+#confirmButton {
+  width: 50%;
+  margin-top: 10%;
+  background-color: #ff5b2e;
+  border-color: #ff5b2e;
+  border-radius: 5px;
+  white-space: normal;
+}
   </style>
   

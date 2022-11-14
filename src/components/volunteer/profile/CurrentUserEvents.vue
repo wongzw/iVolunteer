@@ -76,7 +76,7 @@ export default {
       const eventSnapshot = await getDocs(collection(db, "events"));
       userEvents.forEach((ev) => {
         eventSnapshot.forEach((doc) => {
-          if (doc.id == ev) {
+          if (doc.id == ev && doc.data()["eventClosed"] == false) {
             // get end date of event
             const str = doc.data().dateEnd;
 
