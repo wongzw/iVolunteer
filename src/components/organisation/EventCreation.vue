@@ -123,7 +123,7 @@
             >Low-income families</a-select-option
           >
         </a-select>
-        <label class="eventCreation">Preferred Volunteers (badges)</label><br />
+        <label class="eventCreation"> Awarded Bagdes </label><br />
         <a-select
           v-model:value="badgeAwarded"
           mode="multiple"
