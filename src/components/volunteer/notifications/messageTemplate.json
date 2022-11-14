@@ -18,5 +18,9 @@
   "noshow": [
     "No Show Recorded",
     " has recorded that you failed to attend the event. Do note that no show rates will affect future application acceptance. Contact organisers if a mistake was made"
+  ],
+  "Delete": [
+    "Event Deleted",
+    " has deleted the event that you have previously signed up for. Contact organisers for more information."
   ]
 }
