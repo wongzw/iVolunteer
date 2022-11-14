@@ -51,33 +51,29 @@ export default {
   mounted() { 
     let participantMap = this.event["participants"];
     console.log(participantMap);
+    let ordered = [];
+
     for (let key in participantMap) {
-      const event = getDoc(doc(db, "events", this.$store.getters.getId))
-      let eventData = event.data();
-      const requiredBadges = eventData.badgeAwarded;
-
-      const userRef = doc(db, "users", key);
-      const user = getDoc(userRef);
-      let data = user.data();
-      const userBadges = data.userBadges;
-
-      let checker = (arr, target) => target.every(v => arr.includes(v));
-
-      if (checker(userBadges, requiredBadges)) {
-        this.participants.push([key, participantMap[key]]);
-        if (participantMap[key]["applicationStatus"] == "accepted") {
-          this.numAccepted += 1;
-          this.acceptedParticipants.push([key, participantMap[key]]);
-        }
-      }
-
-      // this.participants.push([key, participantMap[key]]);
-      // if (participantMap[key]["applicationStatus"] == "accepted") {
-      //   this.numAccepted += 1;
-      //   this.acceptedParticipants.push([key, participantMap[key]]);
-      // }
+      let skillCount = participantMap[key]["interests"].length;
+      ordered.push([key, skillCount]);
     }
+
+    // sort array
+    ordered.sort((a, b) => b[1] - a[1]);
+    console.log(ordered);
+
+    for (let i=0; i < ordered.length; i++) {
+      console.log(ordered[i][0]);
+      let key = ordered[i][0];
+      this.participants.push([key, participantMap[key]]);
+      if (participantMap[key]["applicationStatus"] == "accepted") {
+        this.numAccepted += 1;
+        this.acceptedParticipants.push([key, participantMap[key]]);
+      }
+    }
+
     console.log(this.participants);
+  
   },
   methods: {
     updateAccepted(x) {
