@@ -49,6 +49,28 @@
             placeholder="Enter the description of your event (Max char: 1000)"
             :rows="6"
           />
+
+          <a-modal v-model:visible="visible" title="Confirm Deletion">
+                <template #footer> </template>
+                <div class="modal">
+                  <h2 id="modalHeader">
+                    Are you sure you want to delete this event?
+                  </h2>
+                  <p><strong>By clicking confirm, you will be deleting <br/><br/>
+                    <b>{{ this.eventName }} </b
+                      ></strong>
+                    </p>
+            
+                  <a-button
+                    id="confirmButton"
+                    size="large"
+                    type="primary"
+                    @click="deleteEvent"
+                    >Confirm
+                  </a-button>
+                </div>
+              </a-modal>
+
           <label class="eventEdit">Event Details</label><br />
           <label class="eventEdit">Date</label><br />
           <a-space
@@ -145,7 +167,7 @@
           size="large"
           danger
           block
-          @click="deleteEvent"
+          @click="clickDelete"
           >Delete Event
         </a-button>
       </div>
@@ -154,7 +176,7 @@
   </template>
   
   <script>
-  import { collection, addDoc, doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
+  import { collection, addDoc, doc, getDoc, updateDoc } from "firebase/firestore";
   import { getStorage, uploadBytes, ref, getDownloadURL } from "firebase/storage";
   import { db } from "../../firebase.js";
   import { notification } from "ant-design-vue";
@@ -211,7 +233,8 @@
         eventCauses: [],
         badgeAwarded: [],
         participants: {},
-        eventClosed: false
+        eventClosed: false,
+        visible: false
       };
     },
     setup() {
@@ -299,7 +322,10 @@
         var currentRouteName = arr[arr.length - 1];
         var route = "/organisation/event/" + currentRouteName
         this.$router.replace({ path: route });
-      }
+      },
+      clickDelete() {
+      this.visible = true;
+    },
     },
     
   };
@@ -316,7 +342,6 @@
     margin-bottom: 3%;
     padding-top: 30px;
     padding-bottom: 30px;
-    filter: drop-shadow(1px 1px 1px black);
     box-shadow: 0px 4px 10px rgba(60, 78, 100, 0.1);
   }
   
@@ -373,5 +398,30 @@
     font-weight: bold;
     font-size: large;
   }
+
+  #modalHeader {
+  margin-bottom: 10%;
+  margin-top: 2%;
+}
+.modal {
+  text-align: center;
+  color: #020957;
+  line-height: 80%;
+}
+
+#spanModal {
+  display: flex;
+  justify-content: center;
+  gap: 1%;
+}
+
+#confirmButton {
+  width: 50%;
+  margin-top: 10%;
+  background-color: #ff5b2e;
+  border-color: #ff5b2e;
+  border-radius: 5px;
+  white-space: normal;
+}
   </style>
   
