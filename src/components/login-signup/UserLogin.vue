@@ -154,7 +154,7 @@ export default {
         var docRef = doc(db, "users", user.uid);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          this.success("Succesful Volunteer Login");
+          this.success("Successful Volunteer Login");
           this.$store.commit("updateVolunteer", user);
         } else {
           this.error("Something broke! Please try again!");

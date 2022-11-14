@@ -15,7 +15,7 @@
       <a-form-item class="form">
         <label class="formSignUp">First Name</label><br />
         <a-input
-          style="width: 60%; margin-bottom: 10px"
+          style="width: 80%; margin-bottom: 30px"
           class="input"
           type="text"
           v-model:value="firstName"
@@ -23,7 +23,7 @@
         ></a-input>
         <label class="formSignUp">Last Name</label><br />
         <a-input
-          style="width: 60%; margin-bottom: 10px"
+          style="width: 80%; margin-bottom: 30px"
           class="input"
           type="text"
           v-model:value="lastName"
@@ -38,7 +38,7 @@
         <a-select
           v-model:value="interests"
           mode="tags"
-          style="width: 60%; height: 35px; margin-bottom: 10px"
+          style="width: 80%; height: 35px; margin-bottom: 30px"
           :token-separators="[',']"
           placeholder="Press tab to add another interest"
           ><a-select-option value="Elderly" label="elderly"></a-select-option>
@@ -49,7 +49,7 @@
         <a-select
           v-model:value="skills"
           mode="tags"
-          style="width: 60%; height: 35px; margin-bottom: 40px"
+          style="width: 80%; height: 35px; margin-bottom: 40px"
           :token-separators="[',']"
           placeholder="Press tab to add another skill"
           ><a-select-option value="Driving" label="driving"></a-select-option>
@@ -57,11 +57,7 @@
           <a-select-option value="Music" label="music"></a-select-option>
         </a-select>
         <div id="ant-button">
-          <a-button
-            htmlType="submit"
-            class="signUp"
-            size="large"
-            type="primary"
+          <a-button htmlType="submit" class="signUp" size="large" type="primary"
             >Continue to Profile</a-button
           >
         </div>
@@ -91,7 +87,7 @@ export default {
     return {
       firstName: "",
       lastName: "",
-      photoUrl: "", 
+      photoUrl: "",
       interests: [],
       skills: [],
     };
@@ -114,7 +110,11 @@ export default {
 
   methods: {
     updateData() {
-      if (this.interests.length == 0 || this.skills.length == 0 || this.file == null) {
+      if (
+        this.interests.length == 0 ||
+        this.skills.length == 0 ||
+        this.file == null
+      ) {
         this.formValidError("Please fill in all fields!");
       } else {
         this.updateDb(this.$store.state.id);
@@ -123,7 +123,7 @@ export default {
     async updateDb(uid) {
       const storage = getStorage();
       const storageRef = ref(storage, "Volunteer photos/" + this.file.name);
-      uploadBytes(storageRef, this.file).then( (snapshot) => {
+      uploadBytes(storageRef, this.file).then((snapshot) => {
         getDownloadURL(snapshot.ref).then((downloadURL) => {
           this.photoUrl = downloadURL;
           const volRef = doc(db, "users", uid);
@@ -134,8 +134,8 @@ export default {
             interests: this.interests,
             skills: this.skills,
           });
-        })
-      })
+        });
+      });
       this.$router.push({ path: "/volunteer/profile", replace: true });
     },
     previewFile(profile) {
@@ -152,8 +152,8 @@ export default {
   align-items: center;
   border-radius: 2px;
   margin-top: 2%;
-  margin-left: 35%;
-  margin-right: 35%;
+  margin-left: 20%;
+  margin-right: 20%;
   padding-top: 30px;
   padding-bottom: 30px;
   box-shadow: 0px 4px 10px rgba(60, 78, 100, 0.1);
@@ -161,11 +161,13 @@ export default {
 
 .formSignUp {
   color: #020957;
-  margin-left: 20%;
+  margin-left: 10%;
   display: flex;
   align-items: flex-start;
   font-weight: bold;
   margin-bottom: -10px;
+  margin-top: 10px;
+  font-size: 15px;
 }
 
 #signUpHeader {
@@ -175,6 +177,10 @@ export default {
 
 #ant-button {
   margin-bottom: 10px;
+}
+
+.a-input {
+  border-radius: 5px;
 }
 
 .signUp {

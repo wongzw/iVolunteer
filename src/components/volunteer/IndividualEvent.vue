@@ -13,29 +13,28 @@
                     {{ type }}
                   </div>
                 </div>
+                <a-button
+                  class="submitButton"
+                  id="volunteerButton"
+                  htmlType="submit"
+                  size="large"
+                  type="primary"
+                  @click="clickVolunteer()"
+                  v-if="!hasVolunteered"
+                  >Volunteer Now
+                </a-button>
+
+                <a-button
+                  class="submitButton"
+                  id="volunteerButton"
+                  htmlType="submit"
+                  size="large"
+                  type="primary"
+                  disabled
+                  v-if="hasVolunteered"
+                  >Already Registered
+                </a-button>
               </div>
-
-              <a-button
-                class="submitButton"
-                id="volunteerButton"
-                htmlType="submit"
-                size="large"
-                type="primary"
-                @click="clickVolunteer()"
-                v-if="!hasVolunteered"
-                >Volunteer Now
-              </a-button>
-
-              <a-button
-                class="submitButton"
-                id="volunteerButton"
-                htmlType="submit"
-                size="large"
-                type="primary"
-                disabled
-                v-if="hasVolunteered"
-                >Already Registered
-              </a-button>
 
               <a-modal v-model:visible="visible" title="Event Confirmation">
                 <template #footer> </template>
@@ -86,9 +85,9 @@
                 <p id="textBox">
                   <b>by {{ this.event["orgName"] }}</b>
                 </p>
-                <p id="textBox">
-                  Description: {{ this.event["eventDescription"] }}
-                </p>
+                <h3 id="textBox">
+                  {{ this.event["eventDescription"] }}
+                </h3>
               </div>
               <div id="details">
                 <div class="icon">
@@ -113,10 +112,10 @@
               <div>
                 <span
                   ><img src="@/assets/star.svg" />
-                  {{ displayExpGain }} exp</span
-                ><br />
+                  <b>{{ displayExpGain }} exp</b></span
+                ><br /><br />
                 <p v-for="badge in badgeType" :key="badge">
-                  {{ badge }} upon successful completion
+                  <b>{{ badge }}</b> upon successful completion
                 </p>
               </div>
             </div>
@@ -131,7 +130,7 @@
 <script>
 import { db } from "../../firebase.js";
 import NoPageFound from "@/views/NoPageFound.vue";
-import { doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, updateDoc, getDoc, arrayUnion } from "firebase/firestore";
 import { notification } from "ant-design-vue";
 import { SmileOutlined, RobotOutlined } from "@ant-design/icons-vue";
 import { h } from "vue";
@@ -230,8 +229,12 @@ export default {
       } else {
         timeEnd[2] = "am";
       }
-      timeStart[0] = timeStart[0] % 13;
-      timeEnd[0] = timeEnd[0] % 13;
+      if (timeStart[0] > 12) {
+        timeStart[0] = timeStart[0] - 12;
+      }
+      if (timeEnd[0] > 12) {
+        timeEnd[0] = timeEnd[0] - 12;
+      }
       timeStart =
         String(timeStart[0]) +
         "." +
@@ -291,6 +294,16 @@ export default {
       let appliedEvents = this.$store.state.details["userAppliedEvents"];
       appliedEvents.push(eventId);
       this.$store.state.details["userAppliedEvents"] = appliedEvents;
+
+      // Update Notifications
+      const newNotification = {
+        date: new Date().toJSON().replace(/-/g, "/"),
+        eventId: eventId,
+        notifType: "Register",
+      };
+
+      this.$store.state.details["userNotification"].push(newNotification);
+
       const volRef = doc(db, "users", this.$store.state.id);
       await setDoc(volRef, this.$store.state.details);
     },
@@ -305,7 +318,7 @@ export default {
           " " +
           this.$store.state.details["lastName"],
         interests: this.$store.state.details["interests"],
-        photoUrl: this.$store.state.details["photoUrl"]
+        photoUrl: this.$store.state.details["photoUrl"],
       };
       this.event["participants"] = participantMap;
       console.log(participantMap);
@@ -352,26 +365,29 @@ h1 {
   margin-right: 10px;
 }
 #img {
-  max-width: 100%;
+  width: 35vw;
   height: auto;
+  margin-top: 10px;
+  margin-right: 10%;
 }
 #bottomLeft {
   flex-direction: column;
   align-items: left;
   padding-top: 5%;
   justify-content: space-between;
+  margin-right: 10%;
 }
 #bottomRight {
   flex-direction: column;
   align-items: left;
-  border: solid #cdd0ec;
-  width: 500px;
+  border: solid #ff5b2e;
+  width: auto;
   border-radius: 10px;
   padding-top: 5%;
   padding-bottom: 5%;
   padding-left: 5%;
-  padding-right: 5;
-  margin-top: 10%;
+  padding-right: 5%;
+  margin-top: 5%;
 }
 .icon {
   display: flex;
@@ -393,7 +409,6 @@ h1 {
   display: flex;
   flex-direction: column;
   text-align: left;
-  width: 80%;
 }
 
 #eventDetails {
@@ -401,8 +416,8 @@ h1 {
 }
 
 #textBox {
-  font-size: 15px;
-  font-weight: bold;
+  color: #020957;
+  text-align: justify;
 }
 
 .iconImg {
@@ -410,7 +425,8 @@ h1 {
 }
 
 .submitButton {
-  width: 50%;
+  align-content: left;
+  width: 100%;
   margin-top: 10%;
   background-color: #ff5b2e;
   border-color: #ff5b2e;
@@ -437,14 +453,14 @@ h1 {
   width: 100%;
   display: flex;
   gap: 5% 2%;
-  justify-content: center;
-  align-items: center;
+  justify-content: left;
+  align-items: left;
   flex-wrap: wrap;
 }
 
 .causeBox {
   background-color: #ffe3dc;
-  color: orange;
+  color: #ff5b2e;
   width: 32%;
   height: 50%;
   font-weight: bold;
@@ -489,9 +505,5 @@ h1 {
   background-color: #ff3700;
   border-color: #ff3700;
   transition: 0.3s ease;
-}
-
-#volunteerButton {
-  margin-left: 25%;
 }
 </style>

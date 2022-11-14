@@ -5,20 +5,30 @@
         <h2 class="event-title">{{ event.data.eventName }}</h2>
       </div>
       <div class="second">
-        <img
-          class="image"
-          style="padding-bottom: 7px"
-          src="@/assets/profileIcon.svg"
-          alt="profileIcon"
-        />
-        <h2 class="event-host" style="margin-right: 10px">
-          <b style="color: #ff5b2e">
-            {{
-              displayVacancy
-            }}
-          </b>
-          Sign-ups
-        </h2>
+        <div class="pending">
+          <h2 class="event-host" style="margin-right: 10px">
+            <b style="color: #ff5b2e; margin-right: 5px">
+              {{ this.pending }}
+            </b>
+            New Applicants
+          </h2>
+        </div>
+        <div class="accepted">
+          <h2 class="event-host" style="margin-right: 10px">
+            <b style="color: #ff5b2e; margin-right: 5px">
+              {{ this.accepted }}
+            </b>
+            Accepted
+          </h2>
+        </div>
+        <div class="pending">
+          <h2 class="event-host" style="margin-right: 10px">
+            <b style="color: #ff5b2e; margin-right: 5px">
+              {{ this.rejected }}
+            </b>
+            Rejected
+          </h2>
+        </div>
       </div>
     </div>
 
@@ -62,19 +72,42 @@
 export default {
   name: "OrgEventCard",
   props: ["event"],
+  data() {
+    return {
+      pending: 0,
+      accepted: 0,
+      rejected: 0,
+    };
+  },
+  mounted() {
+    this.eventVacancy();
+  },
   methods: {
     reroute_event() {
       const route = "event/" + this.event.id;
       console.log(route);
       this.$router.push(route);
     },
+    eventVacancy() {
+      for (const participant in this.event["data"]["participants"]) {
+        var status =
+          this.event["data"].participants[participant]["applicationStatus"];
+        if (status == "pending") {
+          this.pending += 1;
+        } else if (status == "accepted") {
+          this.accepted += 1;
+        } else {
+          this.rejected += 1;
+        }
+      }
+    },
   },
   computed: {
     displayVacancy() {
       let counter = 0;
-      return Object.keys(this.event["data"]["participants"]).length
-    }
-  }
+      return Object.keys(this.event["data"]["participants"]).length;
+    },
+  },
 };
 </script>
 

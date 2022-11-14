@@ -40,7 +40,7 @@ export default {
         const eventDateParts = eventDate.split("-");
         const eventDateObject = new Date(+eventDateParts[2], eventDateParts[1] - 1, +eventDateParts[0]);
         const today = new Date();
-        if (eventDateObject > today) {
+        if (eventDateObject > today && doc.data()["eventClosed"] == false ) {
           this.interestCards.push({ id: doc.id, data: doc.data()})
         }
       })
@@ -52,7 +52,7 @@ export default {
         const eventDateParts = eventDate.split("-");
         const eventDateObject = new Date(+eventDateParts[2], eventDateParts[1] - 1, +eventDateParts[0]);
         const today = new Date();
-        if (eventDateObject > today) {
+        if (eventDateObject > today && doc.data()["eventClosed"] == false) {
           this.allCards.push({ id: doc.id, data: doc.data()})
         }
       })

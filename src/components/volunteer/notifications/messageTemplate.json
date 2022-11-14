@@ -1,6 +1,22 @@
 {
-  "Register": ["Register Header", "Register Message"],
-  "Confirm": ["Confirm Header", "Confirm Message"],
-  "Accept": ["Accept Header", "Accept Message"],
-  "Attendance": ["Attendance Header", "Attendance Message"]
+  "Register": [
+    "Registration Successful",
+    " has received your application and will get back soon. Remember to mark the date in your calendar"
+  ],
+  "rejected": [
+    "Application Unsuccessful",
+    " has deemed your skills are unsuitable for this event. Do look out for future events!"
+  ],
+  "accepted": [
+    "Application Accepted",
+    " has deemed your skills are suitable for this event. Looking forwards to seeing you at the event!"
+  ],
+  "attend": [
+    "Attendance Recorded",
+    " thanks you for volunteering! Your exp and badges have been awarded. We look forwards to you volunteering again"
+  ],
+  "noshow": [
+    "No Show Recorded",
+    " has recorded that you failed to attend the event. Do note that no show rates will affect future application acceptance. Contact organisers if a mistake was made"
+  ]
 }

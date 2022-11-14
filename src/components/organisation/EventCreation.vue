@@ -1,8 +1,5 @@
 <template>
   <div class="box">
-    <a-button type="primary" id="x" @click="reroute_main" danger>
-      X
-    </a-button>
     <a-form
       id="eventCreation"
       class="event-creation-layout"
@@ -70,6 +67,7 @@
           <a-time-range-picker
             v-model:value="eventTime"
             required
+            format='HH:mm'
             style="width: 100%; margin-bottom: 10px"
           /> </a-space
         ><br />
@@ -107,13 +105,23 @@
           placeholder="Press tab to add another event cause"
         >
           <a-select-option value="Agriculture">Agriculture</a-select-option>
-          <a-select-option value="Children and Youth">Children and Youth</a-select-option>
+          <a-select-option value="Children and Youth"
+            >Children and Youth</a-select-option
+          >
           <a-select-option value="Elderly">Elderly</a-select-option>
-          <a-select-option value="Wildlife Protection">Wildlife Protection</a-select-option>
-          <a-select-option value="Women Empowerment">Women Empowerment</a-select-option>
+          <a-select-option value="Wildlife Protection"
+            >Wildlife Protection</a-select-option
+          >
+          <a-select-option value="Women Empowerment"
+            >Women Empowerment</a-select-option
+          >
           <a-select-option value="Clean-up">Clean-up</a-select-option>
-          <a-select-option value="Climate change">Climate change</a-select-option>
-          <a-select-option value="Low-income families">Low-income families</a-select-option>
+          <a-select-option value="Climate change"
+            >Climate change</a-select-option
+          >
+          <a-select-option value="Low-income families"
+            >Low-income families</a-select-option
+          >
         </a-select>
         <label class="eventCreation">Preferred Volunteers (badges)</label><br />
         <a-select
@@ -124,15 +132,36 @@
           placeholder="Press tab to add another badge"
         >
           <a-select-option value="Diligent">Diligent</a-select-option>
-          <a-select-option value="Detail-oriented">Detail-oriented</a-select-option>
-          <a-select-option value="Good with children">Good with children</a-select-option>
-          <a-select-option value="Experienced Animal caretaker">Experienced Animal caretaker</a-select-option>
-          <a-select-option value="Experienced Driver">Experienced Driver</a-select-option>
-          <a-select-option value="Natural Leader">Natural Leader</a-select-option>
-          <a-select-option value="Brilliant Teacher">Brilliant Teacher</a-select-option>
+          <a-select-option value="Detail-oriented"
+            >Detail-oriented</a-select-option
+          >
+          <a-select-option value="Good with children"
+            >Good with children</a-select-option
+          >
+          <a-select-option value="Experienced Animal caretaker"
+            >Experienced Animal caretaker</a-select-option
+          >
+          <a-select-option value="Experienced Driver"
+            >Experienced Driver</a-select-option
+          >
+          <a-select-option value="Natural Leader"
+            >Natural Leader</a-select-option
+          >
+          <a-select-option value="Brilliant Teacher"
+            >Brilliant Teacher</a-select-option
+          >
         </a-select>
 
         <div id="ant-button">
+          <a-button
+            type="primary"
+            size="large"
+            id="x"
+            @click="reroute_main"
+            danger
+          >
+            Cancel
+          </a-button>
           <a-button
             htmlType="submit"
             class="signUp"
@@ -149,11 +178,21 @@
 </template>
 
 <script>
-import { collection, addDoc, doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  doc,
+  getDoc,
+  updateDoc,
+  arrayUnion,
+} from "firebase/firestore";
 import { getStorage, uploadBytes, ref, getDownloadURL } from "firebase/storage";
 import { db } from "../../firebase.js";
 import { notification } from "ant-design-vue";
-import { SmileOutlined, ExclamationCircleOutlined } from "@ant-design/icons-vue";
+import {
+  SmileOutlined,
+  ExclamationCircleOutlined,
+} from "@ant-design/icons-vue";
 import { h } from "vue";
 import { bool } from "vue-types";
 
@@ -177,7 +216,7 @@ export default {
       participants: {},
       orgId: "",
       orgName: "",
-      eventClosed: false
+      eventClosed: false,
     };
   },
   setup() {
@@ -196,7 +235,7 @@ export default {
   },
   methods: {
     reroute_main() {
-      this.$router.push({path: '/organisation/profile'});
+      this.$router.push({ path: "/organisation/profile" });
     },
     eventCreateNotification() {
       notification.open({
@@ -221,8 +260,8 @@ export default {
             eventDescription: this.eventDescription,
             dateStart: this.eventDate[0].format("DD-MM-YYYY"),
             dateEnd: this.eventDate[1].format("DD-MM-YYYY"),
-            timeStart: this.eventTime[0].format("HH:mm:ss"),
-            timeEnd: this.eventTime[1].format("HH:mm:ss"),
+            timeStart: this.eventTime[0].format("HH:mm"),
+            timeEnd: this.eventTime[1].format("HH:mm"),
             duration: Number(
               (this.eventDate[1].diff(this.eventDate[0], "days") + 1) *
                 this.eventTime[1].diff(this.eventTime[0], "hours")
@@ -233,17 +272,17 @@ export default {
             participants: {},
             orgId: this.$store.state.id,
             orgName: this.$store.state.details.orgName,
-            eventClosed:this.eventClosed
+            eventClosed: this.eventClosed,
           })
-            .then(docRef => {
+            .then((docRef) => {
               this.eventCreateNotification();
-              const orgDocRef = doc(db, "organisation", this.$store.state.id)
-              const orgDocSnap = getDoc(orgDocRef).then(orgDocSnap => {
+              const orgDocRef = doc(db, "organisation", this.$store.state.id);
+              const orgDocSnap = getDoc(orgDocRef).then((orgDocSnap) => {
                 updateDoc(orgDocRef, {
-                  events: arrayUnion(docRef.id)
+                  events: arrayUnion(docRef.id),
                 });
-              })
-              this.reroute_main()             
+              });
+              this.reroute_main();
               console.log("Document successfully written!");
             })
             .catch((error) => {
@@ -254,11 +293,18 @@ export default {
       });
     },
     createEvent() {
-      if (Number(this.noOfOpenings) == 0 || this.eventType.length == 0 || this.file == null ||
-        this.eventCauses.length == 0 || this.badgeAwarded.length==0 || this.eventDate == null || this.eventTime == null) {
+      if (
+        Number(this.noOfOpenings) == 0 ||
+        this.eventType.length == 0 ||
+        this.file == null ||
+        this.eventCauses.length == 0 ||
+        this.badgeAwarded.length == 0 ||
+        this.eventDate == null ||
+        this.eventTime == null
+      ) {
         this.formValidError("Please fill in all fields!");
       } else {
-        this.createDb()
+        this.createDb();
       }
     },
     previewFile(event) {
@@ -275,7 +321,6 @@ export default {
       this.rendered = true;
     }
   },
-
 };
 </script>
 
@@ -290,7 +335,6 @@ export default {
   margin-bottom: 3%;
   padding-top: 30px;
   padding-bottom: 30px;
-  filter: drop-shadow(1px 1px 1px black);
   box-shadow: 0px 4px 10px rgba(60, 78, 100, 0.1);
 }
 
@@ -327,9 +371,44 @@ export default {
 #ant-button {
   margin-top: 10px;
   margin-bottom: 10px;
+  width: 80%;
+  align-items: center;
+  margin-left: 10%;
 }
 
-#x {
+#ant-button .signUp {
+  background-color: #ff5b2e;
+  border-color: #ff5b2e;
+  border-radius: 5px;
+  width: 30%;
+  height: auto;
+  white-space: normal;
+  margin-left: 10%;
+}
+
+#ant-button .signUp:hover {
+  background-color: #ff3700;
+  border-color: #ff3700;
+  transition: 0.3s ease;
+}
+
+#ant-button #x {
+  background-color: lightgrey;
+  border-color: lightgrey;
+  color: black;
+  border-radius: 5px;
+  width: 30%;
+  height: auto;
+  white-space: normal;
+}
+
+#ant-button #x:hover {
+  background-color: darkgrey;
+  border-color: darkgrey;
+  transition: 0.3s ease;
+}
+
+/* #x {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -337,5 +416,5 @@ export default {
   height: 5%;
   font-weight: bold;
   font-size: large;
-}
+} */
 </style>

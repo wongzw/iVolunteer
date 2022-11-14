@@ -3,10 +3,21 @@
     <h1><b>Notification Centre</b></h1>
   </div>
   <div class="notificationTable">
+    <div v-if="this.user_notifications.length == 0" class="notificationCard">
+      <h2>
+        <b>
+          Inbox Zero!
+          <a href="/volunteer/dashboard" style="color: #ff5b2e">
+            Sign up for a new event today!
+          </a>
+        </b>
+      </h2>
+    </div>
     <div
       class="notificationCard"
       v-for="notification in this.user_notifications"
       :key="notification"
+      v-else
     >
       <div class="notificationContent" v-if="this.data_retrived">
         <div class="notificationDetails">
@@ -21,11 +32,17 @@
           </div>
 
           <div class="notificationDate">
-            <p>{{ notification.date }}</p>
+            <p>
+              Created: {{ notification.date.substring(8, 10) }} /
+              {{ notification.date.substring(5, 7) }} /
+              {{ notification.date.substring(0, 4) }}
+              {{ notification.date.substring(11, 19) }}
+            </p>
           </div>
 
           <div class="notificationMessage">
             <h3>
+              <b> {{ this.event_details[notification.eventId][0].orgName }}</b>
               {{ this.template_message[notification.notifType][1] }}
             </h3>
           </div>
@@ -90,13 +107,9 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase.js";
 import { notification } from "ant-design-vue";
 import messageTemplate from "./messageTemplate.json";
-// import { DeleteOutlined } from "@ant-design/icons-vue";
 
 export default {
   name: "UserNotification",
-  // components: {
-  //   DeleteOutlined,
-  // },
   data() {
     return {
       user_notifications: [],
@@ -110,8 +123,7 @@ export default {
   },
   methods: {
     async getNotifications() {
-      this.user_notifications =
-        this.$store.state.details["userNotification"].reverse();
+      this.user_notifications = this.$store.state.details["userNotification"];
       for (var notification of this.user_notifications) {
         var event_id = notification.eventId;
         if (!this.event_details[event_id]) {
@@ -124,8 +136,8 @@ export default {
           continue;
         }
       }
+      this.user_notifications.reverse();
       this.data_retrived = true;
-      console.log(this.event_details);
     },
     reroute_event(event_id) {
       const route = "/event/" + event_id;

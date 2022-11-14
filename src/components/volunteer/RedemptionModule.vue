@@ -15,7 +15,6 @@
         v-for="(value, key) in this.rewards"
         :key="key"
         :tab="'Tier ' + key"
-        :disabled="this.userRewardTier < key"
       >
         <div class="rewardClaimed" v-if="this.claimedRewardTiers[key] == true">
           <div class="rewardClaimed">
@@ -54,8 +53,8 @@
                   this.rewardTier == 0
                 "
               >
-                <span v-if="reward.availableQty == 0">Fully Redeemed</span>
                 <span v-if="this.userRewardTier < key">Ineligible</span>
+                <span v-else-if="reward.availableQty == 0">Fully Redeemed</span>
                 <span v-else
                   >Redeem Reward -
                   {{ reward.redemptionCode.length }} Remaining</span
@@ -207,7 +206,7 @@ export default {
       this.rewardConfirm = {};
 
       // Assign to user
-      if (this.$store.state.details["userRewards"][reward_level]["id"] == "") {
+      if (!this.$store.state.details["userRewards"][reward_level]) {
         var assigned_code = reward["redemptionCode"].pop();
         reward["availableQty"] -= 1;
         this.$store.commit("updateRewards", {

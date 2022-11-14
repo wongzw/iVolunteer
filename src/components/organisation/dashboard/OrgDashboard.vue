@@ -96,9 +96,21 @@ export default {
       const eventSnapshot = await getDocs(collection(db, "events"));
       orgEvents.forEach((ev) => {
         eventSnapshot.forEach((doc) => {
-          if (doc.id == ev) {
+          if (doc.id == ev && doc.data()["eventClosed"] == false) {
             console.log(doc.id, "=>", doc.data());
-            this.allCards.push({ id: ev, data: doc.data() });
+            const str = doc.data().dateEnd;
+
+            // parse string & make into datetime object
+            const [day, month, year] = str.split("-");
+            const date = new Date(year, month - 1, day);
+
+            // get today's date
+            const today = new Date(); // returns time
+
+            // only show the events that have yet to end; compare time
+            if (date.getTime() >= today) {
+              this.allCards.push({ id: ev, data: doc.data() });
+            }
           }
         });
       });

@@ -3,6 +3,16 @@
     <div class="box">
       <div id="box-title">Rewards</div>
     </div>
+
+    <div v-if="Object.keys(this.reward_dict).length == 0">
+      <div class="noEvents">
+        <h2 style="color: #020957">
+          <br />
+          <b> No Rewards Found 😔 </b>
+        </h2>
+      </div>
+    </div>
+
     <div class="box rewardsDisplay">
       <a-tabs v-model:activeKey="activeKey">
         <a-tab-pane
