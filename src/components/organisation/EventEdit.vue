@@ -277,7 +277,9 @@
       },
       deleteEvent() {
         const docRef = doc(db, "events", this.id);
-        deleteDoc(docRef).then(() => {
+        updateDoc(docRef, {
+          eventClosed: true,
+        }).then(() => {
           this.eventCreateNotification("Event successfully deleted!")
           this.$router.replace({ path: "/organisation/dashboard" });
         })

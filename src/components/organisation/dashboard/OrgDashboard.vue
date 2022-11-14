@@ -96,7 +96,7 @@ export default {
       const eventSnapshot = await getDocs(collection(db, "events"));
       orgEvents.forEach((ev) => {
         eventSnapshot.forEach((doc) => {
-          if (doc.id == ev) {
+          if (doc.id == ev && doc.data()["eventClosed"] == false) {
             console.log(doc.id, "=>", doc.data());
             const str = doc.data().dateEnd;
 

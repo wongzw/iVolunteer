@@ -55,7 +55,9 @@ export default {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         console.log(doc.id, "=>", doc.data());
-        this.EventCards.push({ id: doc.id, data: doc.data() });
+        if (doc.data()["eventClosed"] == false) {
+          this.EventCards.push({ id: doc.id, data: doc.data() });
+        }
       });
       console.log(this.EventCards);
     },
