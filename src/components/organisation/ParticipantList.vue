@@ -32,6 +32,8 @@
 
 <script>
 import ParticipantCard from "@/components/organisation/ParticipantCard.vue";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebase.js";
 
 export default {
   name: "ParticipantList",
@@ -46,15 +48,34 @@ export default {
       numAccepted: 0,
     };
   },
-  mounted() {
+  mounted() { 
     let participantMap = this.event["participants"];
     console.log(participantMap);
     for (let key in participantMap) {
-      this.participants.push([key, participantMap[key]]);
-      if (participantMap[key]["applicationStatus"] == "accepted") {
-        this.numAccepted += 1;
-        this.acceptedParticipants.push([key, participantMap[key]]);
+      const event = getDoc(doc(db, "events", this.$store.getters.getId))
+      let eventData = event.data();
+      const requiredBadges = eventData.badgeAwarded;
+
+      const userRef = doc(db, "users", key);
+      const user = getDoc(userRef);
+      let data = user.data();
+      const userBadges = data.userBadges;
+
+      let checker = (arr, target) => target.every(v => arr.includes(v));
+
+      if (checker(userBadges, requiredBadges)) {
+        this.participants.push([key, participantMap[key]]);
+        if (participantMap[key]["applicationStatus"] == "accepted") {
+          this.numAccepted += 1;
+          this.acceptedParticipants.push([key, participantMap[key]]);
+        }
       }
+
+      // this.participants.push([key, participantMap[key]]);
+      // if (participantMap[key]["applicationStatus"] == "accepted") {
+      //   this.numAccepted += 1;
+      //   this.acceptedParticipants.push([key, participantMap[key]]);
+      // }
     }
     console.log(this.participants);
   },
