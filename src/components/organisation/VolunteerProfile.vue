@@ -1,7 +1,7 @@
 <template>
   <div class="modal" v-if="this.rendered">
     <div class="display">
-        <a-avatar :src="this.participantDetails.photoUrl" :size="78">
+        <a-avatar :src="this.participantDetails['photoUrl']" :size="78">
           <template #icon><UserOutlined /></template>
         </a-avatar>
       </div>
@@ -26,7 +26,10 @@ import { getDoc, doc } from "firebase/firestore";
 
 export default {
   name: "VolunteerProfile",
-  props: ["participantId"],
+  props: ["participantId", "participantDetails"],
+  mounted() {
+    this.rendered = true;
+  },
   computed: {
     displaySkills() {
       return this.participantDetails["interests"].join(", ");
@@ -50,17 +53,8 @@ export default {
   },
   data() {
     return {
-      participantDetails: false,
       rendered: false,
     };
-  },
-  async mounted() {
-    var docRef = doc(db, "users", this.participantId);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      this.participantDetails = docSnap.data();
-      this.rendered = true;
-    }
   },
 };
 </script>

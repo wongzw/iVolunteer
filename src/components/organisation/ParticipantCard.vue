@@ -1,7 +1,7 @@
 <template>
   <a-modal title="Volunteer Details" v-model:visible="toggleProfile">
     <template #footer> </template>
-    <VolunteerProfile :participantId="this.participant[0]" />
+    <VolunteerProfile :participantId="this.participant[0]" :participantDetails="this.participantDetails"/>
   </a-modal>
 
   <div
@@ -134,21 +134,27 @@ export default {
       toggleProfile: false,
       confirmStatus: "",
       display: "",
+      participantDetails: false
     };
   },
   components: {
     VolunteerProfile,
   },
-  mounted() {
-    this.interests = this.participant[1]["interests"];
-    this.status = this.participant[1]["applicationStatus"];
-    this.confirmStatus = this.participant[1]["attendanceStatus"];
-    this.render = true;
-    this.display = this.participant[1]["photoUrl"];
+  async mounted() {
+    var docRef = doc(db, "users", this.participant[0]);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      this.participantDetails = docSnap.data();
+      this.interests = this.participantDetails["interests"];
+      this.status = this.participant[1]["applicationStatus"];
+      this.confirmStatus = this.participant[1]["attendanceStatus"];
+      this.display = this.participantDetails["photoUrl"];
+      this.render = true;
+    }
   },
   computed: {
     displayName() {
-      return this.participant[1]["fullName"];
+      return this.participantDetails["firstName"] + " " + this.participantDetails["lastName"];
     },
   },
   methods: {
