@@ -165,7 +165,7 @@ export default {
 }
 
 .rewardName {
-  width: 80%;
+  width: 50%;
 }
 
 .ant-button {
@@ -177,6 +177,7 @@ export default {
   border-color: #ff5b2e;
   border-radius: 5px;
   height: auto;
+  width: 120%;
   padding-left: 40px;
   padding-right: 40px;
   white-space: normal;
