@@ -210,7 +210,6 @@ export default {
       endDate[1] = monthNames[endDate[1] - 1];
       startDate = startDate.join(" ");
       endDate = endDate.join(" ");
-      alert(endDate)
       if (startDate == endDate) {
         return startDate;
       } else {

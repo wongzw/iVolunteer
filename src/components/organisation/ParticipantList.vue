@@ -46,7 +46,7 @@ export default {
       numAccepted: 0,
     };
   },
-  mounted() {
+  async mounted() {
     let participantMap = this.event["participants"];
     console.log(participantMap);
     let ordered = [];
