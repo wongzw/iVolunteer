@@ -21,14 +21,6 @@
             Accepted
           </h2>
         </div>
-        <div class="pending">
-          <h2 class="event-host" style="margin-right: 10px">
-            <b style="color: #ff5b2e; margin-right: 5px">
-              {{ this.rejected }}
-            </b>
-            Rejected
-          </h2>
-        </div>
       </div>
     </div>
 
@@ -76,7 +68,6 @@ export default {
     return {
       pending: 0,
       accepted: 0,
-      rejected: 0,
     };
   },
   mounted() {
@@ -96,8 +87,6 @@ export default {
           this.pending += 1;
         } else if (status == "accepted") {
           this.accepted += 1;
-        } else {
-          this.rejected += 1;
         }
       }
     },
