@@ -281,8 +281,8 @@ export default {
                 updateDoc(orgDocRef, {
                   events: arrayUnion(docRef.id),
                 });
+                this.reroute_main();
               });
-              this.reroute_main();
               console.log("Document successfully written!");
             })
             .catch((error) => {
