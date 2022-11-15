@@ -147,6 +147,7 @@ export default {
         if (docSnap.exists()) {
           this.success("Successful Organisation Login!");
           this.$store.commit("updateOrganisation", user);
+          location.reload();
         } else {
           this.error("Something broke! Please try again!");
         }
@@ -156,11 +157,11 @@ export default {
         if (docSnap.exists()) {
           this.success("Successful Volunteer Login");
           this.$store.commit("updateVolunteer", user);
+          location.reload();
         } else {
           this.error("Something broke! Please try again!");
         }
       }
-      location.reload();
     },
     login() {
       signInWithEmailAndPassword(auth, this.email, this.password)
