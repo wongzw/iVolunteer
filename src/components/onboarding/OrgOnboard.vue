@@ -111,8 +111,8 @@ export default {
             orgType: this.orgType,
             photoUrl: this.photoUrl,
           });
+          this.$router.push({ path: "/organisation/profile", replace: true });
         });
-        this.$router.push({ path: "/organisation/profile", replace: true });
       });
     },
     previewFile(profile) {
