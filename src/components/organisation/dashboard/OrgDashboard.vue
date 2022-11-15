@@ -76,6 +76,10 @@ export default {
   },
   mounted() {
     this.queryEvents();
+    console.log(this.allCards[0].get("data").dateStart);
+    // this.allCards.sort(function(a, b) {
+    //     return new Date(a.get("data").dateStart) - new Date(b.get("data").dateStart);
+    // });
   },
   methods: {
     reroute_event(route) {
@@ -109,7 +113,7 @@ export default {
 
             // only show the events that have yet to end; compare time
             if (date.getTime() >= today) {
-              this.allCards.push({ id: ev, data: doc.data() });
+              this.allCards.push({id: ev, data: doc.data()});
             }
           }
         });
