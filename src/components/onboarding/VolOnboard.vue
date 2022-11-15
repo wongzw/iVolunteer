@@ -135,8 +135,8 @@ export default {
             skills: this.skills,
           });
         });
+        this.$router.push({ path: "/volunteer/profile", replace: true });
       });
-      this.$router.push({ path: "/volunteer/profile", replace: true });
     },
     previewFile(profile) {
       this.file = profile.target.files[0];

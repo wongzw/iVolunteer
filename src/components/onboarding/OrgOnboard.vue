@@ -112,8 +112,8 @@ export default {
             photoUrl: this.photoUrl,
           });
         });
+        this.$router.push({ path: "/organisation/profile", replace: true });
       });
-      this.$router.push({ path: "/organisation/profile", replace: true });
     },
     previewFile(profile) {
       this.file = profile.target.files[0];
