@@ -208,13 +208,13 @@ export default {
             this.password
           );
           reauthenticateWithCredential(user, credential);
-          updateEmail(user, newEmail);
         })
         .then(() => {
           // need to commit change to user!!!!
           this.$store.commit("updateVolunteer", user);
           console.log("Email updated");
           console.log(this.$store.state.email);
+          location.reload();
         });
     },
     changeDetails() {
