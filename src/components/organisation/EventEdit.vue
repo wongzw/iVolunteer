@@ -455,7 +455,7 @@ export default {
 }
 
 #x {
-  position: absolute;
+  margin-left: 80%;
   top: 10px;
   right: 10px;
   width: 10%;
