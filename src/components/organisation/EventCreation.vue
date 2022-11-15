@@ -235,7 +235,7 @@ export default {
   },
   methods: {
     reroute_main() {
-      this.$router.push({ path: "/organisation/profile" });
+      this.$router.push({ path: "/organisation/dashboard" });
     },
     eventCreateNotification() {
       notification.open({
