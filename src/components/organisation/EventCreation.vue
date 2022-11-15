@@ -235,7 +235,7 @@ export default {
   },
   methods: {
     reroute_main() {
-      this.$router.push({ path: "/organisation/profile" });
+      this.$router.push({ path: "/organisation/dashboard" });
     },
     eventCreateNotification() {
       notification.open({
@@ -281,8 +281,8 @@ export default {
                 updateDoc(orgDocRef, {
                   events: arrayUnion(docRef.id),
                 });
+                this.reroute_main();
               });
-              this.reroute_main();
               console.log("Document successfully written!");
             })
             .catch((error) => {

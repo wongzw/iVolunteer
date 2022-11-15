@@ -141,7 +141,7 @@ export default {
       startDate = startDate.join(" ");
       endDate = endDate.join(" ");
       if (startDate == endDate) {
-        return this.startDate;
+        return startDate;
       } else {
         return `${startDate} to ${endDate}`;
       }
