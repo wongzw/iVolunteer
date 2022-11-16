@@ -66,6 +66,7 @@ export default {
       SortedE: [],
       EventCards: {
         Current: [],
+        SortedE: [],
         Past: [],
         Closed: [],
       },
