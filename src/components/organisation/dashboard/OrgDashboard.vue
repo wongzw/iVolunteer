@@ -110,20 +110,18 @@ export default {
 
             // only show the events that have yet to end; compare time
             if (date.getTime() >= today) {
-              // this.allCards.push({ id: ev, data: doc.data() });
               this.ordered.push([ev, date])
             }
           }
         });
       });
-      // console.log(this.ordered);
+
       this.ordered.sort(function(a, b) {
         const date = a[1].getTime();
         const date2 = b[1].getTime();
         return date - date2;
       });
-      // console.log(this.ordered);
-      // console.log(this.ordered.length);
+
       for (let i=0; i < this.ordered.length; i++) {
         let uid = this.ordered[i][0];
           eventSnapshot.forEach((doc) => {
