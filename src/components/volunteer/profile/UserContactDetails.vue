@@ -195,12 +195,6 @@ export default {
       const user = auth.currentUser;
 
       updateEmail(user, newEmail)
-        .then(() => {
-          // need to commit change to user!!!!
-          this.$store.commit("updateVolunteer", user);
-          console.log("Email updated");
-          console.log(this.$store.state.email);
-        })
         .catch((error) => {
           const errorMessage = error.message;
           this.error(
@@ -214,7 +208,13 @@ export default {
             this.password
           );
           reauthenticateWithCredential(user, credential);
-          updateEmail(user, newEmail);
+        })
+        .then(() => {
+          // need to commit change to user!!!!
+          this.$store.commit("updateVolunteer", user);
+          console.log("Email updated");
+          console.log(this.$store.state.email);
+          location.reload();
         });
     },
     changeDetails() {
@@ -249,7 +249,7 @@ export default {
 
         // success confirmation
         this.success();
-        location.reload();
+
       } else {
         // error for incomplete fields
         this.canEdit = true;
