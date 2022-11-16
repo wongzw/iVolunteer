@@ -1,6 +1,5 @@
 <template>
   <div class="box" v-if="this.eventLoaded">
-    <a-button type="primary" id="x" @click="go_back" danger> X </a-button>
     <a-form
       id="eventEdit"
       class="event-edit-layout"
@@ -170,12 +169,23 @@
           >
         </a-select>
 
+
         <div id="ant-button">
+          <a-button
+            type="primary"
+            size="large"
+            id="x"
+            @click="reroute_main"
+            danger
+          >
+            Cancel
+          </a-button>
           <a-button
             htmlType="submit"
             class="signUp"
             size="large"
             type="primary"
+            @click="createEvent"
             danger
             >Confirm</a-button
           >
@@ -234,14 +244,6 @@ export default {
         this.noOfOpenings = this.event["noOfOpenings"];
         this.eventCauses = this.event["eventCauses"];
         this.badgeAwarded = this.event["badgeAwarded"];
-        this.eventDate = this.makeDateMoment(
-          this.event["dateStart"],
-          this.event["dateEnd"]
-        );
-        this.eventTime = this.makeTimeMoment(
-          this.event["timeStart"],
-          this.event["timeEnd"]
-        );
         this.participants = this.event["participants"];
       } else {
         this.eventNotExist = true;
@@ -258,8 +260,6 @@ export default {
       eventDescription: this.eventDescription,
       dateStart: "",
       dateEnd: "",
-      eventDate: this.eventDate,
-      eventTime: this.eventTime,
       timeStart: "",
       timeEnd: "",
       noOfOpenings: 0,
@@ -372,18 +372,7 @@ export default {
       delete eventDocRefData["participants"][participantId];
       await setDoc(doc(db, "events", this.id), eventDocRefData);
     },
-
-    makeDateMoment(date1, date2) {
-      var moment1 = moment(date1, "DD-MM-YYYY");
-      var moment2 = moment(date2, "DD-MM-YYYY");
-      return [moment1, moment2];
-    },
-    makeTimeMoment(time1, time2) {
-      var moment1 = moment(time1, '"HH:mm:ss"');
-      var moment2 = moment(time2, '"HH:mm:ss"');
-      return [moment1, moment2];
-    },
-    go_back() {
+    reroute_main() {
       let arr = this.$route.path.split("/");
       var currentRouteName = arr[arr.length - 1];
       var route = "/organisation/event/" + currentRouteName;
@@ -443,6 +432,41 @@ export default {
 #ant-button {
   margin-top: 10px;
   margin-bottom: 10px;
+  width: 80%;
+  align-items: center;
+  margin-left: 10%;
+}
+
+#ant-button .signUp {
+  background-color: #ff5b2e;
+  border-color: #ff5b2e;
+  border-radius: 5px;
+  width: 30%;
+  height: auto;
+  white-space: normal;
+  margin-left: 10%;
+}
+
+#ant-button .signUp:hover {
+  background-color: #ff3700;
+  border-color: #ff3700;
+  transition: 0.3s ease;
+}
+
+#ant-button #x {
+  background-color: lightgrey;
+  border-color: lightgrey;
+  color: black;
+  border-radius: 5px;
+  width: 30%;
+  height: auto;
+  white-space: normal;
+}
+
+#ant-button #x:hover {
+  background-color: darkgrey;
+  border-color: darkgrey;
+  transition: 0.3s ease;
 }
 
 #delete-button {
@@ -452,16 +476,6 @@ export default {
   align-items: center;
   margin-left: 20%;
   margin-right: 20%;
-}
-
-#x {
-  margin-left: 80%;
-  top: 10px;
-  right: 10px;
-  width: 10%;
-  height: 5%;
-  font-weight: bold;
-  font-size: large;
 }
 
 #modalHeader {
