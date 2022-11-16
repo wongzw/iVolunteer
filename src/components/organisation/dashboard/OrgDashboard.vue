@@ -72,6 +72,7 @@ export default {
       companyName: this.$store.state.details["orgName"],
       display: this.$store.state.details["photoUrl"],
       allCards: [],
+      ordered: [],
     };
   },
   mounted() {
@@ -89,7 +90,7 @@ export default {
       const orgRef = doc(db, "organisation", orgId);
       const org = await getDoc(orgRef);
       let data = org.data();
-      console.log("Document data:", data);
+      // console.log("Document data:", data);
       const orgEvents = data.events;
 
       // event snapshot
@@ -97,7 +98,7 @@ export default {
       orgEvents.forEach((ev) => {
         eventSnapshot.forEach((doc) => {
           if (doc.id == ev && doc.data()["eventClosed"] == false) {
-            console.log(doc.id, "=>", doc.data());
+            // console.log(doc.id, "=>", doc.data());
             const str = doc.data().dateEnd;
 
             // parse string & make into datetime object
@@ -109,15 +110,28 @@ export default {
 
             // only show the events that have yet to end; compare time
             if (date.getTime() >= today) {
-              this.allCards.push({id: ev, data: doc.data()});
+              // this.allCards.push({ id: ev, data: doc.data() });
+              this.ordered.push([ev, date])
             }
           }
         });
       });
-      console.log(this.allCards);
-      // this.allCards.sort(function(a, b) {
-      //   return new Date(a.values()[1].dateStart) - new Date(b.values()[1].dateStart);
-      // });
+      // console.log(this.ordered);
+      this.ordered.sort(function(a, b) {
+        const date = a[1].getTime();
+        const date2 = b[1].getTime();
+        return date - date2;
+      });
+      // console.log(this.ordered);
+      // console.log(this.ordered.length);
+      for (let i=0; i < this.ordered.length; i++) {
+        let uid = this.ordered[i][0];
+          eventSnapshot.forEach((doc) => {
+            if (doc.id == uid) {
+              this.allCards.push({ id: uid, data: doc.data() });
+            }
+          });
+      }
     },
   },
 };
