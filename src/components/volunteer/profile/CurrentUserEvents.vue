@@ -49,6 +49,7 @@ export default {
   name: "CurrentUserEvents",
   data() {
     return {
+      SortedE: [],
       EventCards: {
         Current: [],
         Past: [],
@@ -90,7 +91,8 @@ export default {
 
             // only show the events that have yet to end; compare time
             if (date.getTime() >= today) {
-              this.EventCards.Current.push({ id: doc.id, data: doc.data() });
+              // push to array to sort by date
+              this.SortedE.push([ev, date]);
             } else {
               this.EventCards.Past.push({ id: doc.id, data: doc.data() });
             }
@@ -99,6 +101,24 @@ export default {
           }
         });
       });
+
+       // sort curent events according to date
+       this.SortedE.sort(function(a, b) {
+        const date = a[1].getTime();
+        const date2 = b[1].getTime();
+        return date - date2;
+      });
+
+      // push to events card array
+      for (let i=0; i < this.SortedE.length; i++) {
+        let uid = this.SortedE[i][0];
+          eventSnapshot.forEach((doc) => {
+            if (doc.id == uid) {
+              this.EventCards.Current.push({ id: uid, data: doc.data() });
+            }
+          });
+      }
+      
       this.query = true;
     },
   },
